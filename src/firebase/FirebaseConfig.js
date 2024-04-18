@@ -10,6 +10,5 @@ export default {
   storageBucket: import.meta.env.FIREBASE_STORAGE_BUCKET,
   messagingSenderId: import.meta.env.FIREBASE_SENDER_ID,
   appId: import.meta.env.FIREBASE_APP_ID,
-  measurementId: import.meta.env.FIREBASE_MEASUREMENT_ID
+  measurementId: import.meta.env.FIREBASE_MEASUREMENT_ID,
 };
-

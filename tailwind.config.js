@@ -12,7 +12,21 @@ module.exports = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      colors: {
+        "accent-1": "#FFF8EB",
+        "accent-2": "#FFECCC",
+        "accent-3": "#DAC095",
+        "accent-4": "#7A633E",
+        "accent-5": "#634832",
+        "accent-6": "#38220F",
+      },
+      fontFamily: {
+        "short-stack": ["'Short Stack'", "cursive"],
+      },
     },
   },
-  plugins: [],
+  daisyui: {
+    darkTheme: false,
+  },
+  plugins: [require("daisyui")],
 };
