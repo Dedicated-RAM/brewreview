@@ -1,8 +1,10 @@
 import { RxAvatar } from "react-icons/rx";
+import SidePanelBrewForm from "../components/SidePanelBrewForm";
 export default function SidePanelBrewReview() {
   return (
     <>
-      <div className="m-3 p-3 bg-accent-3 rounded-xl">
+      <SidePanelBrewForm />
+      <div className="m-3 p-3 bg-accent-2 rounded-xl">
         <div className="flex items-center">
           <img
             alt="Jefferson's Coffee Shop"
@@ -20,13 +22,12 @@ export default function SidePanelBrewReview() {
           more than cats
         </p>
         <div className="mt-3 text-sm">
-        <p className="">Seats: 5</p>
-        <p className="">Wifi: Yes</p>
-        <p className="">Outlets: 5</p>
-        <p className="">Noise: Low</p>
+          <p className="">Seats: 5</p>
+          <p className="">Wifi: Yes</p>
+          <p className="">Outlets: 5</p>
+          <p className="">Noise: Low</p>
+        </div>
       </div>
-      </div>
-
     </>
   );
 }

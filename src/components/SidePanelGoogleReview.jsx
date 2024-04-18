@@ -1,7 +1,7 @@
 export default function SidePanelGoogleReview() {
   return (
     <div className="">
-      <div className="m-3 p-3 bg-accent-3 rounded-xl">
+      <div className="m-3 p-3 bg-accent-2 rounded-xl">
         <div className="flex items-center">
           <img
             alt="Jefferson's Coffee Shop"

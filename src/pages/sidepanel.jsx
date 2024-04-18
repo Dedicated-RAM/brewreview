@@ -2,6 +2,7 @@ import Link from "next/link";
 import SidePanelOverview from "@/components/SidePanelOverview";
 import SidePanelGoogleReview from "@/components/SidePanelGoogleReview";
 import SidePanelBrewReview from "../components/SidePanelBrewReview";
+
 import "../styles/globals.css";
 
 import { useEffect, useState } from "react";
@@ -18,6 +19,7 @@ export default function SidePanel() {
         setDisplay(<SidePanelGoogleReview />);
         break;
       case "brew-review":
+
         setDisplay(<SidePanelBrewReview />);
         break;
     }
