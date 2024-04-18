@@ -25,7 +25,7 @@ export default function SidePanel() {
 
   return (
     <>
-      <div className="h-full w-1/3 fixed z-1 top-0 left-0 overflow-x-hidden bg-accent-1 font-short-stack">
+      <div className="h-full w-1/3 fixed z-1 top-0 left-0 overflow-x-hidden bg-accent-1 font-short-stack text-accent-6">
         <img
           alt="Jefferson's Coffee Shop"
           className="object-cover w-full h-30"
@@ -39,16 +39,16 @@ export default function SidePanel() {
             <span className="">(242)</span>
           </div>
         </div>
-        <div className="flex items-center place-content-center justify-evenly py-3">
-          <button variant="ghost" className="font-medium py-2 px-4 rounded" onClick={() => setPanel("overview")}>
+        <div className="flex items-center place-content-center justify-evenly py-3 font-medium">
+          <button variant="ghost" className="py-2 px-4 rounded" onClick={() => setPanel("overview")}>
             Overview
           </button>
-          <button variant="ghost" className="font-medium py-2 px-4 rounded" onClick={() => setPanel("google-review")}>
+          <button variant="ghost" className="py-2 px-4 rounded" onClick={() => setPanel("google-review")}>
             Google
             <br />
             Reviews
           </button>
-          <button variant="ghost" className="font-medium py-2 px-4 rounded" onClick={() => setPanel("brew-review")}>
+          <button variant="ghost" className="py-2 px-4 rounded" onClick={() => setPanel("brew-review")}>
             Brew
             <br />
             Reviews
