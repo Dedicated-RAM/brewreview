@@ -100,7 +100,7 @@ export default function Register() {
             <p>or</p>
             <div className="border-b-2 border-accent-5 flex-grow mx-2"></div>
           </div>
-          <Link href="/register">
+          <Link href="/login">
             <button className="flex justify-center bg-accent-5 text-accent-1 p-2 rounded-md font-bold w-56 text-2xl mx-auto">
               Login
             </button>

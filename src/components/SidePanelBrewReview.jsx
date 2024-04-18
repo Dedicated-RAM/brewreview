@@ -1,9 +1,9 @@
 import { RxAvatar } from "react-icons/rx";
 import SidePanelBrewForm from "../components/SidePanelBrewForm";
-export default function SidePanelBrewReview() {
+export default function SidePanelBrewReview(props) {
   return (
     <>
-      <SidePanelBrewForm />
+      {!props.hideForm && <SidePanelBrewForm />}
       <div className="m-3 p-3 bg-accent-2 rounded-xl">
         <div className="flex items-center">
           <img

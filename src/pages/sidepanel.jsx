@@ -19,7 +19,6 @@ export default function SidePanel() {
         setDisplay(<SidePanelGoogleReview />);
         break;
       case "brew-review":
-
         setDisplay(<SidePanelBrewReview />);
         break;
     }
@@ -42,15 +41,27 @@ export default function SidePanel() {
           </div>
         </div>
         <div className="flex items-center place-content-center justify-evenly py-3 font-medium">
-          <button variant="ghost" className="py-2 px-4 rounded" onClick={() => setPanel("overview")}>
+          <button
+            variant="ghost"
+            className="py-2 px-4 rounded"
+            onClick={() => setPanel("overview")}
+          >
             Overview
           </button>
-          <button variant="ghost" className="py-2 px-4 rounded" onClick={() => setPanel("google-review")}>
+          <button
+            variant="ghost"
+            className="py-2 px-4 rounded"
+            onClick={() => setPanel("google-review")}
+          >
             Google
             <br />
             Reviews
           </button>
-          <button variant="ghost" className="py-2 px-4 rounded" onClick={() => setPanel("brew-review")}>
+          <button
+            variant="ghost"
+            className="py-2 px-4 rounded"
+            onClick={() => setPanel("brew-review")}
+          >
             Brew
             <br />
             Reviews
