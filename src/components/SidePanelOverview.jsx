@@ -7,8 +7,8 @@ import { MdRestaurantMenu } from "react-icons/md";
 
 export default function SidePanelOverview() {
   return (
-    <div className="max-w-sm border rounded-lg overflow-hidden bg-white">
-      <div className="space-y-2 my-2">
+    <div className="">
+      <div className="space-y-2 pl-5 text-xl">
         <div className="flex items-center space-x-2">
           {/* BRING DATA IN */}
           <MdPlace />
@@ -30,13 +30,13 @@ export default function SidePanelOverview() {
         </div>
         <div className="flex items-center space-x-2">
           <MdRestaurantMenu />
-          Menu
+          <span className="text-sm">Menu</span>
         </div>
       </div>
-      <div className="grid grid-cols-1 gap-2 overflow-x-auto">
+      <div className="grid grid-cols-1 gap-2 overflow-x-auto p-5">
           <img
             alt="Menu Item Preview"
-            className="w-full h-20 object-cover"
+            className="w-full h-full object-cover"
             src="/jeffersonscoffee.jpg"
             style={{
               aspectRatio: "80/80",
@@ -45,25 +45,17 @@ export default function SidePanelOverview() {
           />
           <img
             alt="Menu Item Preview"
-            className="w-full h-20 object-cover"
-            height="80"
+            className="w-full h-full object-cover"
             src="/jeffersonscoffee.jpg"
             style={{
               aspectRatio: "80/80",
               objectFit: "cover",
             }}
-            width="80"
           />
           <img
             alt="Menu Item Preview"
-            className="w-full h-20 object-cover"
-            height="80"
+            className="w-full h-full object-cover"
             src="/jeffersonscoffee.jpg"
-            style={{
-              aspectRatio: "80/80",
-              objectFit: "cover",
-            }}
-            width="80"
           />
           </div>
     </div>
