@@ -7,7 +7,7 @@ import "../styles/globals.css";
 
 import { useEffect, useState } from "react";
 
-export default function SidePanel() {
+export default function SidePanel({ onClose }) {
   const [panel, setPanel] = useState("overview");
   const [display, setDisplay] = useState();
   useEffect(() => {
@@ -27,6 +27,23 @@ export default function SidePanel() {
   return (
     <>
       <div className="h-full w-1/3 fixed z-1 top-0 left-0 overflow-x-hidden bg-accent-1 font-short-stack text-accent-6">
+        <button className="btn btn-square absolute top-5 right-5">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            onClick={onClose}
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
         <img
           alt="Jefferson's Coffee Shop"
           className="object-cover w-full h-30"

@@ -45,6 +45,10 @@ export default function MainPageMaps() {
     setShowSidePanel(true);
   }, []);
 
+  const closeSidePanel = React.useCallback(() => {
+    setShowSidePanel(false);
+  }, []);
+
   return (
     <div style={{ width: "100vw", height: "100vh" }}>
       {isLoaded && (
@@ -55,7 +59,7 @@ export default function MainPageMaps() {
           ;
         </GoogleMap>
       )}
-      {showSidePanel && <SidePanel />}
+      {showSidePanel && <SidePanel onClose={closeSidePanel} />}
     </div>
   );
 }
