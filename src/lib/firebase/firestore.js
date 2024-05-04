@@ -39,15 +39,16 @@ import { db } from "@/src/lib/firebase/firebase";
 
 /**
  * Adds a review to a cafe
+ * @param {Object} db		The Firestore database object
  * @param {String} cafeId	The ID of the cafe to add the review to
  * @param {Object} review	The review object to add to the cafe
  */
-export async function addReview(place_id, review) {
+export async function addReview(db, place_id, review) {
 	// check if cafe exists in db
 	var cafe = await getCafeByPlaceId(place_id);
 	// if cafe does not exist, add it to db
 	if (!cafe) {
-		cafe = await addCafe(place_id);
+		cafe = await addCafe(db, place_id);
 	}
 	if (!cafe) {
 		//TODO: handle error
@@ -69,11 +70,12 @@ export async function addReview(place_id, review) {
 
 /**
  * Edits a review for a cafe
+ * @param {Object} db		The Firestore database object
  * @param {String} cafeId	The ID of the cafe to edit the review for
  * @param {String} reviewId	The ID of the review to edit
  * @param {Object} review	The review object to update the review with
  */
-export async function editReview(cafeId, reviewId, review) {
+export async function editReview(db, cafeId, reviewId, review) {
 	const cafeRef = doc(db, "cafes", cafeId);
 	const reviewRef = doc(collection(cafeRef, "reviews"), reviewId);
 
@@ -107,10 +109,11 @@ export async function getCafeReviews(cafeId) {
 
 /**
  * Adds a cafe to the database
+ * @param {Object} db		The Firestore database object
  * @param {String} place_id	The Google Maps place ID for the cafe
  * @returns {Object}	The cafe object
  */
-async function addCafe(place_id) {
+async function addCafe(db, place_id) {
 	const cafeRef = collection(db, "cafes");
 	const cafeData = {
 		maps_place_id: place_id,
