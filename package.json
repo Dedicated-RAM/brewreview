@@ -9,9 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@react-google-maps/api": "^2.19.3",
     "axios": "^1.6.8",
     "dotenv": "^16.4.5",
-    "@react-google-maps/api": "^2.19.3",
     "firebase": "^10.8.1",
     "lodash": "^4.17.21",
     "moment": "^2.30.1",
