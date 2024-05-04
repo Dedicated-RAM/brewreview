@@ -32,14 +32,17 @@ export default function Header() {
   }
 
   return (
-    <div class="navbar bg-accent-3 font-short-stack">
-      <Link href="/" class="btn btn-ghost text-4xl bg-accent-6 text-accent-2">
+    <div className="navbar bg-accent-3 font-short-stack">
+      <Link
+        href="/"
+        className="btn btn-ghost text-4xl bg-accent-6 text-accent-2"
+      >
         Brew Review
       </Link>
-      <Link href="/group/list" class="btn btn-ghost text-xl">
+      <Link href="/group/list" className="btn btn-ghost text-xl">
         View Groups
       </Link>
-      <Link href="/group/create" class="btn btn-ghost text-xl">
+      <Link href="/group/create" className="btn btn-ghost text-xl">
         Create Groups
       </Link>
       <Link href="/login" className="btn btn-ghost text-xl ml-auto">
