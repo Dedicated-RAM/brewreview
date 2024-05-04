@@ -22,6 +22,11 @@ export const auth = getAuth(firebaseApp);
 export const db = getFirestore(firebaseApp);
 export const storage = getStorage(firebaseApp);
 
+/**
+ * Get the authenticated app for the user
+ * @param {String} session
+ * @returns
+ */
 export async function getAuthenticatedAppForUser(session = null) {
 	if (typeof window !== "undefined") {
 		// client

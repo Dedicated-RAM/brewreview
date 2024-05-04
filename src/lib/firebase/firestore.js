@@ -1,3 +1,23 @@
+/* Database Schema
+
+cafe collection
+	maps_place_id: string
+
+	cafes/{cafe_id}/reviews collection
+	{
+		cafe: reference to a cafe document (ex. /cafes/abc)
+		user_id: string
+		outlet_score: number
+		number_of_seats: number
+		overall_rating: number
+		overall_review: string
+		wifi: boolean
+		created_at: timestamp
+		updated_at: timestamp
+	}
+}
+*/
+
 import { generateFakeRestaurantsAndReviews } from "@/src/lib/fakeRestaurants.js";
 
 import {
@@ -17,11 +37,118 @@ import {
 
 import { db } from "@/src/lib/firebase/firebase";
 
+/**
+ * Adds a review to a cafe
+ * @param {String} cafeId	The ID of the cafe to add the review to
+ * @param {Object} review	The review object to add to the cafe
+ */
+export async function addReview(place_id, review) {
+	// check if cafe exists in db
+	var cafe = await getCafeByPlaceId(place_id);
+	// if cafe does not exist, add it to db
+	if (!cafe) {
+		cafe = await addCafe(place_id);
+	}
+	if (!cafe) {
+		//TODO: handle error
+		return;
+	}
+
+	const cafeId = cafe.id;
+	const cafeRef = doc(db, "cafes", cafeId);
+	const reviewsRef = collection(cafeRef, "reviews");
+
+	const reviewData = {
+		...review,
+		created_at: Timestamp.now(),
+		updated_at: Timestamp.now(),
+	};
+
+	await addDoc(reviewsRef, reviewData);
+}
+
+/**
+ * Edits a review for a cafe
+ * @param {String} cafeId	The ID of the cafe to edit the review for
+ * @param {String} reviewId	The ID of the review to edit
+ * @param {Object} review	The review object to update the review with
+ */
+export async function editReview(cafeId, reviewId, review) {
+	const cafeRef = doc(db, "cafes", cafeId);
+	const reviewRef = doc(collection(cafeRef, "reviews"), reviewId);
+
+	const reviewData = {
+		...review,
+		updated_at: Timestamp.now(),
+	};
+
+	await updateDoc(reviewRef, reviewData);
+}
+
+/**
+ * Gets all reviews for a cafe
+ * @param {String} cafeId	The ID of the cafe to get reviews for
+ * @returns {Array}	An array of reviews for the cafe ordered by newest first
+ */
+export async function getCafeReviews(cafeId) {
+	const cafeRef = doc(db, "cafes", cafeId);
+	const reviewsRef = collection(cafeRef, "reviews");
+
+	const q = query(reviewsRef, orderBy("updated_at", "desc"));
+	const results = await getDocs(q);
+
+	return results.docs.map((doc) => {
+		return {
+			id: doc.id,
+			...doc.data(),
+		};
+	});
+}
+
+/**
+ * Adds a cafe to the database
+ * @param {String} place_id	The Google Maps place ID for the cafe
+ * @returns {Object}	The cafe object
+ */
+async function addCafe(place_id) {
+	const cafeRef = collection(db, "cafes");
+	const cafeData = {
+		maps_place_id: place_id,
+	};
+	// add the cafe to the database
+	const docRef = await addDoc(cafeRef, cafeData);
+	// return the cafe object
+	return {
+		id: docRef.id,
+		...cafeData,
+	};
+}
+
+/**
+ * Gets a cafe by its Google Maps place ID
+ * @param {String} place_id	The Google Maps place ID for the cafe
+ * @returns {Object}	The cafe object
+ * @returns {null}	If the cafe does not exist
+ */
+export async function getCafeByPlaceId(place_id) {
+	const q = query(
+		collection(db, "cafes"),
+		where("maps_place_id", "==", place_id)
+	);
+	const results = await getDocs(q);
+
+	if (results.empty) {
+		return null;
+	}
+
+	const doc = results.docs[0];
+	return {
+		id: doc.id,
+		...doc.data(),
+	};
+}
+
 /*
-
-
-
-
 
 
 
@@ -65,6 +192,8 @@ const updateWithRating = async (
 	});
 };
 
+//* DB is the Firestore database instance
+//* it is obtained from calling a auth.js function that returns an
 export async function addReviewToRestaurant(db, restaurantId, review) {
 	if (!restaurantId) {
 		throw new Error("No restaurant ID has been provided.");
