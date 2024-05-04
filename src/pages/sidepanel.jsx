@@ -58,31 +58,37 @@ export default function SidePanel({ onClose }) {
           </div>
         </div>
         <div className="flex items-center place-content-center justify-evenly py-3 font-medium">
-          <button
-            variant="ghost"
-            className="py-2 px-4 rounded"
-            onClick={() => setPanel("overview")}
-          >
-            Overview
-          </button>
-          <button
-            variant="ghost"
-            className="py-2 px-4 rounded"
-            onClick={() => setPanel("google-review")}
-          >
-            Google
-            <br />
-            Reviews
-          </button>
-          <button
-            variant="ghost"
-            className="py-2 px-4 rounded"
-            onClick={() => setPanel("brew-review")}
-          >
-            Brew
-            <br />
-            Reviews
-          </button>
+          <div className={panel == "overview" ? "border-b-2 border-accent-4" : ""}>
+            <button
+              variant="ghost"
+              className="py-2 px-4 rounded"
+              onClick={() => setPanel("overview")}
+            >
+              Overview
+            </button>
+          </div>
+          <div className={panel == "google-review" ? "border-b-2 border-accent-4" : ""}>
+            <button
+              variant="ghost"
+              className="py-2 px-4 rounded"
+              onClick={() => setPanel("google-review")}
+            >
+              Google
+              <br />
+              Reviews
+            </button>
+          </div>
+          <div className={panel == "brew-review" ? "border-b-2 border-accent-4" : ""}>
+            <button
+              variant="ghost"
+              className="py-2 px-4 rounded"
+              onClick={() => setPanel("brew-review")}
+            >
+              Brew
+              <br />
+              Reviews
+            </button>
+          </div>
         </div>
 
         {display}
