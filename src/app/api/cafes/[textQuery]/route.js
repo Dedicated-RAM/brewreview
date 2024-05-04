@@ -13,7 +13,7 @@ export async function GET(req, { params }) {
             `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=${encodeURIComponent(
                 params.textQuery
             )}&inputtype=textquery&key=${encodeURIComponent(
-                process.env.GOOGLE_MAPS_API_KEY
+                process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY
             )}`
         );
 
