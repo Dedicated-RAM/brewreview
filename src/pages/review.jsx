@@ -31,13 +31,13 @@ export default function Review() {
 
   return (
     <div className="bg-accent-1 flex font-short-stack fixed inset-0 flex justify-center items-center">
-      <div className="m-auto p-10 bg-accent-2 rounded-lg shadow-lg w-1/2 rounded-md">
+      <div className="m-auto p-10 bg-accent-2 rounded-lg shadow-lg w-1/2 rounded-md h-full">
         <h1 className="text-4xl font-bold text-accent-6">Jefferson's Coffee</h1>
         <form className="flex flex-col gap-1 mt-4">
           <label className="mt-4 text-accent-6 text-2xl" htmlFor="starRating">
             Give it a star rating
           </label>
-          <div className="rating">
+          <div className="rating rating-lg">
             <input
               type="radio"
               name="rating-1"
@@ -91,7 +91,7 @@ export default function Review() {
           <label className="mt-4 text-accent-6 text-2xl">
             How was the noise?
           </label>
-          <div className="flex items-center">
+          {/* <div className="flex items-center">
             <p className="text-accent-6">Low</p>
             <input
               type="range"
@@ -102,6 +102,28 @@ export default function Review() {
               className="range mx-2"
             />
             <p className="text-accent-6">High</p>
+          </div> */}
+          <div className="flex items-center">
+            <div className="flex items-center mr-4">
+              <input type="radio" name="radio-1" className="radio" />
+              <span className="ml-2 text-accent-6">Very Quiet</span>
+            </div>
+            <div className="flex items-center mr-4">
+              <input type="radio" name="radio-1" className="radio" />
+              <span className="ml-2 text-accent-6">Quiet</span>
+            </div>
+            <div className="flex items-center mr-4">
+              <input type="radio" name="radio-1" className="radio" />
+              <span className="ml-2 text-accent-6">Medium</span>
+            </div>
+            <div className="flex items-center mr-4">
+              <input type="radio" name="radio-1" className="radio" />
+              <span className="ml-2 text-accent-6">Loud</span>
+            </div>
+            <div className="flex items-center mr-4">
+              <input type="radio" name="radio-1" className="radio" />
+              <span className="ml-2 text-accent-6">Very Loud</span>
+            </div>
           </div>
           <label className="mt-4 text-accent-6 text-2xl" htmlFor="review">
             Leave a review
