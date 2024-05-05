@@ -74,7 +74,7 @@ export default function SidePanel({ onClose, place }) {
 
   return (
     <>
-      <div className="h-full w-1/3 fixed z-1 top-0 left-0 overflow-x-hidden bg-accent-1 font-short-stack text-accent-6">
+      <div className="h-[calc(100vh-64px)] w-1/3 absolute z-10 top-16 left-0 overflow-x-hidden bg-accent-1 font-short-stack text-accent-6">
         <button className="btn btn-square absolute top-5 right-5">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -111,7 +111,9 @@ export default function SidePanel({ onClose, place }) {
           </div>
         </div>
         <div className="flex items-center place-content-center justify-evenly py-3 font-medium">
-          <div className={panel == "overview" ? "border-b-2 border-accent-4" : ""}>
+          <div
+            className={panel == "overview" ? "border-b-2 border-accent-4" : ""}
+          >
             <button
               variant="ghost"
               className="py-2 px-4 rounded"
@@ -120,7 +122,11 @@ export default function SidePanel({ onClose, place }) {
               Overview
             </button>
           </div>
-          <div className={panel == "google-review" ? "border-b-2 border-accent-4" : ""}>
+          <div
+            className={
+              panel == "google-review" ? "border-b-2 border-accent-4" : ""
+            }
+          >
             <button
               variant="ghost"
               className="py-2 px-4 rounded"
@@ -131,7 +137,11 @@ export default function SidePanel({ onClose, place }) {
               Reviews
             </button>
           </div>
-          <div className={panel == "brew-review" ? "border-b-2 border-accent-4" : ""}>
+          <div
+            className={
+              panel == "brew-review" ? "border-b-2 border-accent-4" : ""
+            }
+          >
             <button
               variant="ghost"
               className="py-2 px-4 rounded"
@@ -143,7 +153,6 @@ export default function SidePanel({ onClose, place }) {
             </button>
           </div>
         </div>
-
         {display}
       </div>
     </>

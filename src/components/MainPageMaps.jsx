@@ -14,7 +14,7 @@ const LIBRARIES = ["places", "geometry", "drawing"];
 
 const containerStyle = {
   width: "100vw",
-  height: "100vh",
+  height: "calc(100vh - 64px)",
 };
 
 const markers = [{ lat: 40.743303, lng: -74.029331 }];
@@ -57,18 +57,21 @@ export default function MainPageMaps() {
   };
 
   return (
-    <div style={{ width: "100vw", height: "100vh", display: "flex" }}>
+
+    <div className="h-screen">
       {isLoaded && (
-        <div style={{ flex: 1 }}>
-          <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={15}>
-            <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
-              <input type="text" placeholder="Search for a place" style={{ position: "absolute", top: "10px", right: "10px", zIndex: "1" }} />
-            </Autocomplete>
-            {markers.map((marker, index) => (
-              <Marker key={index} position={marker} onClick={() => onClick(marker)} />
-            ))}
-          </GoogleMap>
-        </div>
+        <GoogleMap
+          mapContainerStyle={containerStyle}
+          center={center}
+          zoom={15}
+          options={{
+            fullscreenControl: false,
+          }}
+        >
+          {markers.map((marker, index) => (
+            <Marker key={index} position={marker} onClick={onClick} />
+          ))}
+        </GoogleMap>
       )}
       {showSidePanel && <SidePanel onClose={closeSidePanel} place={placeData} />}
     </div>

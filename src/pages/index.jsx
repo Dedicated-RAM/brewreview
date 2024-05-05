@@ -1,5 +1,4 @@
 import MainPageMaps from "../components/MainPageMaps";
-import SidePanel from "./sidepanel";
 
 export default function MyApp() {
   return (
