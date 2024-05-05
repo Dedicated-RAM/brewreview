@@ -27,3 +27,33 @@ export async function signOut() {
 		console.error("Error signing out with Google", error);
 	}
 }
+
+export async function doPasswordReset(email) {
+	let auth = getAuth();
+	await sendPasswordResetEmail(auth, email);
+}
+
+export async function doSignInWithEmailAndPassword(email, password) {
+	let auth = getAuth();
+	await signInWithEmailAndPassword(auth, email, password);
+}
+
+export async function doChangePassword(email, oldPassword, newPassword) {
+	const auth = getAuth();
+	let credential = EmailAuthProvider.credential(email, oldPassword);
+	console.log(credential);
+	await reauthenticateWithCredential(auth.currentUser, credential);
+
+	await updatePassword(auth.currentUser, newPassword);
+	await doSignOut();
+}
+
+export async function doCreateUserWithEmailAndPassword(
+	email,
+	password,
+	displayName
+) {
+	const auth = getAuth();
+	await createUserWithEmailAndPassword(auth, email, password);
+	await updateProfile(auth.currentUser, { displayName: displayName });
+}
