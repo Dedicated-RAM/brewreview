@@ -88,6 +88,25 @@ export default function Group() {
 
   return (
     <div className="bg-accent-1 flex font-short-stack inset-0 flex justify-center items-center overflow-auto pt-8">
+      <Link href="/">
+        <button className="btn btn-square absolute top-5 right-5">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+      </Link>
+
       <div className="m-auto p-10 bg-accent-2 rounded-lg shadow-lg w-1/2 rounded-md">
         <h1 className="text-6xl font-bold text-center text-accent-6">Groups</h1>
         <div className="flex flex-col gap-3 mt-4">
