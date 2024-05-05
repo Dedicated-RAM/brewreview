@@ -7,7 +7,10 @@ import {
 import SidePanel from "../pages/sidepanel";
 import React, { useState } from "react";
 
+import { Autocomplete } from "@react-google-maps/api";
+
 const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
+const LIBRARIES = ["places", "geometry", "drawing"];
 
 const containerStyle = {
   width: "100vw",
@@ -23,33 +26,38 @@ const center = {
 export default function MainPageMaps() {
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: API_KEY,
+    libraries: LIBRARIES
   });
+
   const [showSidePanel, setShowSidePanel] = useState(false);
   const [mapCenter, setMapCenter] = useState(center);
+  const [placeData, setPlaceData] = useState({});
+  const [placeId, setPlaceId] = useState("");
+  const [autocomplete, setAutocomplete] = useState(null);
 
-  const onLoad = React.useCallback(function callback(map) {
-    const bounds = new window.google.maps.LatLngBounds(center);
-    map.fitBounds(bounds);
+  const onLoad = (autocomplete) => {
+    setAutocomplete(autocomplete);
+  };
 
-    setMap(map);
-  }, []);
+  const onPlaceChanged = () => {
+    if (autocomplete !== null) {
+      const place = autocomplete.getPlace();
+      setPlaceData(place);
+      setShowSidePanel(true);
+    }
+  };
 
-  const [map, setMap] = React.useState(null);
-
-  const onUnmount = React.useCallback(function callback(map) {
-    setMap(null);
-  }, []);
-
-  const onClick = React.useCallback((marker) => {
+  const onClick = (marker) => {
     setMapCenter(marker);
     setShowSidePanel(true);
-  }, []);
+  };
 
-  const closeSidePanel = React.useCallback(() => {
+  const closeSidePanel = () => {
     setShowSidePanel(false);
-  }, []);
+  };
 
   return (
+
     <div className="h-screen">
       {isLoaded && (
         <GoogleMap
@@ -65,7 +73,7 @@ export default function MainPageMaps() {
           ))}
         </GoogleMap>
       )}
-      {showSidePanel && <SidePanel onClose={closeSidePanel} />}
+      {showSidePanel && <SidePanel onClose={closeSidePanel} place={placeData} />}
     </div>
   );
 }

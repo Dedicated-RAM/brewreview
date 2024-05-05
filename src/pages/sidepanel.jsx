@@ -6,23 +6,71 @@ import SidePanelBrewReview from "../components/SidePanelBrewReview";
 import "../styles/globals.css";
 
 import { useEffect, useState } from "react";
+import axios from 'axios';
 
-export default function SidePanel({ onClose }) {
+export default function SidePanel({ onClose, place }) {
   const [panel, setPanel] = useState("overview");
   const [display, setDisplay] = useState();
+  const [loading, setLoading] = useState(true);
+  const [placeData, setPlaceData] = useState({});
+  const [placePhoto, setPlacePhoto] = useState("");
+
+  useEffect(() => {
+    if (place) {
+      (async () => {
+        const res = await fetch(`/api/cafe/${place.place_id}`);
+        const data = await res.json();
+
+        const photoRes = await axios.get(`/api/photo/${data.result.result.photos[0].photo_reference}`);
+        setPlacePhoto(photoRes.data.result);
+
+        setPlaceData(data.result.result);
+        setLoading(false);
+      })();
+    }
+  }, [place]);
+
   useEffect(() => {
     switch (panel) {
       case "overview":
-        setDisplay(<SidePanelOverview />);
+        setDisplay(<SidePanelOverview place={placeData} />);
         break;
       case "google-review":
-        setDisplay(<SidePanelGoogleReview />);
+        setDisplay(<SidePanelGoogleReview place={placeData} />);
         break;
       case "brew-review":
-        setDisplay(<SidePanelBrewReview />);
+        setDisplay(<SidePanelBrewReview place={placeData} />);
         break;
     }
-  }, [panel]);
+  }, [panel, placeData]);
+
+  if (!place || !placeData || Object.keys(placeData).length <= 0) return (
+    <>
+      <div className="h-full w-1/3 fixed z-1 top-0 left-0 overflow-x-hidden bg-accent-1 font-short-stack text-accent-6">
+        <button className="btn btn-square absolute top-5 right-5">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            onClick={onClose}
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+        <div className="">
+          <h1 className="text-3xl font-bold pl-5 pt-5 center">No place selected!</h1>
+        </div>
+      </div>
+    </>
+  )
+
 
   return (
     <>
@@ -47,14 +95,19 @@ export default function SidePanel({ onClose }) {
         <img
           alt="Jefferson's Coffee Shop"
           className="object-cover w-full h-30"
-          src="/jeffersonscoffee.jpg"
+          src={placePhoto}
         />
         <div className="">
-          <h1 className="text-3xl font-bold pl-5 pt-5">Jefferson's Coffee</h1>
+          <h1 className="text-3xl font-bold pl-5 pt-5">{place.name}</h1>
           <div className="pl-5">
-            <span className="">5.5</span>
-            <span className="">★★★★★</span>
-            <span className="">(242)</span>
+            <span className="">
+              {placeData.rating}
+              {Array.from({ length: Math.floor(placeData.rating) }, (_, index) => (
+                <span key={index}>★</span>
+              ))}
+            </span>
+            <span className=""></span>
+            <span className="">({placeData.user_ratings_total})</span>
           </div>
         </div>
         <div className="flex items-center place-content-center justify-evenly py-3 font-medium">
