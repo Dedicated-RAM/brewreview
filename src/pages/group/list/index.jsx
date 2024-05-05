@@ -87,10 +87,10 @@ export default function Group() {
   };
 
   return (
-    <div className="bg-accent-1 flex font-short-stack fixed inset-0 flex justify-center items-center overflow-auto p-10">
+    <div className="bg-accent-1 flex font-short-stack inset-0 flex justify-center items-center overflow-auto pt-8">
       <div className="m-auto p-10 bg-accent-2 rounded-lg shadow-lg w-1/2 rounded-md">
         <h1 className="text-6xl font-bold text-center text-accent-6">Groups</h1>
-        <div className="flex flex-col gap-1 mt-4">
+        <div className="flex flex-col gap-3 mt-4">
           {groups.map((group) => (
             <div key={group.id} className="bg-accent-3 p-4 rounded-md">
               <h2 className="text-4xl font-bold text-accent-6">{group.name}</h2>

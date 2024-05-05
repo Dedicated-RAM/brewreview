@@ -32,7 +32,7 @@ export default function Header() {
   }
 
   return (
-    <div className="navbar bg-accent-3 font-short-stack">
+    <div className="navbar bg-accent-3 font-short-stack sticky top-0">
       <Link
         href="/"
         className="btn btn-ghost text-4xl bg-accent-6 text-accent-2"

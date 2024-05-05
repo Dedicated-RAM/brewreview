@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import "../../styles/globals.css";
+
 import SidePanelOverview from "@/components/SidePanelOverview";
 import SidePanelGoogleReview from "@/components/SidePanelGoogleReview";
 import SidePanelBrewReview from "../../components/SidePanelBrewReview";
@@ -32,7 +33,7 @@ export default function Review() {
   };
 
   return (
-    <div className="bg-accent-1 flex font-short-stack fixed inset-0 flex justify-center items-center">
+    <div className="bg-accent-1 flex font-short-stack inset-0 flex justify-center items-center pt-3">
       <div className="m-auto p-10 bg-accent-2 rounded-lg shadow-lg w-1/2 rounded-md h-full">
         <h1 className="text-4xl font-bold text-accent-6">Jefferson's Coffee</h1>
         <form className="flex flex-col gap-1 mt-4">

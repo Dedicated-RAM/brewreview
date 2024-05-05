@@ -25,7 +25,7 @@ export default function Login() {
   };
 
   return (
-    <div className="bg-accent-1 flex font-short-stack fixed inset-0 flex justify-center items-center">
+    <div className="bg-accent-1 flex font-short-stack inset-0 flex justify-center items-center pt-3">
       <div className="m-auto p-10 bg-accent-2 rounded-lg shadow-lg w-1/2 rounded-md">
         <h1 className="text-6xl font-bold text-center text-accent-6">
           Brew Review
