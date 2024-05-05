@@ -4,7 +4,7 @@ import {
   Marker,
   OverlayView,
 } from "@react-google-maps/api";
-import SidePanel from "../pages/sidepanel";
+import SidePanel from "./SidePanelMain";
 import React, { useState } from "react";
 
 import { Autocomplete } from "@react-google-maps/api";
@@ -26,7 +26,7 @@ const center = {
 export default function MainPageMaps() {
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: API_KEY,
-    libraries: LIBRARIES
+    libraries: LIBRARIES,
   });
 
   const [showSidePanel, setShowSidePanel] = useState(false);
@@ -57,7 +57,6 @@ export default function MainPageMaps() {
   };
 
   return (
-
     <div className="h-screen">
       {isLoaded && (
         <GoogleMap
@@ -72,13 +71,23 @@ export default function MainPageMaps() {
             <Marker key={index} position={marker} onClick={onClick} />
           ))}
           <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
-            <input type="text" placeholder="Search for a place" style={{ position: "absolute", top: "50px", right: "50px", zIndex: "1" }} />
+            <input
+              type="text"
+              placeholder="Search for a place"
+              style={{
+                position: "absolute",
+                top: "50px",
+                right: "50px",
+                zIndex: "1",
+              }}
+            />
           </Autocomplete>
         </GoogleMap>
       )}
 
-
-      {showSidePanel && <SidePanel onClose={closeSidePanel} place={placeData} />}
+      {showSidePanel && (
+        <SidePanel onClose={closeSidePanel} place={placeData} />
+      )}
     </div>
   );
 }
