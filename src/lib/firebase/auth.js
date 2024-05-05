@@ -29,7 +29,7 @@ export async function signInWithGoogle() {
 	}
 }
 
-export async function signOut() {
+export async function doSignOut() {
 	try {
 		return auth.signOut();
 	} catch (error) {
