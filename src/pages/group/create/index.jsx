@@ -83,7 +83,7 @@ export default function Group() {
             <button type="submit" className="btn btn-primary">
               Create Group
             </button>
-            <Link href="/group" className="btn btn-secondary">
+            <Link href="/" className="btn btn-secondary">
               Cancel
             </Link>
           </div>
