@@ -52,11 +52,17 @@ export default function MainPageMaps() {
   return (
     <div style={{ width: "100vw", height: "100vh" }}>
       {isLoaded && (
-        <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={15}>
+        <GoogleMap
+          mapContainerStyle={containerStyle}
+          center={center}
+          zoom={15}
+          options={{
+            fullscreenControl: false, // Remove fullscreen button
+          }}
+        >
           {markers.map((marker, index) => (
             <Marker key={index} position={marker} onClick={onClick} />
           ))}
-          ;
         </GoogleMap>
       )}
       {showSidePanel && <SidePanel onClose={closeSidePanel} />}
