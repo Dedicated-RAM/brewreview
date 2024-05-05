@@ -33,6 +33,7 @@ export default function SidePanel({ onClose, place }) {
         setPlacePhoto(photoRes.data.result);
 
         setPlaceData(data.result.result);
+        console.log(JSON.stringify(placeData));
         setLoading(false);
       })();
     }

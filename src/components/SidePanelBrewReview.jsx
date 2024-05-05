@@ -9,7 +9,8 @@ export default function SidePanelBrewReview({ place }) {
   if (!place || Object.keys(place).length <= 0) return (<div><p>Loading...</p></div>);
   return (
     <>
-      {!props.hideForm && <SidePanelBrewForm />}
+      {/* {!place.hideForm && <SidePanelBrewForm />} */}
+      <SidePanelBrewForm />
       <div className="m-3 p-3 bg-accent-2 rounded-xl">
         <div className="flex items-center">
           <img

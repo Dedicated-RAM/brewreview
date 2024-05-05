@@ -1,0 +1,637 @@
+{
+    "address_components": [
+        {
+            "long_name": "534",
+            "short_name": "534",
+            "types": [
+                "street_number"
+            ]
+        },
+        {
+            "long_name": "Washington Street",
+            "short_name": "Washington St",
+            "types": [
+                "route"
+            ]
+        },
+        {
+            "long_name": "Hoboken",
+            "short_name": "Hoboken",
+            "types": [
+                "locality",
+                "political"
+            ]
+        },
+        {
+            "long_name": "Hudson County",
+            "short_name": "Hudson County",
+            "types": [
+                "administrative_area_level_2",
+                "political"
+            ]
+        },
+        {
+            "long_name": "New Jersey",
+            "short_name": "NJ",
+            "types": [
+                "administrative_area_level_1",
+                "political"
+            ]
+        },
+        {
+            "long_name": "United States",
+            "short_name": "US",
+            "types": [
+                "country",
+                "political"
+            ]
+        },
+        {
+            "long_name": "07030",
+            "short_name": "07030",
+            "types": [
+                "postal_code"
+            ]
+        }
+    ],
+    "adr_address": "<span class=\"street-address\">534 Washington St</span>, <span class=\"locality\">Hoboken</span>, <span class=\"region\">NJ</span> <span class=\"postal-code\">07030</span>, <span class=\"country-name\">USA</span>",
+    "business_status": "OPERATIONAL",
+    "current_opening_hours": {
+        "open_now": false,
+        "periods": [
+            {
+                "close": {
+                    "date": "2024-05-05",
+                    "day": 0,
+                    "time": "2000"
+                },
+                "open": {
+                    "date": "2024-05-05",
+                    "day": 0,
+                    "time": "0700"
+                }
+            },
+            {
+                "close": {
+                    "date": "2024-05-06",
+                    "day": 1,
+                    "time": "1900"
+                },
+                "open": {
+                    "date": "2024-05-06",
+                    "day": 1,
+                    "time": "0700"
+                }
+            },
+            {
+                "close": {
+                    "date": "2024-05-07",
+                    "day": 2,
+                    "time": "1900"
+                },
+                "open": {
+                    "date": "2024-05-07",
+                    "day": 2,
+                    "time": "0700"
+                }
+            },
+            {
+                "close": {
+                    "date": "2024-05-08",
+                    "day": 3,
+                    "time": "1900"
+                },
+                "open": {
+                    "date": "2024-05-08",
+                    "day": 3,
+                    "time": "0700"
+                }
+            },
+            {
+                "close": {
+                    "date": "2024-05-09",
+                    "day": 4,
+                    "time": "2030"
+                },
+                "open": {
+                    "date": "2024-05-09",
+                    "day": 4,
+                    "time": "0700"
+                }
+            },
+            {
+                "close": {
+                    "date": "2024-05-10",
+                    "day": 5,
+                    "time": "2030"
+                },
+                "open": {
+                    "date": "2024-05-10",
+                    "day": 5,
+                    "time": "0700"
+                }
+            },
+            {
+                "close": {
+                    "date": "2024-05-04",
+                    "day": 6,
+                    "time": "2000"
+                },
+                "open": {
+                    "date": "2024-05-04",
+                    "day": 6,
+                    "time": "0700"
+                }
+            }
+        ],
+        "weekday_text": [
+            "Monday: 7:00 AM – 7:00 PM",
+            "Tuesday: 7:00 AM – 7:00 PM",
+            "Wednesday: 7:00 AM – 7:00 PM",
+            "Thursday: 7:00 AM – 8:30 PM",
+            "Friday: 7:00 AM – 8:30 PM",
+            "Saturday: 7:00 AM – 8:00 PM",
+            "Sunday: 7:00 AM – 8:00 PM"
+        ]
+    },
+    "delivery": true,
+    "dine_in": true,
+    "formatted_address": "534 Washington St, Hoboken, NJ 07030, USA",
+    "formatted_phone_number": "(201) 683-4800",
+    "geometry": {
+        "location": {
+            "lat": 40.743345,
+            "lng": -74.029318
+        },
+        "viewport": {
+            "northeast": {
+                "lat": 40.7446758802915,
+                "lng": -74.02786831970849
+            },
+            "southwest": {
+                "lat": 40.7419779197085,
+                "lng": -74.0305662802915
+            }
+        }
+    },
+    "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/cafe-71.png",
+    "icon_background_color": "#FF9E67",
+    "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/cafe_pinlet",
+    "international_phone_number": "+1 201-683-4800",
+    "name": "Jefferson’s Coffee",
+    "opening_hours": {
+        "open_now": false,
+        "periods": [
+            {
+                "close": {
+                    "day": 0,
+                    "time": "2000"
+                },
+                "open": {
+                    "day": 0,
+                    "time": "0700"
+                }
+            },
+            {
+                "close": {
+                    "day": 1,
+                    "time": "1900"
+                },
+                "open": {
+                    "day": 1,
+                    "time": "0700"
+                }
+            },
+            {
+                "close": {
+                    "day": 2,
+                    "time": "1900"
+                },
+                "open": {
+                    "day": 2,
+                    "time": "0700"
+                }
+            },
+            {
+                "close": {
+                    "day": 3,
+                    "time": "1900"
+                },
+                "open": {
+                    "day": 3,
+                    "time": "0700"
+                }
+            },
+            {
+                "close": {
+                    "day": 4,
+                    "time": "2030"
+                },
+                "open": {
+                    "day": 4,
+                    "time": "0700"
+                }
+            },
+            {
+                "close": {
+                    "day": 5,
+                    "time": "2030"
+                },
+                "open": {
+                    "day": 5,
+                    "time": "0700"
+                }
+            },
+            {
+                "close": {
+                    "day": 6,
+                    "time": "2000"
+                },
+                "open": {
+                    "day": 6,
+                    "time": "0700"
+                }
+            }
+        ],
+        "weekday_text": [
+            "Monday: 7:00 AM – 7:00 PM",
+            "Tuesday: 7:00 AM – 7:00 PM",
+            "Wednesday: 7:00 AM – 7:00 PM",
+            "Thursday: 7:00 AM – 8:30 PM",
+            "Friday: 7:00 AM – 8:30 PM",
+            "Saturday: 7:00 AM – 8:00 PM",
+            "Sunday: 7:00 AM – 8:00 PM"
+        ]
+    },
+    "photos": [
+        {
+            "height": 4032,
+            "html_attributions": [
+                "<a href=\"https://maps.google.com/maps/contrib/114998789598843603509\">Jefferson’s Coffee</a>"
+            ],
+            "photo_reference": "ATplDJZtioDukJca8Uco_Yea08_ticTHjqAPBpq4_rRBwfBTn52dRk-H_zsdnVf-8d3Cr1i0RqwoAs-fBczmO0z-IZz5pzA30RY8fL05gr6SlTrSgWeEPUNNAU7qg_CszXKbTGbQSBppUEoAMajKFmw-ROXjxLPYf_pOgqiz_CIx9qOj3sPQ",
+            "width": 3024
+        },
+        {
+            "height": 3240,
+            "html_attributions": [
+                "<a href=\"https://maps.google.com/maps/contrib/114998789598843603509\">Jefferson’s Coffee</a>"
+            ],
+            "photo_reference": "ATplDJbvenso5qgy6bjnsmCTYCr1IJtm4DH2fI1KSAZzG05rbuufPiDJuvXqTRimlhjBQOzPcM7U5Dduuhq59P21GOy2eL53A6D5Qn9TnsYrHfllvLTIABI4SJcPP21fSiyO8PCFVpH6qZd29x28_pScRqzjPtjF3VZVOOk_zi8nLopXOnhH",
+            "width": 3240
+        },
+        {
+            "height": 662,
+            "html_attributions": [
+                "<a href=\"https://maps.google.com/maps/contrib/102424458208138041725\">Luis Melgar</a>"
+            ],
+            "photo_reference": "ATplDJYL8XyNzP-aoz-LXNbz4KQNkFNG2BNVNXLiC0bm_2vHz5ObXo3UiNz3BJS91o88iQElIRiN4mg3drmXtCpmV1v2Yf1xb8Y7KT9EozFfvowZ3gkWImdAdIq4EzB_ZchLIZsa-Dyoktmq2QxuCo3IsJsASk2Eyb1EN2DEpb1cZooXvHlb",
+            "width": 619
+        },
+        {
+            "height": 1024,
+            "html_attributions": [
+                "<a href=\"https://maps.google.com/maps/contrib/109686868030462138866\">Cedar at NY駐在</a>"
+            ],
+            "photo_reference": "ATplDJYWyAtTNZme7NRjlqkfRM8sYymTnYLQT9KwoVBLMkzzbXUsIFL-ryRnOO9ocmwNfya3oTcaaAcz1NNcsvU-j0Fa_vUxM2P-oxN09e7K4zqF8VD9xRuOGkcZsNy3givP7m8apwo0gIDRj30AHVWzCnrKdHLwtKDWOBzICEIeOmzqsyST",
+            "width": 769
+        },
+        {
+            "height": 927,
+            "html_attributions": [
+                "<a href=\"https://maps.google.com/maps/contrib/114998789598843603509\">Jefferson’s Coffee</a>"
+            ],
+            "photo_reference": "ATplDJbc86yYCUI9B5ZVI0na7eNv-ZwvdNUm-9fyQDY1B84-2euL7xE-lf6AvAqXzvsmvQS7Iq7U592c9fzsftitlqACfhr5YvjnLjCX-OICF42XV_mz-8-hhBgXt13yW_IRzKkmvh62drqZsI5jOVUjS3jgzOEOI-ghGG7LW_JCLt6lX5b8",
+            "width": 1242
+        },
+        {
+            "height": 4032,
+            "html_attributions": [
+                "<a href=\"https://maps.google.com/maps/contrib/117614937536761983072\">Kimberly Tuano</a>"
+            ],
+            "photo_reference": "ATplDJb1RM-A9PU227wfMhyKXIaFwrpmE3LPT4aLPOunQToYOiBPqvIp5qdioe52GM3KEIIeEVI1oBEOzrONkKU-X6dhQeiTZlcj1h-4EoVy9JKmhqZwAHC8iP-TnvvVQhhJGtNf_nafo-lZZk8uqGcAcOUxLSUXGPwJai1Nv_dGZM1Tszkh",
+            "width": 3024
+        },
+        {
+            "height": 4080,
+            "html_attributions": [
+                "<a href=\"https://maps.google.com/maps/contrib/118441664754890020601\">Libinski 0G</a>"
+            ],
+            "photo_reference": "ATplDJaIA65g9H67kazrBYyCSA4XLUyJ1snxgordl5anDxA360HpiXCcqQ395GAce0YOKvygTyxJbp5dLzYOZd5BMjn3CXmEXh7ZIDPL3tIe095AVJtvD77jHLV4kr4ObgFO4vz-R8Ah6_VOQuiPvJB9JcHkLQXe2OzhEOq49JuuHCe1Wv0W",
+            "width": 3072
+        },
+        {
+            "height": 4032,
+            "html_attributions": [
+                "<a href=\"https://maps.google.com/maps/contrib/117614937536761983072\">Kimberly Tuano</a>"
+            ],
+            "photo_reference": "ATplDJaXcS43kn6BxyICjx-yF2J-63hKFsqUWMcBLeg9TrYbthWbS66PbtzErUETpNmK5g0LPLrhAuzG6nHPjlkO2tuMNNNQo00WtORvkVGn2WNqu1yJNHqGg6CsHb9NjxeBb0gry2Hhz9OpuzVOf65q19rpE7RFK-U0ckC94D8IkJDFztSW",
+            "width": 3024
+        },
+        {
+            "height": 3700,
+            "html_attributions": [
+                "<a href=\"https://maps.google.com/maps/contrib/117614937536761983072\">Kimberly Tuano</a>"
+            ],
+            "photo_reference": "ATplDJa_wx5z4K30TwDnZgGv6qqxziFV-lfM7C6d9vC5tuzKmcEw2KpF8wHQFvCor7Mdnvi9r26tGQ5gkOAP0tsdjTbdMl5NZIpesmvRAEMAfxkvsvHV-q6cZJ6nwsgqnoJbEviDd32VsfSG2MTSKaa2-nSNj7dEIE-IlV7vTdKY0hB-lyjv",
+            "width": 3024
+        },
+        {
+            "height": 4032,
+            "html_attributions": [
+                "<a href=\"https://maps.google.com/maps/contrib/117614937536761983072\">Kimberly Tuano</a>"
+            ],
+            "photo_reference": "ATplDJYkx1zDX1KKo8n_P0yDLc6T2P6foOcViT1NxSpDwx6AyarT55NAoip-mw3fz-8PwA-QHBojImhzDlVgW1YJMZbmR0qBeP75xhU6qTQqCFV3Th0mQUFDFFQJEGFNAIwhv_a9o3gEsHZ0syh4g3UDCvn5Df6EMdMi0JZvIxjdFolY_LfZ",
+            "width": 3024
+        }
+    ],
+    "place_id": "ChIJCYyNjd9ZwokRlrsE0gcAZJo",
+    "plus_code": {
+        "compound_code": "PXVC+87 Hoboken, NJ, USA",
+        "global_code": "87G7PXVC+87"
+    },
+    "rating": 4.4,
+    "reference": "ChIJCYyNjd9ZwokRlrsE0gcAZJo",
+    "reservable": true,
+    "reviews": [
+        {
+            "author_name": "Libinski 0G",
+            "author_url": "https://www.google.com/maps/contrib/118441664754890020601/reviews",
+            "language": "en",
+            "original_language": "en",
+            "profile_photo_url": "https://lh3.googleusercontent.com/a-/ALV-UjXdRsXvnnThXbi7WZN4gxyRQvFV7K46daA3fe18V2nE1s0A7sE=s128-c0x00000000-cc-rp-mo-ba7",
+            "rating": 5,
+            "relative_time_description": "3 months ago",
+            "text": "This is on  my top five coffee spots in Hoboken.   Coffee is good here, and the pastries are delicious, especially the little bites.  We tried the other Jefferson's locations, and this one is our favorite location.   We have the interior of the shop as well, and they have a nice seating area in the back.  A few tables are available outside, and this coffee shop is very pleasant during the summer.",
+            "time": 1706551109,
+            "translated": false
+        },
+        {
+            "author_name": "Kimberly Tuano",
+            "author_url": "https://www.google.com/maps/contrib/117614937536761983072/reviews",
+            "language": "en",
+            "original_language": "en",
+            "profile_photo_url": "https://lh3.googleusercontent.com/a-/ALV-UjWBqtCqIkmzz8lmA5-jHgh5GoeccHbNZKguerANVwwmRfu8RyskaA=s128-c0x00000000-cc-rp-mo-ba6",
+            "rating": 4,
+            "relative_time_description": "5 months ago",
+            "text": "walking through hoboken one rainy day and found this coffee shop to warm up.\n\ninside was cozy and there were more seating\noptions at the very back. We got their coffee and hot chocolate and both were good. The latte was pretty solid and was made with latte art. we also tried one of their cookies which i actually thought was a crinkle at first. not bad. They have lots other pastries and baked good. Wonder if they were made in house.\n\nanyway, i had the mishap of knocking over my hot coco and was left with less than 1/4th of it. So embarrassing! I tried to quickly clean up after the mess but staff also helped out even without me asking which was very thoughtful. aside from that i was even given another hot coco which I was hesitant at first to take since it was my fault i lost most of my drink but staff was very kind. I gladly accepted it and it warmed not only my body but also my soul! thank you Jefferson’s!",
+            "time": 1700706877,
+            "translated": false
+        },
+        {
+            "author_name": "Emily G",
+            "author_url": "https://www.google.com/maps/contrib/101570961882172327609/reviews",
+            "language": "en",
+            "original_language": "en",
+            "profile_photo_url": "https://lh3.googleusercontent.com/a-/ALV-UjVsJkvgtg67C2nx3AT29wRpnh1JH98AkloHcA9SS7JQKY0pa0jr=s128-c0x00000000-cc-rp-mo-ba3",
+            "rating": 5,
+            "relative_time_description": "3 months ago",
+            "text": "The price is reasonable with pretty good taste, and the store decor which features colorful seats and cozy vibes. Their customer service and store space are also a thumbs up. Also they are one of the only shops opening on Christmas so my dog and I had a place to go…",
+            "time": 1705268609,
+            "translated": false
+        },
+        {
+            "author_name": "Deepty Murthy (13)",
+            "author_url": "https://www.google.com/maps/contrib/100732733117340341769/reviews",
+            "language": "en",
+            "original_language": "en",
+            "profile_photo_url": "https://lh3.googleusercontent.com/a-/ALV-UjWzCxjmLxbDTHJIaQsJX19577hOBUXarSMnICCv5wFT9oBrSfCG=s128-c0x00000000-cc-rp-mo-ba5",
+            "rating": 5,
+            "relative_time_description": "9 months ago",
+            "text": "Very much my fav cafe for coffee in Hoboken and the bakery is very fresh too.. they have indoor outdoor door seating and watch the video for the beautiful backyard ❤️. They are open till 8 pm and often crowded on weekends.. they have coffee, Teas and Matcha .. loyal customer for 3yrs and going strong .. service is awesome!!",
+            "time": 1691320440,
+            "translated": false
+        },
+        {
+            "author_name": "Nidhi Sura",
+            "author_url": "https://www.google.com/maps/contrib/102245506345333162999/reviews",
+            "language": "en",
+            "original_language": "en",
+            "profile_photo_url": "https://lh3.googleusercontent.com/a-/ALV-UjUv6tTBz_RZHdXGgkQCkEt3G477IkgavzkwmV4_MkIOs4xvslqMgg=s128-c0x00000000-cc-rp-mo",
+            "rating": 5,
+            "relative_time_description": "2 weeks ago",
+            "text": "Great place to take your laptop and get some work done. Their coffee is strong and well-priced, and they have a cute little nook for you to sit in the back with an abundance of charging points. The baristas are always incredibly sweet!",
+            "time": 1713132861,
+            "translated": false
+        }
+    ],
+    "secondary_opening_hours": [
+        {
+            "open_now": false,
+            "periods": [
+                {
+                    "close": {
+                        "date": "2024-05-05",
+                        "day": 0,
+                        "time": "1700"
+                    },
+                    "open": {
+                        "date": "2024-05-05",
+                        "day": 0,
+                        "time": "0900"
+                    }
+                },
+                {
+                    "close": {
+                        "date": "2024-05-06",
+                        "day": 1,
+                        "time": "1700"
+                    },
+                    "open": {
+                        "date": "2024-05-06",
+                        "day": 1,
+                        "time": "0900"
+                    }
+                },
+                {
+                    "close": {
+                        "date": "2024-05-07",
+                        "day": 2,
+                        "time": "1700"
+                    },
+                    "open": {
+                        "date": "2024-05-07",
+                        "day": 2,
+                        "time": "0900"
+                    }
+                },
+                {
+                    "close": {
+                        "date": "2024-05-08",
+                        "day": 3,
+                        "time": "1700"
+                    },
+                    "open": {
+                        "date": "2024-05-08",
+                        "day": 3,
+                        "time": "0900"
+                    }
+                },
+                {
+                    "close": {
+                        "date": "2024-05-09",
+                        "day": 4,
+                        "time": "1700"
+                    },
+                    "open": {
+                        "date": "2024-05-09",
+                        "day": 4,
+                        "time": "0900"
+                    }
+                },
+                {
+                    "close": {
+                        "date": "2024-05-10",
+                        "day": 5,
+                        "time": "1700"
+                    },
+                    "open": {
+                        "date": "2024-05-10",
+                        "day": 5,
+                        "time": "0900"
+                    }
+                },
+                {
+                    "close": {
+                        "date": "2024-05-04",
+                        "day": 6,
+                        "time": "1700"
+                    },
+                    "open": {
+                        "date": "2024-05-04",
+                        "day": 6,
+                        "time": "0900"
+                    }
+                }
+            ],
+            "type": "TAKEOUT",
+            "weekday_text": [
+                "Monday: 9:00 AM – 5:00 PM",
+                "Tuesday: 9:00 AM – 5:00 PM",
+                "Wednesday: 9:00 AM – 5:00 PM",
+                "Thursday: 9:00 AM – 5:00 PM",
+                "Friday: 9:00 AM – 5:00 PM",
+                "Saturday: 9:00 AM – 5:00 PM",
+                "Sunday: 9:00 AM – 5:00 PM"
+            ]
+        },
+        {
+            "open_now": false,
+            "periods": [
+                {
+                    "close": {
+                        "date": "2024-05-05",
+                        "day": 0,
+                        "time": "1900"
+                    },
+                    "open": {
+                        "date": "2024-05-05",
+                        "day": 0,
+                        "time": "0730"
+                    }
+                },
+                {
+                    "close": {
+                        "date": "2024-05-06",
+                        "day": 1,
+                        "time": "1700"
+                    },
+                    "open": {
+                        "date": "2024-05-06",
+                        "day": 1,
+                        "time": "0900"
+                    }
+                },
+                {
+                    "close": {
+                        "date": "2024-05-07",
+                        "day": 2,
+                        "time": "1700"
+                    },
+                    "open": {
+                        "date": "2024-05-07",
+                        "day": 2,
+                        "time": "0900"
+                    }
+                },
+                {
+                    "close": {
+                        "date": "2024-05-08",
+                        "day": 3,
+                        "time": "1700"
+                    },
+                    "open": {
+                        "date": "2024-05-08",
+                        "day": 3,
+                        "time": "0900"
+                    }
+                },
+                {
+                    "close": {
+                        "date": "2024-05-09",
+                        "day": 4,
+                        "time": "1700"
+                    },
+                    "open": {
+                        "date": "2024-05-09",
+                        "day": 4,
+                        "time": "0900"
+                    }
+                },
+                {
+                    "close": {
+                        "date": "2024-05-10",
+                        "day": 5,
+                        "time": "1700"
+                    },
+                    "open": {
+                        "date": "2024-05-10",
+                        "day": 5,
+                        "time": "0900"
+                    }
+                },
+                {
+                    "close": {
+                        "date": "2024-05-04",
+                        "day": 6,
+                        "time": "1700"
+                    },
+                    "open": {
+                        "date": "2024-05-04",
+                        "day": 6,
+                        "time": "0900"
+                    }
+                }
+            ],
+            "type": "ONLINE_SERVICE_HOURS",
+            "weekday_text": [
+                "Monday: 9:00 AM – 5:00 PM",
+                "Tuesday: 9:00 AM – 5:00 PM",
+                "Wednesday: 9:00 AM – 5:00 PM",
+                "Thursday: 9:00 AM – 5:00 PM",
+                "Friday: 9:00 AM – 5:00 PM",
+                "Saturday: 9:00 AM – 5:00 PM",
+                "Sunday: 7:30 AM – 7:00 PM"
+            ]
+        }
+    ],
+    "serves_brunch": false,
+    "serves_dinner": false,
+    "serves_lunch": false,
+    "serves_vegetarian_food": true,
+    "takeout": true,
+    "types": [
+        "cafe",
+        "bakery",
+        "store",
+        "food",
+        "point_of_interest",
+        "establishment"
+    ],
+    "url": "https://maps.google.com/?cid=11125017013100264342",
+    "user_ratings_total": 246,
+    "utc_offset": -240,
+    "vicinity": "534 Washington Street, Hoboken",
+    "website": "http://jeffersonscoffeemenu.com/",
+    "wheelchair_accessible_entrance": true
+}
