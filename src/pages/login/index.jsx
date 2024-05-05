@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import "../../styles/globals.css";
+import { doSignInWithEmailAndPassword } from "../../lib/firebase/auth.js";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -20,7 +21,9 @@ export default function Login() {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (validateForm()) {
-      alert("email: " + email + "\npassword: " + password);
+      //alert("email: " + email + "\npassword: " + password);
+      console.log("email: " + email + "\npassword: " + password)
+      doSignInWithEmailAndPassword(email, password);
     }
   };
 

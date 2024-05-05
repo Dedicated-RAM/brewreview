@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import "../../styles/globals.css";
+import { doCreateUserWithEmailAndPassword } from "../../lib/firebase/auth.js";
 
 export default function Register() {
   const [email, setEmail] = useState("");
