@@ -1,7 +1,16 @@
 import {
-	GoogleAuthProvider,
-	signInWithPopup,
 	onAuthStateChanged as _onAuthStateChanged,
+	getAuth,
+	createUserWithEmailAndPassword,
+	signOut,
+	updateProfile,
+	signInWithEmailAndPassword,
+	updatePassword,
+	signInWithPopup,
+	GoogleAuthProvider,
+	sendPasswordResetEmail,
+	EmailAuthProvider,
+	reauthenticateWithCredential,
 } from "firebase/auth";
 
 import { auth } from "@/src/lib/firebase/firebase";
