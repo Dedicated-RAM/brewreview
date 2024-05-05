@@ -27,7 +27,7 @@ export default function Review() {
                 setLoading(false);
             })();
         }
-    }, []);
+    }, [placeid]);
 
     const validateForm = () => {
         let errors = [];
