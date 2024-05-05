@@ -5,13 +5,13 @@ import Link from "next/link";
 import "../../styles/globals.css";
 
 export default function Login() {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
 
   const validateForm = () => {
     let errorList = [];
-    if (!username) errorList.push("Username is required.");
+    if (!email) errorList.push("Email is required.");
     if (!password) errorList.push("Password is required.");
     setErrors(errorList);
     return errorList.length === 0;
@@ -20,7 +20,7 @@ export default function Login() {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (validateForm()) {
-      alert("username: " + username + "\npassword: " + password);
+      alert("email: " + email + "\npassword: " + password);
     }
   };
 
@@ -31,16 +31,16 @@ export default function Login() {
           Brew Review
         </h1>
         <form className="flex flex-col gap-1 mt-4" onSubmit={handleSubmit}>
-          <label className="mt-4 text-accent-6 text-2xl" htmlFor="username">
-            Username
+          <label className="mt-4 text-accent-6 text-2xl" htmlFor="email">
+          Email
           </label>
           <input
             className="rounded-md border-2 border-accent-5 p-2"
-            type="username"
-            id="username"
-            name="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            type="email"
+            id="email"
+            name="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
           <label className="mt-4 text-accent-6 text-2xl" htmlFor="password">
             Password
