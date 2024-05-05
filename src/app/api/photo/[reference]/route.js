@@ -10,7 +10,7 @@ export async function GET(req, { params }) {
         );
 
 
-        const res = await axios.get(`https://maps.googleapis.com/maps/api/place/photo?maxwidth=1600&photo_reference=${encodeURIComponent(params.reference)}&skipHttpRedirect=true&key=${encodeURIComponent(
+        const res = await axios.get(`https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photo_reference=${encodeURIComponent(params.reference)}&skipHttpRedirect=true&key=${encodeURIComponent(
             process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY
         )}`);
 

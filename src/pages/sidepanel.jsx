@@ -44,7 +44,7 @@ export default function SidePanel({ onClose, place }) {
     }
   }, [panel, placeData]);
 
-  if (!place || !placeData) return (
+  if (!place || !placeData || Object.keys(placeData).length <= 0) return (
     <>
       <div className="h-full w-1/3 fixed z-1 top-0 left-0 overflow-x-hidden bg-accent-1 font-short-stack text-accent-6">
         <button className="btn btn-square absolute top-5 right-5">
@@ -100,8 +100,13 @@ export default function SidePanel({ onClose, place }) {
         <div className="">
           <h1 className="text-3xl font-bold pl-5 pt-5">{place.name}</h1>
           <div className="pl-5">
-            <span className="">{placeData.rating}</span>
-            <span className="">★★★★★</span>
+            <span className="">
+              {placeData.rating}
+              {Array.from({ length: Math.floor(placeData.rating) }, (_, index) => (
+                <span key={index}>★</span>
+              ))}
+            </span>
+            <span className=""></span>
             <span className="">({placeData.user_ratings_total})</span>
           </div>
         </div>
