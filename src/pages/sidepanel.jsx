@@ -20,8 +20,13 @@ export default function SidePanel({ onClose, place }) {
       (async () => {
         const res = await fetch(`/api/cafe/${place.place_id}`);
         const data = await res.json();
-
-        const photoRes = await axios.get(`/api/photo/${data.result.result.photos[0].photo_reference}`);
+        const defaultPhoto = "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/cafe-71.png";
+        let photoRes = { data: { result: defaultPhoto } };
+        try {
+          photoRes = await axios.get(`/api/photo/${data.result.result.photos[0].photo_reference}`);
+        } catch (error) {
+          console.error("Error fetching photo", error);
+        }
         setPlacePhoto(photoRes.data.result);
 
         setPlaceData(data.result.result);
