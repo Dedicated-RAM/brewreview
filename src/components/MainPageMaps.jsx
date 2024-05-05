@@ -11,7 +11,7 @@ const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
 const containerStyle = {
   width: "100vw",
-  height: "calc(100vh - 74px)",
+  height: "calc(100vh - 64px)",
 };
 
 const markers = [{ lat: 40.743303, lng: -74.029331 }];
