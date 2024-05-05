@@ -1,7 +1,7 @@
 import Link from "next/link";
 import SidePanelOverview from "@/components/SidePanelOverview";
 import SidePanelGoogleReview from "@/components/SidePanelGoogleReview";
-import SidePanelBrewReview from "../components/SidePanelBrewReview";
+import SidePanelBrewReview from "./SidePanelBrewReview";
 
 import "../styles/globals.css";
 
