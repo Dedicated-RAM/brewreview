@@ -1,12 +1,12 @@
 import Link from "next/link";
 import SidePanelOverview from "@/components/SidePanelOverview";
 import SidePanelGoogleReview from "@/components/SidePanelGoogleReview";
-import SidePanelBrewReview from "../components/SidePanelBrewReview";
+import SidePanelBrewReview from "./SidePanelBrewReview";
 
 import "../styles/globals.css";
 
 import { useEffect, useState } from "react";
-import axios from 'axios';
+import axios from "axios";
 
 export default function SidePanel({ onClose, place }) {
   const [panel, setPanel] = useState("overview");
@@ -20,10 +20,13 @@ export default function SidePanel({ onClose, place }) {
       (async () => {
         const res = await fetch(`/api/cafe/${place.place_id}`);
         const data = await res.json();
-        const defaultPhoto = "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/cafe-71.png";
+        const defaultPhoto =
+          "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/cafe-71.png";
         let photoRes = { data: { result: defaultPhoto } };
         try {
-          photoRes = await axios.get(`/api/photo/${data.result.result.photos[0].photo_reference}`);
+          photoRes = await axios.get(
+            `/api/photo/${data.result.result.photos[0].photo_reference}`
+          );
         } catch (error) {
           console.error("Error fetching photo", error);
         }
@@ -49,33 +52,33 @@ export default function SidePanel({ onClose, place }) {
     }
   }, [panel, placeData]);
 
-  if (!place || !placeData || Object.keys(placeData).length <= 0) return (
-    <>
-      <div className="h-full w-1/3 fixed z-1 top-0 left-0 overflow-x-hidden bg-accent-1 font-short-stack text-accent-6">
-        <button className="btn btn-square absolute top-5 right-5">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            onClick={onClose}
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M6 18L18 6M6 6l12 12"
-            />
-          </svg>
-        </button>
-        <div className="">
-          <h1 className="text-3xl font-bold pl-5 pt-5 center">Loading...</h1>
+  if (!place || !placeData || Object.keys(placeData).length <= 0)
+    return (
+      <>
+        <div className="h-full w-1/3 fixed z-1 top-0 left-0 overflow-x-hidden bg-accent-1 font-short-stack text-accent-6">
+          <button className="btn btn-square absolute top-5 right-5">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              onClick={onClose}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+          <div className="">
+            <h1 className="text-3xl font-bold pl-5 pt-5 center">Loading...</h1>
+          </div>
         </div>
-      </div>
-    </>
-  )
-
+      </>
+    );
 
   return (
     <>
@@ -107,9 +110,12 @@ export default function SidePanel({ onClose, place }) {
           <div className="pl-5">
             <span className="">
               {placeData.rating}
-              {Array.from({ length: Math.floor(placeData.rating) }, (_, index) => (
-                <span key={index}>★</span>
-              ))}
+              {Array.from(
+                { length: Math.floor(placeData.rating) },
+                (_, index) => (
+                  <span key={index}>★</span>
+                )
+              )}
             </span>
             <span className=""></span>
             <span className="">({placeData.user_ratings_total})</span>

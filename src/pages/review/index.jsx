@@ -1,9 +1,11 @@
+"use client";
+
 import { useState } from "react";
 import Link from "next/link";
-import "../styles/globals.css";
+import "../../styles/globals.css";
 import SidePanelOverview from "@/components/SidePanelOverview";
 import SidePanelGoogleReview from "@/components/SidePanelGoogleReview";
-import SidePanelBrewReview from "../components/SidePanelBrewReview";
+import SidePanelBrewReview from "../../components/SidePanelBrewReview";
 
 export default function Review() {
   const [value, setValue] = useState(40);

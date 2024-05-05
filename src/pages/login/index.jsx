@@ -1,6 +1,8 @@
+"use client";
+
 import { useState } from "react";
 import Link from "next/link";
-import "../styles/globals.css";
+import "../../styles/globals.css";
 
 export default function Login() {
   const [username, setUsername] = useState("");
