@@ -66,7 +66,6 @@ export default function MainPageMaps() {
   };
 
   return (
-
     <div className="h-screen">
       {isLoaded && (
         <GoogleMap
@@ -85,11 +84,23 @@ export default function MainPageMaps() {
             />
           ))}
           <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
-            <input type="text" placeholder="Search for a place" style={{ position: "absolute", top: "50px", right: "50px", zIndex: "1" }} />
+            <input
+              type="text"
+              placeholder="Search for a cafe"
+              style={{ position: "absolute", top: "50px", right: "50px", zIndex: "1" }}
+              onChange={(e) => {
+                const { value } = e.target;
+                if (autocomplete !== null) {
+                  const options = {
+                    types: ["cafe"],
+                  };
+                  autocomplete.setOptions(options);
+                }
+              }}
+            />
           </Autocomplete>
         </GoogleMap>
       )}
-
 
       {showSidePanel && <SidePanel onClose={closeSidePanel} place={placeData} />}
     </div>
