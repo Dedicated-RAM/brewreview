@@ -65,7 +65,7 @@ export default function SidePanel({ onClose, place }) {
           </svg>
         </button>
         <div className="">
-          <h1 className="text-3xl font-bold pl-5 pt-5 center">No place selected!</h1>
+          <h1 className="text-3xl font-bold pl-5 pt-5 center">Loading...</h1>
         </div>
       </div>
     </>

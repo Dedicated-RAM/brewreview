@@ -71,8 +71,13 @@ export default function MainPageMaps() {
           {markers.map((marker, index) => (
             <Marker key={index} position={marker} onClick={onClick} />
           ))}
+          <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
+            <input type="text" placeholder="Search for a place" style={{ position: "absolute", top: "50px", right: "50px", zIndex: "1" }} />
+          </Autocomplete>
         </GoogleMap>
       )}
+
+
       {showSidePanel && <SidePanel onClose={closeSidePanel} place={placeData} />}
     </div>
   );
