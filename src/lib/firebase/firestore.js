@@ -1,6 +1,7 @@
 /* Database Schema
 
 cafe collection
+{
 	maps_place_id: string
 
 	cafes/{cafe_id}/reviews collection
@@ -16,6 +17,16 @@ cafe collection
 		updated_at: timestamp
 	}
 }
+
+groups collection
+{
+	name: string
+	description: string
+	max_count: number
+	members: array of user ids
+	location: reference to a cafe document (ex. /cafes/abc)
+}
+
 */
 
 import { generateFakeRestaurantsAndReviews } from "@/src/lib/fakeRestaurants.js";
@@ -148,6 +159,73 @@ export async function getCafeByPlaceId(place_id) {
 	return {
 		id: doc.id,
 		...doc.data(),
+	};
+}
+
+/**
+ * Gets a group by its ID
+ * @param {String} groupId	The ID of the group to get
+ * @returns {Object}	The group object
+ */
+export async function getGroupById(groupId) {
+	const docRef = doc(db, "groups", groupId);
+	const docSnap = await getDoc(docRef);
+	return {
+		id: docSnap.id,
+		...docSnap.data(),
+	};
+}
+
+/**
+ * Gets all groups
+ * @returns {Array}	An array of all groups
+ */
+export async function getGroups() {
+	const q = query(collection(db, "groups"));
+	const results = await getDocs(q);
+
+	return results.docs.map((doc) => {
+		return {
+			id: doc.id,
+			...doc.data(),
+		};
+	});
+}
+
+/**
+ * Adds a group to the database
+ * @param {Object} db		The Firestore database object
+ * @param {Object} group	The group object to add to the database
+ * @returns {Object}	The group object
+ */
+export async function addGroup(db, group) {
+	const groupRef = collection(db, "groups");
+	const groupData = {
+		...group,
+	};
+	const docRef = await addDoc(groupRef, groupData);
+	return {
+		id: docRef.id,
+		...groupData,
+	};
+}
+
+/**
+ * Edits a group in the database
+ * @param {Object} db		The Firestore database object
+ * @param {String} groupId	The ID of the group to edit
+ * @param {Object} group	The group object to update the group with
+ * @returns {Object}	The group object
+ */
+export async function editGroup(db, groupId, group) {
+	const groupRef = doc(db, "groups", groupId);
+	const groupData = {
+		...group,
+	};
+	await updateDoc(groupRef, groupData);
+	return {
+		id: groupId,
+		...groupData,
 	};
 }
 
