@@ -2,7 +2,7 @@ import { useEffect } from "react";
 
 import { RxAvatar } from "react-icons/rx";
 import SidePanelBrewForm from "../components/SidePanelBrewForm";
-export default function SidePanelBrewReview(props) {
+export default function SidePanelBrewReview({ place }) {
 
   useEffect(() => { }, [place]);
 

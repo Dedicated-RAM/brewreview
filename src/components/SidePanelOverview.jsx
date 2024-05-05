@@ -21,11 +21,11 @@ export default function SidePanelOverview({ place }) {
         </div>
         <div className="flex items-center space-x-2">
           <FaClock />
-          <span className="text-sm">
+          {place.opening_hours && place.opening_hours.weekday_text && (<span className="text-sm">
             {place.opening_hours.weekday_text.map((text, index) => (
               <p key={index}>{text}</p>
             ))}
-          </span>
+          </span>)}
         </div>
         <div className="flex items-center space-x-2">
           <IoLink />
