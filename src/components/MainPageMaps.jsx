@@ -11,7 +11,7 @@ const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
 const containerStyle = {
   width: "100vw",
-  height: "100vh",
+  height: "calc(100vh - 74px)",
 };
 
 const markers = [{ lat: 40.743303, lng: -74.029331 }];
@@ -50,14 +50,14 @@ export default function MainPageMaps() {
   }, []);
 
   return (
-    <div style={{ width: "100vw", height: "100vh" }}>
+    <div className="h-screen">
       {isLoaded && (
         <GoogleMap
           mapContainerStyle={containerStyle}
           center={center}
           zoom={15}
           options={{
-            fullscreenControl: false, // Remove fullscreen button
+            fullscreenControl: false,
           }}
         >
           {markers.map((marker, index) => (
