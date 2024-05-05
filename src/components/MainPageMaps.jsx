@@ -8,6 +8,7 @@ import SidePanel from "../pages/sidepanel";
 import React, { useState } from "react";
 
 import { Autocomplete } from "@react-google-maps/api";
+import { BsPhoneLandscape } from "react-icons/bs";
 
 const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 const LIBRARIES = ["places", "geometry", "drawing"];
@@ -17,7 +18,6 @@ const containerStyle = {
   height: "calc(100vh - 64px)",
 };
 
-const markers = [{ lat: 40.743303, lng: -74.029331 }];
 const center = {
   lat: 40.745255,
   lng: -74.034775,
@@ -29,10 +29,10 @@ export default function MainPageMaps() {
     libraries: LIBRARIES
   });
 
+  const [placeMarkers, setPlaceMarkers] = useState([]);
   const [showSidePanel, setShowSidePanel] = useState(false);
   const [mapCenter, setMapCenter] = useState(center);
   const [placeData, setPlaceData] = useState({});
-  const [placeId, setPlaceId] = useState("");
   const [autocomplete, setAutocomplete] = useState(null);
 
   const onLoad = (autocomplete) => {
@@ -42,13 +42,22 @@ export default function MainPageMaps() {
   const onPlaceChanged = () => {
     if (autocomplete !== null) {
       const place = autocomplete.getPlace();
+
+      if (place.geometry) {
+        setMapCenter({
+          lat: place.geometry.location.lat(),
+          lng: place.geometry.location.lng()
+        });
+        setPlaceMarkers((prev) => [...prev, place]);
+      }
+
       setPlaceData(place);
       setShowSidePanel(true);
     }
   };
 
-  const onClick = (marker) => {
-    setMapCenter(marker);
+  const onClick = (place) => {
+    setPlaceData(place);
     setShowSidePanel(true);
   };
 
@@ -68,8 +77,12 @@ export default function MainPageMaps() {
             fullscreenControl: false,
           }}
         >
-          {markers.map((marker, index) => (
-            <Marker key={index} position={marker} onClick={onClick} />
+          {placeMarkers.map((place, index) => (
+            <Marker
+              key={index}
+              position={{ lat: place.geometry.location.lat(), lng: place.geometry.location.lng() }}
+              onClick={() => onClick(place)}
+            />
           ))}
           <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
             <input type="text" placeholder="Search for a place" style={{ position: "absolute", top: "50px", right: "50px", zIndex: "1" }} />
