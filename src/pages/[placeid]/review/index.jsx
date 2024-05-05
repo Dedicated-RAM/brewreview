@@ -50,8 +50,8 @@ export default function Review() {
     if (loading) return <div>Loading...</div>;
 
     return (
-        <div className="bg-accent-1 flex font-short-stack fixed inset-0 flex justify-center items-center">
-            <div className="m-auto p-10 bg-accent-2 rounded-lg shadow-lg w-1/2 rounded-md h-full">
+        <div className="bg-accent-1 flex font-short-stack inset-0 justify-center items-center overflow-y-auto">
+            <div className="mx-10 mt-96 p-10 bg-accent-2 rounded-lg  w-1/2 rounded-md h-auto">
                 <h1 className="text-4xl font-bold text-accent-6">{place.name}</h1>
                 <form className="flex flex-col gap-1 mt-4">
                     <label className="mt-4 text-accent-6 text-2xl" htmlFor="starRating">
@@ -167,7 +167,7 @@ export default function Review() {
                     </button>
                 </form>
             </div>
-            <div className="m-auto p-10 bg-accent-2 w-1/2 rounded-md h-full">
+            <div className="m-auto p-10">
                 <h1 className="text-4xl font-bold text-accent-6">Brew Review</h1>
                 <SidePanelBrewReview hideForm={true} />
                 <h1 className="text-4xl font-bold text-accent-6">Google Reviews</h1>
