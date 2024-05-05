@@ -17,8 +17,6 @@ export async function GET(req, { params }) {
             )}`
         );
 
-        console.log("Google Places API Response:", res.data);
-
         return NextResponse.json({ result: res.data });
     } catch (e) {
         console.error("Error:", e.response ? e.response.data : e.message);

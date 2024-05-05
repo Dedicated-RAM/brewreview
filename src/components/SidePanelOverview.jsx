@@ -5,14 +5,18 @@ import { IoLink } from "react-icons/io5";
 import { FaPhoneAlt } from "react-icons/fa";
 import { MdRestaurantMenu } from "react-icons/md";
 
-export default function SidePanelOverview() {
+import { useEffect } from 'react';
+
+export default function SidePanelOverview({ place }) {
+
+  useEffect(() => { }, [place]);
   return (
     <div className="">
       <div className="space-y-2 pl-5 text-xl">
         <div className="flex items-center space-x-2">
           {/* BRING DATA IN */}
           <MdPlace />
-          <span className="text-sm">207 Washington St, Hoboken, NJ 07030</span>
+          <span className="text-sm">{place.formatted_address}</span>
         </div>
         <div className="flex items-center space-x-2">
           <FaClock />
@@ -34,30 +38,30 @@ export default function SidePanelOverview() {
         </div>
       </div>
       <div className="grid grid-cols-1 gap-2 overflow-x-auto p-5">
-          <img
-            alt="Menu Item Preview"
-            className="w-full h-full object-cover"
-            src="/jeffersonscoffee.jpg"
-            style={{
-              aspectRatio: "80/80",
-              objectFit: "cover",
-            }}
-          />
-          <img
-            alt="Menu Item Preview"
-            className="w-full h-full object-cover"
-            src="/jeffersonscoffee.jpg"
-            style={{
-              aspectRatio: "80/80",
-              objectFit: "cover",
-            }}
-          />
-          <img
-            alt="Menu Item Preview"
-            className="w-full h-full object-cover"
-            src="/jeffersonscoffee.jpg"
-          />
-          </div>
+        <img
+          alt="Menu Item Preview"
+          className="w-full h-full object-cover"
+          src="/jeffersonscoffee.jpg"
+          style={{
+            aspectRatio: "80/80",
+            objectFit: "cover",
+          }}
+        />
+        <img
+          alt="Menu Item Preview"
+          className="w-full h-full object-cover"
+          src="/jeffersonscoffee.jpg"
+          style={{
+            aspectRatio: "80/80",
+            objectFit: "cover",
+          }}
+        />
+        <img
+          alt="Menu Item Preview"
+          className="w-full h-full object-cover"
+          src="/jeffersonscoffee.jpg"
+        />
+      </div>
     </div>
   );
 }
