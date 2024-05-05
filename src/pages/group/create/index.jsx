@@ -7,6 +7,8 @@ export default function Group() {
   const [groupName, setGroupName] = useState("");
   const [groupDescription, setGroupDescription] = useState("");
   const [maxGroupNumber, setMaxGroupNumber] = useState("");
+  const [time, setTime] = useState("");
+  const [date, setDate] = useState("");
   const [errors, setErrors] = useState([]);
 
   const validateForm = () => {
@@ -73,6 +75,28 @@ export default function Group() {
             name="maxGroupNumber"
             value={maxGroupNumber}
             onChange={(e) => setMaxGroupNumber(e.target.value)}
+          />
+          <label htmlFor="date" className="mt-4 text-accent-6 text-2xl">
+            Date
+          </label>
+          <input
+            className="rounded-md border-2 border-accent-5 p-2"
+            type="date"
+            id="date"
+            name="date"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+          />
+          <label htmlFor="time" className="mt-4 text-accent-6 text-2xl">
+            Time
+          </label>
+          <input
+            className="rounded-md border-2 border-accent-5 p-2"
+            type="time"
+            id="time"
+            name="time"
+            value={time}
+            onChange={(e) => setTime(e.target.value)}
           />
           {errors.map((error, index) => (
             <p key={index} className="text-red-500">
