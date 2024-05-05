@@ -26,7 +26,7 @@ export default function SidePanel({ onClose }) {
 
   return (
     <>
-      <div className="h-full w-1/3 fixed z-1 top-0 left-0 overflow-x-hidden bg-accent-1 font-short-stack text-accent-6 top-16">
+      <div className="h-full w-1/3 absolute z-10 top-16 left-0 overflow-x-hidden bg-accent-1 font-short-stack text-accent-6">
         <button className="btn btn-square absolute top-5 right-5">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -100,7 +100,6 @@ export default function SidePanel({ onClose }) {
             </button>
           </div>
         </div>
-
         {display}
       </div>
     </>
