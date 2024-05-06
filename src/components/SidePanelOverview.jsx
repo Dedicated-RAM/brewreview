@@ -4,10 +4,13 @@ import { FaClock } from "react-icons/fa";
 import { IoLink } from "react-icons/io5";
 import { FaPhoneAlt } from "react-icons/fa";
 import { MdRestaurantMenu } from "react-icons/md";
+import { useRouter } from "next/router";
 
 import { useEffect } from "react";
 
 export default function SidePanelOverview({ place }) {
+  const router = useRouter();
+
   useEffect(() => {}, [place]);
 
   if (!place || Object.keys(place).length <= 0)
@@ -16,6 +19,16 @@ export default function SidePanelOverview({ place }) {
         <p>Loading...</p>
       </div>
     );
+
+  const onClick = () => {
+    router.push({
+      pathname: "/group/create",
+      query: {
+        placeName: place.name,
+        placeId: place.place_id,
+      },
+    });
+  };
 
   return (
     <div className="">
@@ -59,6 +72,17 @@ export default function SidePanelOverview({ place }) {
             <span className="text-sm">{place?.formatted_phone_number}</span>
           </div>
         )}
+
+        <div className="flex flex-col justify-center items-center h-full">
+          <div className="mt-auto mb-4">
+            <button
+              className="bg-accent-5 text-accent-1 p-2 rounded-md"
+              onClick={onClick}
+            >
+              Create Group
+            </button>
+          </div>
+        </div>
 
         {/* <div className="flex items-center space-x-2">
           <MdRestaurantMenu />
