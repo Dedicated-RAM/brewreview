@@ -32,10 +32,18 @@ export default function Group() {
     if (!groupName) errorList.push("Group Name is required.");
     if (!groupDescription) errorList.push("Group Description is required.");
     if (!maxGroupNumber) errorList.push("Max Group Number is required.");
+    if (isNaN(maxGroupNumber))
+      errorList.push("Max Group Number must be a number.");
+    if (maxGroupNumber <= 1)
+      errorList.push("Max Group Number must be greater than 1.");
     if (!time) errorList.push("Time is required.");
     if (!date) errorList.push("Date is required.");
-    if (!location) errorList.push("Location is required.");
-    console.log(location);
+    if (!locationName) errorList.push("Location is required.");
+    if (date < new Date().toISOString().split("T")[0])
+      errorList.push("Date must be in the future.");
+    if (time < new Date().toISOString().split("T")[1].split(".")[0])
+      errorList.push("Time must be in the future.");
+
     setErrors(errorList);
     return errorList.length === 0;
   };
@@ -44,7 +52,7 @@ export default function Group() {
     event.preventDefault();
     if (validateForm()) {
       alert(
-        "Group Name: " + groupName + "\nGroup Description: " + groupDescription,
+        "Group Name: " + groupName + "\nGroup Description: " + groupDescription
       );
     }
   };
@@ -55,19 +63,21 @@ export default function Group() {
   const onPlaceChanged = () => {
     if (autocomplete !== null) {
       const place = autocomplete.getPlace();
-      setLocationName(place.name);
-      setLocationId(place.place_id);
+      if (place === undefined) {
+        setLocationName(place.name);
+        setLocationId(place.place_id);
+      }
     }
   };
 
   return (
-    <div className="bg-accent-1 flex font-short-stack inset-0 flex justify-center items-center pt-8 overflow-y-auto">
-      <div className="m-auto p-10 bg-accent-2 rounded-lg shadow-lg w-1/2 rounded-md">
-        <h1 className="text-6xl font-bold text-center text-accent-6">
+    <div className="bg-accent-1 flex font-short-stack inset-0 flex justify-center items-center pt-8 overflow-y-auto pb-8">
+      <div className="m-auto p-10 bg-accent-2 rounded-lg shadow-lg w-1/3 rounded-md">
+        <h1 className="text-3xl font-bold text-center text-accent-6">
           Create Group
         </h1>
         <form className="flex flex-col gap-1 mt-4" onSubmit={handleSubmit}>
-          <label className="mt-4 text-accent-6 text-2xl" htmlFor="groupName">
+          <label className="mt-4 text-accent-6 text-1xl" htmlFor="groupName">
             Group Name
           </label>
           <input
@@ -80,7 +90,7 @@ export default function Group() {
           />
 
           <label
-            className="mt-4 text-accent-6 text-2xl"
+            className="mt-4 text-accent-6 text-1xl"
             htmlFor="groupDescription"
           >
             Group Description
@@ -93,7 +103,7 @@ export default function Group() {
             value={groupDescription}
             onChange={(e) => setGroupDescription(e.target.value)}
           />
-          <label htmlFor="Location" className="mt-4 text-accent-6 text-2xl">
+          <label htmlFor="Location" className="mt-4 text-accent-6 text-1xl">
             Location
           </label>
           {isLoaded && (
@@ -107,8 +117,6 @@ export default function Group() {
                 type="text"
                 value={locationName}
                 onChange={(e) => {
-                  const { value } = e.target;
-                  setLocationName(value);
                   if (autocomplete !== null) {
                     const options = {
                       types: ["cafe"],
@@ -121,7 +129,7 @@ export default function Group() {
           )}
           <label
             htmlFor="maxGroupNumber"
-            className="mt-4 text-accent-6 text-2xl"
+            className="mt-4 text-accent-6 text-1xl"
           >
             Max Group Number
           </label>
@@ -133,7 +141,7 @@ export default function Group() {
             value={maxGroupNumber}
             onChange={(e) => setMaxGroupNumber(e.target.value)}
           />
-          <label htmlFor="date" className="mt-4 text-accent-6 text-2xl">
+          <label htmlFor="date" className="mt-4 text-accent-6 text-1xl">
             Date
           </label>
           <input
@@ -144,7 +152,7 @@ export default function Group() {
             value={date}
             onChange={(e) => setDate(e.target.value)}
           />
-          <label htmlFor="time" className="mt-4 text-accent-6 text-2xl">
+          <label htmlFor="time" className="mt-4 text-accent-6 text-1xl">
             Time
           </label>
           <input

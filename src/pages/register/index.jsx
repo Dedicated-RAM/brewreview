@@ -31,12 +31,12 @@ export default function Register() {
 
   return (
     <div className="bg-accent-1 flex font-short-stack inset-0 flex justify-center items-center pt-3 overflow-y-auto">
-      <div className="m-auto p-10 bg-accent-2 rounded-lg shadow-lg w-1/2 rounded-md">
-        <h1 className="text-6xl font-bold text-center text-accent-6">
+      <div className="m-auto p-10 bg-accent-2 rounded-lg shadow-lg w-1/3 rounded-md">
+        <h1 className="text-4xl font-bold text-center text-accent-6">
           Register
         </h1>
         <form className="flex flex-col gap-1 mt-4" onSubmit={handleSubmit}>
-          <label className="mt-4 text-accent-6 text-2xl" htmlFor="email">
+          <label className="mt-4 text-accent-6 text-1xl" htmlFor="email">
             Email
           </label>
           <input
@@ -48,7 +48,7 @@ export default function Register() {
             onChange={(e) => setEmail(e.target.value)}
           />
 
-          <label className="mt-4 text-accent-6 text-2xl" htmlFor="username">
+          <label className="mt-4 text-accent-6 text-1xl" htmlFor="username">
             Username
           </label>
           <input
@@ -59,7 +59,7 @@ export default function Register() {
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
-          <label className="mt-4 text-accent-6 text-2xl" htmlFor="password">
+          <label className="mt-4 text-accent-6 text-1xl" htmlFor="password">
             Password
           </label>
           <input
@@ -71,7 +71,7 @@ export default function Register() {
             onChange={(e) => setPassword(e.target.value)}
           />
           <label
-            className="mt-4 text-accent-6 text-2xl"
+            className="mt-4 text-accent-6 text-1xl"
             htmlFor="confirmPassword"
           >
             Confirm Password
@@ -91,7 +91,7 @@ export default function Register() {
           ))}
           <div className="flex justify-center items-center space-x-4">
             <button
-              className="bg-accent-5 text-accent-1 p-2 rounded-md mt-4 font-bold text-2xl w-56 mx-auto"
+              className="bg-accent-5 text-accent-1 p-2 rounded-md mt-4 font-bold text-1xl w-36 mx-auto"
               type="submit"
             >
               Register
@@ -103,7 +103,7 @@ export default function Register() {
             <div className="border-b-2 border-accent-5 flex-grow mx-2"></div>
           </div>
           <Link href="/login">
-            <button className="flex justify-center bg-accent-5 text-accent-1 p-2 rounded-md font-bold w-56 text-2xl mx-auto">
+            <button className="flex justify-center bg-accent-5 text-accent-1 p-2 rounded-md font-bold w-36 text-1xl mx-auto">
               Login
             </button>
           </Link>

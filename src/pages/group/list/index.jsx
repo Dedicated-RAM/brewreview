@@ -27,16 +27,16 @@ export default function Group() {
   };
 
   return (
-    <div className="bg-accent-1 flex font-short-stack inset-0 flex justify-center items-center overflow-auto pt-8">
-      <div className="m-auto p-10 bg-accent-2 rounded-lg shadow-lg w-1/2 rounded-md">
-        <h1 className="text-6xl font-bold text-center text-accent-6 mb-8">
+    <div className="bg-accent-1 flex font-short-stack inset-0 flex justify-center items-center overflow-auto pt-8 pb-8">
+      <div className="m-auto p-10 bg-accent-2 rounded-lg shadow-lg w-1/3 rounded-md">
+        <h1 className="text-3xl font-bold text-center text-accent-6 mb-8">
           Groups
         </h1>
         <div className="flex flex-col gap-6 mt-4">
           {groups.map((group) => (
             <div key={group.id} className="bg-accent-3 p-6 rounded-md">
               <div className="flex justify-between">
-                <h2 className="text-4xl font-bold text-accent-6 mb-4">
+                <h2 className="text-2xl font-bold text-accent-6 mb-4">
                   {group.name}
                 </h2>
                 <h2 className="text-accent-6 text-xl mb-4 mt-auto">
