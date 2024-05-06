@@ -4,8 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import "../../styles/globals.css";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { auth, db } from "../../lib/firebase/FirebaseConfig";
+import { doCreateUserWithEmailAndPassword } from "../../lib/firebase/firebase";
 
 export default function Register() {
   const [email, setEmail] = useState("");
@@ -27,18 +26,18 @@ export default function Register() {
     return errorList.length === 0;
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     if (validateForm()) {
-      createUserWithEmailAndPassword(auth, email, password)
-        .then((authUser) => {
-          router.push("/login");
-        })
-        .catch((error) => {
-          if (error.message.includes("auth/weak-password"))
-            setErrors(["Password should be at least 6 characters."]);
-          else setErrors([error.message]);
-        });
+      try {
+        await doCreateUserWithEmailAndPassword(email, password, username);
+
+        router.push("/login");
+      } catch (error) {
+        if (error.message.includes("auth/weak-password"))
+          setErrors(["Password should be at least 6 characters."]);
+        else setErrors([error.message]);
+      }
     }
   };
 

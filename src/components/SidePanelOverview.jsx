@@ -31,7 +31,6 @@ export default function SidePanelOverview({ place }) {
     });
   };
 
-  console.log(place);
   return (
     <div className="">
       <div className="space-y-2 pl-5 text-xl p-5">
