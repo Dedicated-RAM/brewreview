@@ -70,7 +70,7 @@ export default function MainPageMaps() {
       {isLoaded && (
         <GoogleMap
           mapContainerStyle={containerStyle}
-          center={center}
+          center={mapCenter}
           zoom={15}
           options={{
             fullscreenControl: false,
