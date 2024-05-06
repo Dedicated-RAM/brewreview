@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import "../../styles/globals.css";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "../../lib/firebase/FirebaseConfig";
@@ -12,6 +13,8 @@ export default function Register() {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [errors, setErrors] = useState([]);
+
+    const router = useRouter();
 
     const validateForm = () => {
         let errorList = [];
@@ -29,7 +32,9 @@ export default function Register() {
         event.preventDefault();
         if (validateForm()) {
             createUserWithEmailAndPassword(auth, email, password)
-                .then((authUser) => {})
+                .then((authUser) => {
+                    router.push("/login");
+                })
                 .catch((error) => {
                     if (error.message.includes("auth/weak-password"))
                         setErrors([

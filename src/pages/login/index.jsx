@@ -5,12 +5,15 @@ import Link from "next/link";
 import "../../styles/globals.css";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../lib/firebase/FirebaseConfig";
+import { useRouter } from "next/router";
 //import { doSignInWithEmailAndPassword } from "../../lib/firebase/auth.js";
 
 export default function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState([]);
+
+    const router = useRouter();
 
     const validateForm = () => {
         let errorList = [];
@@ -23,10 +26,11 @@ export default function Login() {
     const handleSubmit = (event) => {
         event.preventDefault();
         if (validateForm()) {
-            //alert("email: " + email + "\npassword: " + password);
-            console.log("email: " + email + "\npassword: " + password);
+            //alert("email: " + email + "\npassword: " + password)
             signInWithEmailAndPassword(auth, email, password)
-                .then((authUser) => {})
+                .then((authUser) => {
+                    router.push("/");
+                })
                 .catch((error) => {
                     if (error.message.includes("auth/invalid-credential"))
                         setErrors(["Invalid Email/Password"]);
