@@ -1,7 +1,7 @@
 import Link from "next/link";
 import SidePanelOverview from "@/components/SidePanelOverview";
 import SidePanelGoogleReview from "@/components/SidePanelGoogleReview";
-import SidePanelBrewReview from "../components/SidePanelBrewReview";
+import SidePanelBrewReview from "./SidePanelBrewReview";
 
 import "../styles/globals.css";
 
@@ -56,7 +56,7 @@ export default function SidePanel({ onClose, place }) {
   if (!place || !placeData || Object.keys(placeData).length <= 0)
     return (
       <>
-        <div className="h-full w-1/3 fixed z-1 top-0 left-0 overflow-x-hidden bg-accent-1 font-short-stack text-accent-6">
+        <div className="top-16 h-full w-1/3 fixed z-1 top-0 left-0 overflow-x-hidden bg-accent-1 font-short-stack text-accent-6">
           <button className="btn btn-square absolute top-5 right-5">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -74,9 +74,7 @@ export default function SidePanel({ onClose, place }) {
               />
             </svg>
           </button>
-          <div className="">
-            <h1 className="text-3xl font-bold pl-5 pt-5 center">Loading...</h1>
-          </div>
+          <h1 className="text-3xl font-bold pl-5 pt-5 center">Loading...</h1>
         </div>
       </>
     );
@@ -101,25 +99,28 @@ export default function SidePanel({ onClose, place }) {
             />
           </svg>
         </button>
-        <img
-          alt="Jefferson's Coffee Shop"
-          className="object-cover w-full h-30"
-          src={placePhoto}
-        />
+        <div className="h-40 w-full overflow-hidden">
+          <img
+            alt={place?.name}
+            className="object-cover w-full h-full"
+            src={placePhoto}
+          />
+        </div>
+
         <div className="">
-          <h1 className="text-3xl font-bold pl-5 pt-5">{place.name}</h1>
+          <h1 className="text-3xl font-bold pl-5 pt-5">{place?.name}</h1>
           <div className="pl-5">
             <span className="">
-              {placeData.rating}
+              {placeData?.rating}
               {Array.from(
-                { length: Math.floor(placeData.rating) },
+                { length: Math.floor(placeData?.rating) },
                 (_, index) => (
                   <span key={index}>★</span>
                 ),
               )}
             </span>
             <span className=""></span>
-            <span className="">({placeData.user_ratings_total})</span>
+            <span className="">({placeData?.user_ratings_total})</span>
           </div>
         </div>
         <div className="flex items-center place-content-center justify-evenly py-3 font-medium">

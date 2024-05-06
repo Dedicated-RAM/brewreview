@@ -1,15 +1,31 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import Link from "next/link";
-import "../styles/globals.css";
+import "../../../styles/globals.css";
 import SidePanelOverview from "@/components/SidePanelOverview";
 import SidePanelGoogleReview from "@/components/SidePanelGoogleReview";
-import SidePanelBrewReview from "../components/SidePanelBrewReview";
+import SidePanelBrewReview from "@/components/SidePanelBrewReview";
 
 export default function Review() {
-  const [value, setValue] = useState(40);
   const [seats, setSeats] = useState("");
   const [outlets, setOutlets] = useState("");
   const [errors, setErrors] = useState([]);
+  const [place, setPlace] = useState({});
+  const [loading, setLoading] = useState(true);
+
+  const router = useRouter();
+  const { placeid } = router.query;
+
+  useEffect(() => {
+    if (placeid) {
+      (async () => {
+        const res = await fetch(`/api/cafe/${placeid}`);
+        const data = await res.json();
+        setPlace(data.result.result);
+        setLoading(false);
+      })();
+    }
+  }, [placeid]);
 
   const validateForm = () => {
     let errors = [];
@@ -29,15 +45,17 @@ export default function Review() {
     alert("Submitted!");
   };
 
+  if (loading) return <div>Loading...</div>;
+
   return (
-    <div className="bg-accent-1 flex font-short-stack fixed inset-0 flex justify-center items-center">
-      <div className="m-auto p-10 bg-accent-2 rounded-lg shadow-lg w-1/2 rounded-md">
-        <h1 className="text-4xl font-bold text-accent-6">Jefferson's Coffee</h1>
-        <form className="flex flex-col gap-1 mt-4">
-          <label className="mt-4 text-accent-6 text-2xl" htmlFor="starRating">
+    <div className="bg-accent-1 flex font-short-stack inset-0 justify-center items-center overflow-y-auto">
+      <div className="m-auto p-10 rounded-lg w-auto rounded-md h-auto">
+        <h1 className="text-2xl font-bold text-accent-6">{place.name}</h1>
+        <form className="flex flex-col gap-1">
+          <label className="mt-4 text-accent-6 text-1xl" htmlFor="starRating">
             Give it a star rating
           </label>
-          <div className="rating">
+          <div className="rating rating-lg">
             <input
               type="radio"
               name="rating-1"
@@ -64,7 +82,7 @@ export default function Review() {
               className="mask mask-star bg-accent-5"
             />
           </div>
-          <label className="mt-4 text-accent-6 text-2xl">
+          <label className="mt-4 text-accent-6 text-1xl">
             How many seats were there?
           </label>
           <input
@@ -75,9 +93,9 @@ export default function Review() {
             value={seats}
             onChange={(e) => setSeats(e.target.value)}
           />
-          <label className="mt-4 text-accent-6 text-2xl">Was there wifi?</label>
+          <label className="mt-4 text-accent-6 text-1xl">Was there wifi?</label>
           <input type="checkbox" defaultChecked className="checkbox" />
-          <label className="mt-4 text-accent-6 text-2xl">
+          <label className="mt-4 text-accent-6 text-1xl">
             How many outlets?
           </label>
           <input
@@ -88,10 +106,10 @@ export default function Review() {
             value={outlets}
             onChange={(e) => setOutlets(e.target.value)}
           />
-          <label className="mt-4 text-accent-6 text-2xl">
+          <label className="mt-4 text-accent-6 text-1xl">
             How was the noise?
           </label>
-          <div className="flex items-center">
+          {/* <div className="flex items-center">
             <p className="text-accent-6">Low</p>
             <input
               type="range"
@@ -102,8 +120,30 @@ export default function Review() {
               className="range mx-2"
             />
             <p className="text-accent-6">High</p>
+          </div> */}
+          <div className="flex items-center text-sm">
+            <div className="flex items-center mr-4">
+              <input type="radio" name="radio-1" className="radio" />
+              <span className="ml-2 text-accent-6">Very Quiet</span>
+            </div>
+            <div className="flex items-center mr-4">
+              <input type="radio" name="radio-1" className="radio" />
+              <span className="ml-2 text-accent-6">Quiet</span>
+            </div>
+            <div className="flex items-center mr-4">
+              <input type="radio" name="radio-1" className="radio" />
+              <span className="ml-2 text-accent-6">Medium</span>
+            </div>
+            <div className="flex items-center mr-4">
+              <input type="radio" name="radio-1" className="radio" />
+              <span className="ml-2 text-accent-6">Loud</span>
+            </div>
+            <div className="flex items-center mr-4">
+              <input type="radio" name="radio-1" className="radio" />
+              <span className="ml-2 text-accent-6">Very Loud</span>
+            </div>
           </div>
-          <label className="mt-4 text-accent-6 text-2xl" htmlFor="review">
+          <label className="mt-4 text-accent-6 text-1xl" htmlFor="review">
             Leave a review
           </label>
           <textarea
@@ -118,18 +158,18 @@ export default function Review() {
             </p>
           ))}
           <button
-            className="bg-accent-5 text-accent-1 p-2 rounded-md mt-4 font-bold text-2xl w-56 mx-auto"
+            className="bg-accent-5 text-accent-1 p-2 rounded-md mt-4 font-bold text-1xl w-36 mx-auto"
             onClick={handleSubmit}
           >
             Submit
           </button>
         </form>
       </div>
-      <div className="m-auto p-10 bg-accent-2 w-1/2 rounded-md h-full">
-        <h1 className="text-4xl font-bold text-accent-6">Brew Review</h1>
+      <div className="m-auto p-10">
+        <h1 className="text-2xl font-bold text-accent-6">Brew Review</h1>
         <SidePanelBrewReview hideForm={true} />
-        <h1 className="text-4xl font-bold text-accent-6">Google Reviews</h1>
-        <SidePanelGoogleReview />
+        <h1 className="text-2xl font-bold text-accent-6">Google Reviews</h1>
+        <SidePanelGoogleReview place={place} />
       </div>
     </div>
   );
