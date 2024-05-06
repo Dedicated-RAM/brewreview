@@ -16,7 +16,7 @@ export default function SidePanel({ onClose, place }) {
   const [placePhoto, setPlacePhoto] = useState("");
 
   useEffect(() => {
-    if (place) {
+    if (place && place.place_id) {
       (async () => {
         const res = await fetch(`/api/cafe/${place.place_id}`);
         const data = await res.json();
@@ -25,7 +25,7 @@ export default function SidePanel({ onClose, place }) {
         let photoRes = { data: { result: defaultPhoto } };
         try {
           photoRes = await axios.get(
-            `/api/photo/${data.result.result.photos[0].photo_reference}`
+            `/api/photo/${data.result.result.photos[0].photo_reference}`,
           );
         } catch (error) {
           console.error("Error fetching photo", error);
@@ -56,7 +56,7 @@ export default function SidePanel({ onClose, place }) {
   if (!place || !placeData || Object.keys(placeData).length <= 0)
     return (
       <>
-        <div className="h-full w-1/3 fixed z-1 top-0 left-0 overflow-x-hidden bg-accent-1 font-short-stack text-accent-6">
+        <div className="top-16 h-full w-1/3 fixed z-1 top-0 left-0 overflow-x-hidden bg-accent-1 font-short-stack text-accent-6">
           <button className="btn btn-square absolute top-5 right-5">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -74,9 +74,7 @@ export default function SidePanel({ onClose, place }) {
               />
             </svg>
           </button>
-          <div className="">
-            <h1 className="text-3xl font-bold pl-5 pt-5 center">Loading...</h1>
-          </div>
+          <h1 className="text-3xl font-bold pl-5 pt-5 center">Loading...</h1>
         </div>
       </>
     );
@@ -118,7 +116,7 @@ export default function SidePanel({ onClose, place }) {
                 { length: Math.floor(placeData?.rating) },
                 (_, index) => (
                   <span key={index}>★</span>
-                )
+                ),
               )}
             </span>
             <span className=""></span>

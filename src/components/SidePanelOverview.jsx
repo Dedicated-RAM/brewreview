@@ -5,6 +5,7 @@ import { IoLink } from "react-icons/io5";
 import { FaPhoneAlt } from "react-icons/fa";
 import { MdRestaurantMenu } from "react-icons/md";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
 import { useEffect } from "react";
 
@@ -83,6 +84,20 @@ export default function SidePanelOverview({ place }) {
             </button>
           </div>
         </div>
+
+        {/* <div className="flex flex-row overflow-x-auto space-x-2 p-2.5">
+          {place?.photos?.map((photo, index) => (
+            <div key={index} className="flex-shrink-0 w-64 h-64 p-2.5">
+              <Image
+                src={`https://maps.googleapis.com/maps/api/place/photo?photoreference=${photo.photo_reference}&sensor=false&maxheight=400&maxwidth=400&key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}`}
+                alt={place.name}
+                width={512}
+                height={512}
+                objectFit="cover"
+              />
+            </div>
+          ))}
+        </div> */}
 
         {/* <div className="flex items-center space-x-2">
           <MdRestaurantMenu />

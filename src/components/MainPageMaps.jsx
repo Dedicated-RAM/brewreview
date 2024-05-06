@@ -51,8 +51,10 @@ export default function MainPageMaps() {
         setPlaceMarkers((prev) => [...prev, place]);
       }
 
-      setPlaceData(place);
-      setShowSidePanel(true);
+      if (place.place_id) {
+        setPlaceData(place);
+        setShowSidePanel(true);
+      }
     }
   };
 
@@ -70,7 +72,7 @@ export default function MainPageMaps() {
       {isLoaded && (
         <GoogleMap
           mapContainerStyle={containerStyle}
-          center={center}
+          center={mapCenter}
           zoom={15}
           options={{
             fullscreenControl: false,
