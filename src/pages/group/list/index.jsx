@@ -16,6 +16,46 @@ export default function Group() {
       time: "12:00 PM",
       date: "1/1/2024",
     },
+    {
+      id: 2,
+      name: "Group 2",
+      description: "We are trying to study for CS554 at the library.",
+      location: "Library",
+      maxCount: 5,
+      members: ["Evan Cheng", "Bryan Chan", "Aidan Haberman"],
+      time: "12:00 PM",
+      date: "1/1/2024",
+    },
+    {
+      id: 3,
+      name: "Group 3",
+      description: "We are trying to study for CS554 at the library.",
+      location: "Library",
+      maxCount: 5,
+      members: ["Evan Cheng", "Bryan Chan", "Aidan Haberman"],
+      time: "12:00 PM",
+      date: "1/1/2024",
+    },
+    {
+      id: 4,
+      name: "Group 4",
+      description: "We are trying to study for CS554 at the library.",
+      location: "Library",
+      maxCount: 5,
+      members: ["Evan Cheng", "Bryan Chan", "Aidan Haberman"],
+      time: "12:00 PM",
+      date: "1/1/2024",
+    },
+    {
+      id: 5,
+      name: "Group 5",
+      description: "We are trying to study for CS554 at the library.",
+      location: "Library",
+      maxCount: 5,
+      members: ["Evan Cheng", "Bryan Chan", "Aidan Haberman"],
+      time: "12:00 PM",
+      date: "1/1/2024",
+    },
   ]);
 
   const joinGroup = (groupId) => {
@@ -27,14 +67,14 @@ export default function Group() {
   };
 
   return (
-    <div className="bg-accent-1 flex font-short-stack inset-0 flex justify-center items-center overflow-auto pt-8 pb-8">
-      <div className="m-auto p-10 bg-accent-2 rounded-lg shadow-lg w-1/3 rounded-md">
+    <div className="bg-accent-1 inline-flex font-short-stack justify-center items-center overflow-auto pt-8 p-16">
+      <div className="m-auto p-10 bg-accent-2 rounded-lg shadow-lg rounded-md w-auto">
         <h1 className="text-3xl font-bold text-center text-accent-6 mb-8">
           Groups
         </h1>
-        <div className="flex flex-col gap-6 mt-4">
+        <div className="flex flex-wrap justify-center gap-6 mt-4">
           {groups.map((group) => (
-            <div key={group.id} className="bg-accent-3 p-6 rounded-md">
+            <div key={group.id} className="bg-accent-3 p-6 rounded-md w-1/4">
               <div className="flex justify-between">
                 <h2 className="text-2xl font-bold text-accent-6 mb-4">
                   {group.name}
@@ -48,14 +88,12 @@ export default function Group() {
               <p className="text-accent-6 text-xl mb-4">
                 Location: {group.location}
               </p>
-              <p className="text-accent-6 text-xl mb-4">
-                Members:
+              <p className="text-accent-6 text-xl mb-4">Members:</p>
+              <ul className="text-accent-6 text-xl mb-4">
                 {group.members.map((member, index) => (
-                  <span key={index} className="ml-2">
-                    {member}
-                  </span>
+                  <li key={index}>{member}</li>
                 ))}
-              </p>
+              </ul>
               <p className="text-accent-6 text-xl mb-4">
                 {group.time} on {group.date}
               </p>
