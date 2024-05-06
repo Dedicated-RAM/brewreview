@@ -32,18 +32,18 @@ groups collection
 import { generateFakeRestaurantsAndReviews } from "@/src/lib/fakeRestaurants.js";
 
 import {
-	collection,
-	onSnapshot,
-	query,
-	getDocs,
-	doc,
-	getDoc,
-	updateDoc,
-	orderBy,
-	Timestamp,
-	runTransaction,
-	where,
-	addDoc,
+  collection,
+  onSnapshot,
+  query,
+  getDocs,
+  doc,
+  getDoc,
+  updateDoc,
+  orderBy,
+  Timestamp,
+  runTransaction,
+  where,
+  addDoc,
 } from "firebase/firestore";
 
 import { db } from "@/src/lib/firebase/firebase";
@@ -55,28 +55,28 @@ import { db } from "@/src/lib/firebase/firebase";
  * @param {Object} review	The review object to add to the cafe
  */
 export async function addReview(db, place_id, review) {
-	// check if cafe exists in db
-	var cafe = await getCafeByPlaceId(place_id);
-	// if cafe does not exist, add it to db
-	if (!cafe) {
-		cafe = await addCafe(db, place_id);
-	}
-	if (!cafe) {
-		//TODO: handle error
-		return;
-	}
+  // check if cafe exists in db
+  var cafe = await getCafeByPlaceId(place_id);
+  // if cafe does not exist, add it to db
+  if (!cafe) {
+    cafe = await addCafe(db, place_id);
+  }
+  if (!cafe) {
+    //TODO: handle error
+    return;
+  }
 
-	const cafeId = cafe.id;
-	const cafeRef = doc(db, "cafes", cafeId);
-	const reviewsRef = collection(cafeRef, "reviews");
+  const cafeId = cafe.id;
+  const cafeRef = doc(db, "cafes", cafeId);
+  const reviewsRef = collection(cafeRef, "reviews");
 
-	const reviewData = {
-		...review,
-		created_at: Timestamp.now(),
-		updated_at: Timestamp.now(),
-	};
+  const reviewData = {
+    ...review,
+    created_at: Timestamp.now(),
+    updated_at: Timestamp.now(),
+  };
 
-	await addDoc(reviewsRef, reviewData);
+  await addDoc(reviewsRef, reviewData);
 }
 
 /**
@@ -87,15 +87,15 @@ export async function addReview(db, place_id, review) {
  * @param {Object} review	The review object to update the review with
  */
 export async function editReview(db, cafeId, reviewId, review) {
-	const cafeRef = doc(db, "cafes", cafeId);
-	const reviewRef = doc(collection(cafeRef, "reviews"), reviewId);
+  const cafeRef = doc(db, "cafes", cafeId);
+  const reviewRef = doc(collection(cafeRef, "reviews"), reviewId);
 
-	const reviewData = {
-		...review,
-		updated_at: Timestamp.now(),
-	};
+  const reviewData = {
+    ...review,
+    updated_at: Timestamp.now(),
+  };
 
-	await updateDoc(reviewRef, reviewData);
+  await updateDoc(reviewRef, reviewData);
 }
 
 /**
@@ -104,18 +104,18 @@ export async function editReview(db, cafeId, reviewId, review) {
  * @returns {Array}	An array of reviews for the cafe ordered by newest first
  */
 export async function getCafeReviews(cafeId) {
-	const cafeRef = doc(db, "cafes", cafeId);
-	const reviewsRef = collection(cafeRef, "reviews");
+  const cafeRef = doc(db, "cafes", cafeId);
+  const reviewsRef = collection(cafeRef, "reviews");
 
-	const q = query(reviewsRef, orderBy("updated_at", "desc"));
-	const results = await getDocs(q);
+  const q = query(reviewsRef, orderBy("updated_at", "desc"));
+  const results = await getDocs(q);
 
-	return results.docs.map((doc) => {
-		return {
-			id: doc.id,
-			...doc.data(),
-		};
-	});
+  return results.docs.map((doc) => {
+    return {
+      id: doc.id,
+      ...doc.data(),
+    };
+  });
 }
 
 /**
@@ -125,17 +125,17 @@ export async function getCafeReviews(cafeId) {
  * @returns {Object}	The cafe object
  */
 async function addCafe(db, place_id) {
-	const cafeRef = collection(db, "cafes");
-	const cafeData = {
-		maps_place_id: place_id,
-	};
-	// add the cafe to the database
-	const docRef = await addDoc(cafeRef, cafeData);
-	// return the cafe object
-	return {
-		id: docRef.id,
-		...cafeData,
-	};
+  const cafeRef = collection(db, "cafes");
+  const cafeData = {
+    maps_place_id: place_id,
+  };
+  // add the cafe to the database
+  const docRef = await addDoc(cafeRef, cafeData);
+  // return the cafe object
+  return {
+    id: docRef.id,
+    ...cafeData,
+  };
 }
 
 /**
@@ -145,21 +145,21 @@ async function addCafe(db, place_id) {
  * @returns {null}	If the cafe does not exist
  */
 export async function getCafeByPlaceId(place_id) {
-	const q = query(
-		collection(db, "cafes"),
-		where("maps_place_id", "==", place_id)
-	);
-	const results = await getDocs(q);
+  const q = query(
+    collection(db, "cafes"),
+    where("maps_place_id", "==", place_id),
+  );
+  const results = await getDocs(q);
 
-	if (results.empty) {
-		return null;
-	}
+  if (results.empty) {
+    return null;
+  }
 
-	const doc = results.docs[0];
-	return {
-		id: doc.id,
-		...doc.data(),
-	};
+  const doc = results.docs[0];
+  return {
+    id: doc.id,
+    ...doc.data(),
+  };
 }
 
 /**
@@ -168,12 +168,12 @@ export async function getCafeByPlaceId(place_id) {
  * @returns {Object}	The group object
  */
 export async function getGroupById(groupId) {
-	const docRef = doc(db, "groups", groupId);
-	const docSnap = await getDoc(docRef);
-	return {
-		id: docSnap.id,
-		...docSnap.data(),
-	};
+  const docRef = doc(db, "groups", groupId);
+  const docSnap = await getDoc(docRef);
+  return {
+    id: docSnap.id,
+    ...docSnap.data(),
+  };
 }
 
 /**
@@ -181,15 +181,15 @@ export async function getGroupById(groupId) {
  * @returns {Array}	An array of all groups
  */
 export async function getGroups() {
-	const q = query(collection(db, "groups"));
-	const results = await getDocs(q);
+  const q = query(collection(db, "groups"));
+  const results = await getDocs(q);
 
-	return results.docs.map((doc) => {
-		return {
-			id: doc.id,
-			...doc.data(),
-		};
-	});
+  return results.docs.map((doc) => {
+    return {
+      id: doc.id,
+      ...doc.data(),
+    };
+  });
 }
 
 /**
@@ -199,15 +199,15 @@ export async function getGroups() {
  * @returns {Object}	The group object
  */
 export async function addGroup(db, group) {
-	const groupRef = collection(db, "groups");
-	const groupData = {
-		...group,
-	};
-	const docRef = await addDoc(groupRef, groupData);
-	return {
-		id: docRef.id,
-		...groupData,
-	};
+  const groupRef = collection(db, "groups");
+  const groupData = {
+    ...group,
+  };
+  const docRef = await addDoc(groupRef, groupData);
+  return {
+    id: docRef.id,
+    ...groupData,
+  };
 }
 
 /**
@@ -218,15 +218,15 @@ export async function addGroup(db, group) {
  * @returns {Object}	The group object
  */
 export async function editGroup(db, groupId, group) {
-	const groupRef = doc(db, "groups", groupId);
-	const groupData = {
-		...group,
-	};
-	await updateDoc(groupRef, groupData);
-	return {
-		id: groupId,
-		...groupData,
-	};
+  const groupRef = doc(db, "groups", groupId);
+  const groupData = {
+    ...group,
+  };
+  await updateDoc(groupRef, groupData);
+  return {
+    id: groupId,
+    ...groupData,
+  };
 }
 
 /*
@@ -240,225 +240,225 @@ export async function editGroup(db, groupId, group) {
 
 //* EXAMPLE FUNCTIONS
 export async function updateRestaurantImageReference(
-	restaurantId,
-	publicImageUrl
+  restaurantId,
+  publicImageUrl,
 ) {
-	const restaurantRef = doc(collection(db, "restaurants"), restaurantId);
-	if (restaurantRef) {
-		await updateDoc(restaurantRef, { photo: publicImageUrl });
-	}
+  const restaurantRef = doc(collection(db, "restaurants"), restaurantId);
+  if (restaurantRef) {
+    await updateDoc(restaurantRef, { photo: publicImageUrl });
+  }
 }
 
 const updateWithRating = async (
-	transaction,
-	docRef,
-	newRatingDocument,
-	review
+  transaction,
+  docRef,
+  newRatingDocument,
+  review,
 ) => {
-	const restaurant = await transaction.get(docRef);
-	const data = restaurant.data();
-	const newNumRatings = data?.numRatings ? data.numRatings + 1 : 1;
-	const newSumRating = (data?.sumRating || 0) + Number(review.rating);
-	const newAverage = newSumRating / newNumRatings;
+  const restaurant = await transaction.get(docRef);
+  const data = restaurant.data();
+  const newNumRatings = data?.numRatings ? data.numRatings + 1 : 1;
+  const newSumRating = (data?.sumRating || 0) + Number(review.rating);
+  const newAverage = newSumRating / newNumRatings;
 
-	transaction.update(docRef, {
-		numRatings: newNumRatings,
-		sumRating: newSumRating,
-		avgRating: newAverage,
-	});
+  transaction.update(docRef, {
+    numRatings: newNumRatings,
+    sumRating: newSumRating,
+    avgRating: newAverage,
+  });
 
-	transaction.set(newRatingDocument, {
-		...review,
-		timestamp: Timestamp.fromDate(new Date()),
-	});
+  transaction.set(newRatingDocument, {
+    ...review,
+    timestamp: Timestamp.fromDate(new Date()),
+  });
 };
 
 //* DB is the Firestore database instance
 //* it is obtained from calling a auth.js function that returns an
 export async function addReviewToRestaurant(db, restaurantId, review) {
-	if (!restaurantId) {
-		throw new Error("No restaurant ID has been provided.");
-	}
+  if (!restaurantId) {
+    throw new Error("No restaurant ID has been provided.");
+  }
 
-	if (!review) {
-		throw new Error("A valid review has not been provided.");
-	}
+  if (!review) {
+    throw new Error("A valid review has not been provided.");
+  }
 
-	try {
-		const docRef = doc(collection(db, "restaurants"), restaurantId);
-		const newRatingDocument = doc(
-			collection(db, `restaurants/${restaurantId}/ratings`)
-		);
+  try {
+    const docRef = doc(collection(db, "restaurants"), restaurantId);
+    const newRatingDocument = doc(
+      collection(db, `restaurants/${restaurantId}/ratings`),
+    );
 
-		// corrected line
-		await runTransaction(db, (transaction) =>
-			updateWithRating(transaction, docRef, newRatingDocument, review)
-		);
-	} catch (error) {
-		console.error(
-			"There was an error adding the rating to the restaurant",
-			error
-		);
-		throw error;
-	}
+    // corrected line
+    await runTransaction(db, (transaction) =>
+      updateWithRating(transaction, docRef, newRatingDocument, review),
+    );
+  } catch (error) {
+    console.error(
+      "There was an error adding the rating to the restaurant",
+      error,
+    );
+    throw error;
+  }
 }
 
 function applyQueryFilters(q, { category, city, price, sort }) {
-	if (category) {
-		q = query(q, where("category", "==", category));
-	}
-	if (city) {
-		q = query(q, where("city", "==", city));
-	}
-	if (price) {
-		q = query(q, where("price", "==", price.length));
-	}
-	if (sort === "Rating" || !sort) {
-		q = query(q, orderBy("avgRating", "desc"));
-	} else if (sort === "Review") {
-		q = query(q, orderBy("numRatings", "desc"));
-	}
-	return q;
+  if (category) {
+    q = query(q, where("category", "==", category));
+  }
+  if (city) {
+    q = query(q, where("city", "==", city));
+  }
+  if (price) {
+    q = query(q, where("price", "==", price.length));
+  }
+  if (sort === "Rating" || !sort) {
+    q = query(q, orderBy("avgRating", "desc"));
+  } else if (sort === "Review") {
+    q = query(q, orderBy("numRatings", "desc"));
+  }
+  return q;
 }
 
 export async function getRestaurants(filters = {}) {
-	let q = query(collection(db, "restaurants"));
+  let q = query(collection(db, "restaurants"));
 
-	q = applyQueryFilters(q, filters);
-	const results = await getDocs(q);
-	return results.docs.map((doc) => {
-		return {
-			id: doc.id,
-			...doc.data(),
-			// Only plain objects can be passed to Client Components from Server Components
-			timestamp: doc.data().timestamp.toDate(),
-		};
-	});
+  q = applyQueryFilters(q, filters);
+  const results = await getDocs(q);
+  return results.docs.map((doc) => {
+    return {
+      id: doc.id,
+      ...doc.data(),
+      // Only plain objects can be passed to Client Components from Server Components
+      timestamp: doc.data().timestamp.toDate(),
+    };
+  });
 }
 
 export function getRestaurantsSnapshot(cb, filters = {}) {
-	if (typeof cb !== "function") {
-		console.log("Error: The callback parameter is not a function");
-		return;
-	}
+  if (typeof cb !== "function") {
+    console.log("Error: The callback parameter is not a function");
+    return;
+  }
 
-	let q = query(collection(db, "restaurants"));
-	q = applyQueryFilters(q, filters);
+  let q = query(collection(db, "restaurants"));
+  q = applyQueryFilters(q, filters);
 
-	const unsubscribe = onSnapshot(q, (querySnapshot) => {
-		const results = querySnapshot.docs.map((doc) => {
-			return {
-				id: doc.id,
-				...doc.data(),
-				// Only plain objects can be passed to Client Components from Server Components
-				timestamp: doc.data().timestamp.toDate(),
-			};
-		});
+  const unsubscribe = onSnapshot(q, (querySnapshot) => {
+    const results = querySnapshot.docs.map((doc) => {
+      return {
+        id: doc.id,
+        ...doc.data(),
+        // Only plain objects can be passed to Client Components from Server Components
+        timestamp: doc.data().timestamp.toDate(),
+      };
+    });
 
-		cb(results);
-	});
+    cb(results);
+  });
 
-	return unsubscribe;
+  return unsubscribe;
 }
 
 export async function getRestaurantById(restaurantId) {
-	if (!restaurantId) {
-		console.log("Error: Invalid ID received: ", restaurantId);
-		return;
-	}
-	const docRef = doc(db, "restaurants", restaurantId);
-	const docSnap = await getDoc(docRef);
-	return {
-		...docSnap.data(),
-		timestamp: docSnap.data().timestamp.toDate(),
-	};
+  if (!restaurantId) {
+    console.log("Error: Invalid ID received: ", restaurantId);
+    return;
+  }
+  const docRef = doc(db, "restaurants", restaurantId);
+  const docSnap = await getDoc(docRef);
+  return {
+    ...docSnap.data(),
+    timestamp: docSnap.data().timestamp.toDate(),
+  };
 }
 
 export function getRestaurantSnapshotById(restaurantId, cb) {
-	if (!restaurantId) {
-		console.log("Error: Invalid ID received: ", restaurantId);
-		return;
-	}
+  if (!restaurantId) {
+    console.log("Error: Invalid ID received: ", restaurantId);
+    return;
+  }
 
-	if (typeof cb !== "function") {
-		console.log("Error: The callback parameter is not a function");
-		return;
-	}
+  if (typeof cb !== "function") {
+    console.log("Error: The callback parameter is not a function");
+    return;
+  }
 
-	const docRef = doc(db, "restaurants", restaurantId);
-	const unsubscribe = onSnapshot(docRef, (docSnap) => {
-		cb({
-			...docSnap.data(),
-			timestamp: docSnap.data().timestamp.toDate(),
-		});
-	});
-	return unsubscribe;
+  const docRef = doc(db, "restaurants", restaurantId);
+  const unsubscribe = onSnapshot(docRef, (docSnap) => {
+    cb({
+      ...docSnap.data(),
+      timestamp: docSnap.data().timestamp.toDate(),
+    });
+  });
+  return unsubscribe;
 }
 
 export async function getReviewsByRestaurantId(restaurantId) {
-	if (!restaurantId) {
-		console.log("Error: Invalid restaurantId received: ", restaurantId);
-		return;
-	}
+  if (!restaurantId) {
+    console.log("Error: Invalid restaurantId received: ", restaurantId);
+    return;
+  }
 
-	const q = query(
-		collection(db, "restaurants", restaurantId, "ratings"),
-		orderBy("timestamp", "desc")
-	);
+  const q = query(
+    collection(db, "restaurants", restaurantId, "ratings"),
+    orderBy("timestamp", "desc"),
+  );
 
-	const results = await getDocs(q);
-	return results.docs.map((doc) => {
-		return {
-			id: doc.id,
-			...doc.data(),
-			// Only plain objects can be passed to Client Components from Server Components
-			timestamp: doc.data().timestamp.toDate(),
-		};
-	});
+  const results = await getDocs(q);
+  return results.docs.map((doc) => {
+    return {
+      id: doc.id,
+      ...doc.data(),
+      // Only plain objects can be passed to Client Components from Server Components
+      timestamp: doc.data().timestamp.toDate(),
+    };
+  });
 }
 
 export function getReviewsSnapshotByRestaurantId(restaurantId, cb) {
-	if (!restaurantId) {
-		console.log("Error: Invalid restaurantId received: ", restaurantId);
-		return;
-	}
+  if (!restaurantId) {
+    console.log("Error: Invalid restaurantId received: ", restaurantId);
+    return;
+  }
 
-	const q = query(
-		collection(db, "restaurants", restaurantId, "ratings"),
-		orderBy("timestamp", "desc")
-	);
-	const unsubscribe = onSnapshot(q, (querySnapshot) => {
-		const results = querySnapshot.docs.map((doc) => {
-			return {
-				id: doc.id,
-				...doc.data(),
-				// Only plain objects can be passed to Client Components from Server Components
-				timestamp: doc.data().timestamp.toDate(),
-			};
-		});
-		cb(results);
-	});
-	return unsubscribe;
+  const q = query(
+    collection(db, "restaurants", restaurantId, "ratings"),
+    orderBy("timestamp", "desc"),
+  );
+  const unsubscribe = onSnapshot(q, (querySnapshot) => {
+    const results = querySnapshot.docs.map((doc) => {
+      return {
+        id: doc.id,
+        ...doc.data(),
+        // Only plain objects can be passed to Client Components from Server Components
+        timestamp: doc.data().timestamp.toDate(),
+      };
+    });
+    cb(results);
+  });
+  return unsubscribe;
 }
 
 export async function addFakeRestaurantsAndReviews() {
-	const data = await generateFakeRestaurantsAndReviews();
-	for (const { restaurantData, ratingsData } of data) {
-		try {
-			const docRef = await addDoc(
-				collection(db, "restaurants"),
-				restaurantData
-			);
+  const data = await generateFakeRestaurantsAndReviews();
+  for (const { restaurantData, ratingsData } of data) {
+    try {
+      const docRef = await addDoc(
+        collection(db, "restaurants"),
+        restaurantData,
+      );
 
-			for (const ratingData of ratingsData) {
-				await addDoc(
-					collection(db, "restaurants", docRef.id, "ratings"),
-					ratingData
-				);
-			}
-		} catch (e) {
-			console.log("There was an error adding the document");
-			console.error("Error adding document: ", e);
-		}
-	}
+      for (const ratingData of ratingsData) {
+        await addDoc(
+          collection(db, "restaurants", docRef.id, "ratings"),
+          ratingData,
+        );
+      }
+    } catch (e) {
+      console.log("There was an error adding the document");
+      console.error("Error adding document: ", e);
+    }
+  }
 }
