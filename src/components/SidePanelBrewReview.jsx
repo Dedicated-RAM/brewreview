@@ -53,12 +53,12 @@ export default function SidePanelBrewReview({ place, hideForm }) {
                   />
                 )}
                 <span className="pl-2 font-semibold text-base">
-                  {review.user_id}
+                  {review.user_display_name}
                 </span>
               </div>
               <div className="flex space-x-2 items-center">
                 <span className="text-accent-4 text-sm">
-                  {review.overall_rating}
+                  {review.overall_rating} stars
                 </span>
                 <span className="text-accent-4 text-lg">
                   {"★".repeat(Math.floor(review.overall_rating))}
@@ -68,10 +68,20 @@ export default function SidePanelBrewReview({ place, hideForm }) {
                 </span>
               </div>
               <p className="text-sm">{review.word_review}</p>
-              <div className="mt-3 text-sm">
-                <p className="">Seats: {review.number_of_seats}</p>
+              <div className="text-sm">
+                <div className="flex items-center">
+                  <p className="">Seats:</p>
+                  <span className="text-accent-4 text-lg">
+                    {"★".repeat(Math.floor(review.number_of_seats))}
+                  </span>
+                </div>
                 <p className="">Wifi: {review.wifi ? "Yes" : "No"}</p>
-                <p className="">Outlets: {review.outlet_rating}</p>
+                <div className="flex items-center">
+                  <p className="">Outlets:</p>
+                  <span className="text-accent-4 text-lg">
+                    {"★".repeat(Math.floor(review.outlet_rating))}
+                  </span>
+                </div>
                 <p className="">Noise: {review.noise_level}</p>
               </div>
             </div>
