@@ -32,18 +32,18 @@ groups collection
 import { generateFakeRestaurantsAndReviews } from "@/src/lib/fakeRestaurants.js";
 
 import {
-    collection,
-    onSnapshot,
-    query,
-    getDocs,
-    doc,
-    getDoc,
-    updateDoc,
-    orderBy,
-    Timestamp,
-    runTransaction,
-    where,
-    addDoc,
+  collection,
+  onSnapshot,
+  query,
+  getDocs,
+  doc,
+  getDoc,
+  updateDoc,
+  orderBy,
+  Timestamp,
+  runTransaction,
+  where,
+  addDoc,
 } from "firebase/firestore";
 
 import { db } from "@/src/lib/firebase/firebase";
@@ -55,28 +55,28 @@ import { db } from "@/src/lib/firebase/firebase";
  * @param {Object} review	The review object to add to the cafe
  */
 export async function addReview(db, place_id, review) {
-    // check if cafe exists in db
-    var cafe = await getCafeByPlaceId(place_id);
-    // if cafe does not exist, add it to db
-    if (!cafe) {
-        cafe = await addCafe(db, place_id);
-    }
-    if (!cafe) {
-        //TODO: handle error
-        return;
-    }
+  // check if cafe exists in db
+  var cafe = await getCafeByPlaceId(place_id);
+  // if cafe does not exist, add it to db
+  if (!cafe) {
+    cafe = await addCafe(db, place_id);
+  }
+  if (!cafe) {
+    //TODO: handle error
+    return;
+  }
 
-    const cafeId = cafe.id;
-    const cafeRef = doc(db, "cafes", cafeId);
-    const reviewsRef = collection(cafeRef, "reviews");
+  const cafeId = cafe.id;
+  const cafeRef = doc(db, "cafes", cafeId);
+  const reviewsRef = collection(cafeRef, "reviews");
 
-    const reviewData = {
-        ...review,
-        created_at: Timestamp.now(),
-        updated_at: Timestamp.now(),
-    };
+  const reviewData = {
+    ...review,
+    created_at: Timestamp.now(),
+    updated_at: Timestamp.now(),
+  };
 
-    await addDoc(reviewsRef, reviewData);
+  await addDoc(reviewsRef, reviewData);
 }
 
 /**
@@ -87,15 +87,15 @@ export async function addReview(db, place_id, review) {
  * @param {Object} review	The review object to update the review with
  */
 export async function editReview(db, cafeId, reviewId, review) {
-    const cafeRef = doc(db, "cafes", cafeId);
-    const reviewRef = doc(collection(cafeRef, "reviews"), reviewId);
+  const cafeRef = doc(db, "cafes", cafeId);
+  const reviewRef = doc(collection(cafeRef, "reviews"), reviewId);
 
-    const reviewData = {
-        ...review,
-        updated_at: Timestamp.now(),
-    };
+  const reviewData = {
+    ...review,
+    updated_at: Timestamp.now(),
+  };
 
-    await updateDoc(reviewRef, reviewData);
+  await updateDoc(reviewRef, reviewData);
 }
 
 /**
@@ -104,18 +104,18 @@ export async function editReview(db, cafeId, reviewId, review) {
  * @returns {Array}	An array of reviews for the cafe ordered by newest first
  */
 export async function getCafeReviews(cafeId) {
-    const cafeRef = doc(db, "cafes", cafeId);
-    const reviewsRef = collection(cafeRef, "reviews");
+  const cafeRef = doc(db, "cafes", cafeId);
+  const reviewsRef = collection(cafeRef, "reviews");
 
-    const q = query(reviewsRef, orderBy("updated_at", "desc"));
-    const results = await getDocs(q);
+  const q = query(reviewsRef, orderBy("updated_at", "desc"));
+  const results = await getDocs(q);
 
-    return results.docs.map((doc) => {
-        return {
-            id: doc.id,
-            ...doc.data(),
-        };
-    });
+  return results.docs.map((doc) => {
+    return {
+      id: doc.id,
+      ...doc.data(),
+    };
+  });
 }
 
 /**
@@ -125,17 +125,17 @@ export async function getCafeReviews(cafeId) {
  * @returns {Object}	The cafe object
  */
 async function addCafe(db, place_id) {
-    const cafeRef = collection(db, "cafes");
-    const cafeData = {
-        maps_place_id: place_id,
-    };
-    // add the cafe to the database
-    const docRef = await addDoc(cafeRef, cafeData);
-    // return the cafe object
-    return {
-        id: docRef.id,
-        ...cafeData,
-    };
+  const cafeRef = collection(db, "cafes");
+  const cafeData = {
+    maps_place_id: place_id,
+  };
+  // add the cafe to the database
+  const docRef = await addDoc(cafeRef, cafeData);
+  // return the cafe object
+  return {
+    id: docRef.id,
+    ...cafeData,
+  };
 }
 
 /**
@@ -145,21 +145,21 @@ async function addCafe(db, place_id) {
  * @returns {null}	If the cafe does not exist
  */
 export async function getCafeByPlaceId(place_id) {
-    const q = query(
-        collection(db, "cafes"),
-        where("maps_place_id", "==", place_id)
-    );
-    const results = await getDocs(q);
+  const q = query(
+    collection(db, "cafes"),
+    where("maps_place_id", "==", place_id),
+  );
+  const results = await getDocs(q);
 
-    if (results.empty) {
-        return null;
-    }
+  if (results.empty) {
+    return null;
+  }
 
-    const doc = results.docs[0];
-    return {
-        id: doc.id,
-        ...doc.data(),
-    };
+  const doc = results.docs[0];
+  return {
+    id: doc.id,
+    ...doc.data(),
+  };
 }
 
 /**
@@ -168,12 +168,12 @@ export async function getCafeByPlaceId(place_id) {
  * @returns {Object}	The group object
  */
 export async function getGroupById(groupId) {
-    const docRef = doc(db, "groups", groupId);
-    const docSnap = await getDoc(docRef);
-    return {
-        id: docSnap.id,
-        ...docSnap.data(),
-    };
+  const docRef = doc(db, "groups", groupId);
+  const docSnap = await getDoc(docRef);
+  return {
+    id: docSnap.id,
+    ...docSnap.data(),
+  };
 }
 
 /**
@@ -181,15 +181,15 @@ export async function getGroupById(groupId) {
  * @returns {Array}	An array of all groups
  */
 export async function getGroups() {
-    const q = query(collection(db, "groups"));
-    const results = await getDocs(q);
+  const q = query(collection(db, "groups"));
+  const results = await getDocs(q);
 
-    return results.docs.map((doc) => {
-        return {
-            id: doc.id,
-            ...doc.data(),
-        };
-    });
+  return results.docs.map((doc) => {
+    return {
+      id: doc.id,
+      ...doc.data(),
+    };
+  });
 }
 
 /**
@@ -199,15 +199,15 @@ export async function getGroups() {
  * @returns {Object}	The group object
  */
 export async function addGroup(db, group) {
-    const groupRef = collection(db, "groups");
-    const groupData = {
-        ...group,
-    };
-    const docRef = await addDoc(groupRef, groupData);
-    return {
-        id: docRef.id,
-        ...groupData,
-    };
+  const groupRef = collection(db, "groups");
+  const groupData = {
+    ...group,
+  };
+  const docRef = await addDoc(groupRef, groupData);
+  return {
+    id: docRef.id,
+    ...groupData,
+  };
 }
 
 /**
@@ -218,15 +218,15 @@ export async function addGroup(db, group) {
  * @returns {Object}	The group object
  */
 export async function editGroup(db, groupId, group) {
-    const groupRef = doc(db, "groups", groupId);
-    const groupData = {
-        ...group,
-    };
-    await updateDoc(groupRef, groupData);
-    return {
-        id: groupId,
-        ...groupData,
-    };
+  const groupRef = doc(db, "groups", groupId);
+  const groupData = {
+    ...group,
+  };
+  await updateDoc(groupRef, groupData);
+  return {
+    id: groupId,
+    ...groupData,
+  };
 }
 
 /*

@@ -22,7 +22,7 @@ export default function Login() {
     event.preventDefault();
     if (validateForm()) {
       //alert("email: " + email + "\npassword: " + password);
-      console.log("email: " + email + "\npassword: " + password)
+      console.log("email: " + email + "\npassword: " + password);
       doSignInWithEmailAndPassword(email, password);
     }
   };
@@ -35,7 +35,7 @@ export default function Login() {
         </h1>
         <form className="flex flex-col gap-1 mt-4" onSubmit={handleSubmit}>
           <label className="mt-4 text-accent-6 text-2xl" htmlFor="email">
-          Email
+            Email
           </label>
           <input
             className="rounded-md border-2 border-accent-5 p-2"
