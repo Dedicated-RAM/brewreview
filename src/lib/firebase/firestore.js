@@ -67,7 +67,6 @@ export async function editReview(db, cafeId, reviewId, review) {
  * @returns {Array}	An array of reviews for the cafe ordered by newest first
  */
 export async function getCafeReviews(cafeId) {
-    console.log(cafeId);
     const cafeRef = doc(db, "cafes", cafeId);
     const reviewsRef = collection(cafeRef, "reviews");
 
