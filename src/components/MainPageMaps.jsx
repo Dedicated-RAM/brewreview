@@ -92,7 +92,7 @@ export default function MainPageMaps() {
             className="z-10"
           >
             <input
-              className="font-short-stack absolute top-8 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-2 rounded-md border-2 border-accent-5 bg-accent-1 text-accent-6 w-1/2"
+              className="font-short-stack absolute top-8 left-2/3 transform -translate-x-1/2 -translate-y-1/2 p-2 rounded-md border-2 border-accent-5 bg-accent-1 text-accent-6 w-1/2"
               type="text"
               placeholder="Search for a cafe"
               onChange={(e) => {

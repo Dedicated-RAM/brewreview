@@ -26,28 +26,30 @@ export default function Header() {
           router.refresh();
         }
       });
-    }, [user]);
+    });
 
     return user;
   }
 
   return (
-    <div className="navbar bg-accent-3 font-short-stack sticky top-0">
-      <Link
-        href="/"
-        className="btn btn-ghost text-4xl bg-accent-6 text-accent-2"
-      >
-        Brew Review
-      </Link>
-      <Link href="/group/list" className="btn btn-ghost text-xl">
-        View Groups
-      </Link>
-      <Link href="/group/create" className="btn btn-ghost text-xl">
-        Create Groups
-      </Link>
-      <Link href="/login" className="btn btn-ghost text-xl ml-auto">
-        Login
-      </Link>
-    </div>
+    <header>
+      <div className="navbar bg-accent-3 font-short-stack">
+        <Link
+          href="/"
+          className="btn btn-ghost text-4xl bg-accent-6 text-accent-2"
+        >
+          Brew Review
+        </Link>
+        <Link href="/group/list" className="btn btn-ghost text-xl">
+          View Groups
+        </Link>
+        <Link href="/group/create" className="btn btn-ghost text-xl">
+          Create Groups
+        </Link>
+        <Link href="/login" className="btn btn-ghost text-xl ml-auto">
+          Login
+        </Link>
+      </div>
+    </header>
   );
 }
