@@ -15,6 +15,8 @@ export default function Group() {
     if (!groupName) errorList.push("Group Name is required.");
     if (!groupDescription) errorList.push("Group Description is required.");
     if (!maxGroupNumber) errorList.push("Max Group Number is required.");
+    if (!time) errorList.push("Time is required.");
+    if (!date) errorList.push("Date is required.");
     setErrors(errorList);
     return errorList.length === 0;
   };
