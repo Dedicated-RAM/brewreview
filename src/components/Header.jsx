@@ -2,34 +2,18 @@ import React from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { auth } from "../lib/firebase/FirebaseConfig";
 import Link from "next/link";
 import "../styles/globals.css";
 
 export default function Header() {
-  function useUserSession(initialUser) {
-    const [user, setUser] = useState(initialUser);
-    const router = useRouter();
+  const [user, setUser] = useState(null);
 
-    useEffect(() => {
-      const unsubscribe = onAuthStateChanged((authUser) => {
-        setUser(authUser);
-      });
-      return () => {
-        unsubscribe();
-      };
-    }, []);
-
-    useEffect(() => {
-      onAuthStateChanged((authUser) => {
-        if (user === undefined) return;
-        if (user?.email !== authUser?.email) {
-          router.refresh();
-        }
-      });
+  useEffect(() => {
+    onAuthStateChanged(auth, (authUser) => {
+      setUser(authUser ? authUser : null);
     });
-
-    return user;
-  }
+  }, [user, auth]);
 
   return (
     <header>
@@ -46,9 +30,16 @@ export default function Header() {
         <Link href="/group/create" className="btn btn-ghost text-xl">
           Create Groups
         </Link>
-        <Link href="/login" className="btn btn-ghost text-xl ml-auto">
-          Login
-        </Link>
+        {!user && (
+          <Link href="/login" className="btn btn-ghost text-xl ml-auto">
+            Login
+          </Link>
+        )}
+        {user && (
+          <Link href="/logout" className="btn btn-ghost text-xl ml-auto">
+            Logout
+          </Link>
+        )}
       </div>
     </header>
   );
