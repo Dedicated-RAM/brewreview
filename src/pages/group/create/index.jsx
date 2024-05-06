@@ -6,6 +6,9 @@ import Link from "next/link";
 import "../../../styles/globals.css";
 import { useEffect } from "react";
 import { Autocomplete, useJsApiLoader } from "@react-google-maps/api";
+import { addGroup } from "../../../lib/firebase/firestore";
+import { auth } from "../../../lib/firebase/FirebaseConfig";
+import { onAuthStateChanged } from "firebase/auth";
 
 const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 const LIBRARIES = ["places", "geometry", "drawing"];
@@ -27,6 +30,12 @@ export default function Group() {
   const [locationName, setLocationName] = useState(placeName);
   const [locationId, setLocationId] = useState(placeId);
 
+  useEffect(() => {
+    onAuthStateChanged(auth, (authUser) => {
+      if (!authUser) router.push("/login");
+    });
+  }, []);
+
   const validateForm = () => {
     let errorList = [];
     if (!groupName) errorList.push("Group Name is required.");
@@ -39,10 +48,11 @@ export default function Group() {
     if (!time) errorList.push("Time is required.");
     if (!date) errorList.push("Date is required.");
     if (!locationName) errorList.push("Location is required.");
-    if (date < new Date().toISOString().split("T")[0])
-      errorList.push("Date must be in the future.");
-    if (time < new Date().toISOString().split("T")[1].split(".")[0])
-      errorList.push("Time must be in the future.");
+    const specificDateTime = new Date(`${date}T${time}`);
+    const currentDateTime = new Date();
+
+    if (specificDateTime <= currentDateTime)
+      errorList.push("Date and time must be in the future.");
 
     setErrors(errorList);
     return errorList.length === 0;
@@ -51,9 +61,26 @@ export default function Group() {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (validateForm()) {
-      alert(
-        "Group Name: " + groupName + "\nGroup Description: " + groupDescription,
-      );
+      const specificDateTime = new Date(`${date}T${time}`);
+      const formattedDate = specificDateTime.toLocaleDateString("en-US");
+      const formattedTime = specificDateTime.toLocaleTimeString("en-US", {
+        hour: "2-digit",
+        minute: "2-digit",
+      });
+      const formattedDateTime = `${formattedDate} ${formattedTime}`;
+
+      addGroup({
+        name: groupName,
+        description: groupDescription,
+        max_count: maxGroupNumber,
+        time: formattedTime,
+        date: formattedDate,
+        datetime: formattedDateTime,
+        location: locationName,
+        locationId: locationId,
+        members: [auth.currentUser.displayName],
+      });
+      router.push("/group/list");
     }
   };
   const onLoad = (autocomplete) => {
@@ -63,7 +90,7 @@ export default function Group() {
   const onPlaceChanged = () => {
     if (autocomplete !== null) {
       const place = autocomplete.getPlace();
-      if (place === undefined) {
+      if (place != undefined) {
         setLocationName(place.name);
         setLocationId(place.place_id);
       }
