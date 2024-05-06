@@ -1,18 +1,18 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/router";
 import Link from "next/link";
 import "../../../styles/globals.css";
-import {
-  GoogleMap,
-  Autocomplete,
-  useJsApiLoader,
-} from "@react-google-maps/api";
+import { useEffect } from "react";
+import { Autocomplete, useJsApiLoader } from "@react-google-maps/api";
 
 const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 const LIBRARIES = ["places", "geometry", "drawing"];
 
-export default function Group({ props }) {
+export default function Group() {
+  const router = useRouter();
+  const { placeName, placeId } = router.query;
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: API_KEY,
     libraries: LIBRARIES,
@@ -24,7 +24,8 @@ export default function Group({ props }) {
   const [date, setDate] = useState("");
   const [errors, setErrors] = useState([]);
   const [autocomplete, setAutocomplete] = useState(null);
-  const [location, setLocation] = useState("");
+  const [locationName, setLocationName] = useState(placeName);
+  const [locationId, setLocationId] = useState(placeId);
 
   const validateForm = () => {
     let errorList = [];
@@ -33,6 +34,8 @@ export default function Group({ props }) {
     if (!maxGroupNumber) errorList.push("Max Group Number is required.");
     if (!time) errorList.push("Time is required.");
     if (!date) errorList.push("Date is required.");
+    if (!location) errorList.push("Location is required.");
+    console.log(location);
     setErrors(errorList);
     return errorList.length === 0;
   };
@@ -52,17 +55,8 @@ export default function Group({ props }) {
   const onPlaceChanged = () => {
     if (autocomplete !== null) {
       const place = autocomplete.getPlace();
-
-      if (place.geometry) {
-        setMapCenter({
-          lat: place.geometry.location.lat(),
-          lng: place.geometry.location.lng(),
-        });
-        setPlaceMarkers((prev) => [...prev, place]);
-      }
-
-      setPlaceData(place);
-      setShowSidePanel(true);
+      setLocationName(place.name);
+      setLocationId(place.place_id);
     }
   };
 
@@ -111,9 +105,10 @@ export default function Group({ props }) {
               <input
                 className="rounded-md border-2 border-accent-5 p-2 w-full"
                 type="text"
-                placeholder="Search for a cafe"
+                value={locationName}
                 onChange={(e) => {
                   const { value } = e.target;
+                  setLocationName(value);
                   if (autocomplete !== null) {
                     const options = {
                       types: ["cafe"],
