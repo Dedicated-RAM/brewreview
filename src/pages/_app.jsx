@@ -1,6 +1,5 @@
-import App from "next/app";
 import "../styles/globals.css";
-import Header from "@/components/Header";
+import Header from "../components/Header";
 
 export default function MyApp({ Component, pageProps }) {
   return (

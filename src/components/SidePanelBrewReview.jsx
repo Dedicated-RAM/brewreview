@@ -3,13 +3,18 @@ import { useEffect } from "react";
 import { RxAvatar } from "react-icons/rx";
 import SidePanelBrewForm from "../components/SidePanelBrewForm";
 export default function SidePanelBrewReview({ place }) {
+  useEffect(() => {}, [place]);
 
-  useEffect(() => { }, [place]);
-
-  if (!place || Object.keys(place).length <= 0) return (<div><p>Loading...</p></div>);
+  if (!place || Object.keys(place).length <= 0)
+    return (
+      <div>
+        <p>Loading...</p>
+      </div>
+    );
   return (
     <>
-      {!props.hideForm && <SidePanelBrewForm />}
+      {/* {!place.hideForm && <SidePanelBrewForm />} */}
+      <SidePanelBrewForm place={place} />
       <div className="m-3 p-3 bg-accent-2 rounded-xl">
         <div className="flex items-center">
           <img

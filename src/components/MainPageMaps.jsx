@@ -46,7 +46,7 @@ export default function MainPageMaps() {
       if (place.geometry) {
         setMapCenter({
           lat: place.geometry.location.lat(),
-          lng: place.geometry.location.lng()
+          lng: place.geometry.location.lng(),
         });
         setPlaceMarkers((prev) => [...prev, place]);
       }
@@ -79,15 +79,22 @@ export default function MainPageMaps() {
           {placeMarkers.map((place, index) => (
             <Marker
               key={index}
-              position={{ lat: place.geometry.location.lat(), lng: place.geometry.location.lng() }}
+              position={{
+                lat: place.geometry.location.lat(),
+                lng: place.geometry.location.lng(),
+              }}
               onClick={() => onClick(place)}
             />
           ))}
-          <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
+          <Autocomplete
+            onLoad={onLoad}
+            onPlaceChanged={onPlaceChanged}
+            className="z-10"
+          >
             <input
+              className="font-short-stack absolute top-8 left-2/3 transform -translate-x-1/2 -translate-y-1/2 p-2 rounded-md border-2 border-accent-5 bg-accent-1 text-accent-6 w-1/2"
               type="text"
               placeholder="Search for a cafe"
-              style={{ position: "absolute", top: "50px", right: "50px", zIndex: "1" }}
               onChange={(e) => {
                 const { value } = e.target;
                 if (autocomplete !== null) {
@@ -105,7 +112,6 @@ export default function MainPageMaps() {
       {showSidePanel && (
         <SidePanel onClose={closeSidePanel} place={placeData} />
       )}
-
     </div>
   );
 }

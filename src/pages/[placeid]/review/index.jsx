@@ -1,17 +1,32 @@
-"use client";
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import Link from "next/link";
-import "../../styles/globals.css";
+import "../../../styles/globals.css";
 import SidePanelOverview from "@/components/SidePanelOverview";
 import SidePanelGoogleReview from "@/components/SidePanelGoogleReview";
-import SidePanelBrewReview from "../../components/SidePanelBrewReview";
+import SidePanelBrewReview from "@/components/SidePanelBrewReview";
 
 export default function Review() {
   const [value, setValue] = useState(40);
   const [seats, setSeats] = useState("");
   const [outlets, setOutlets] = useState("");
   const [errors, setErrors] = useState([]);
+  const [place, setPlace] = useState({});
+  const [loading, setLoading] = useState(true);
+
+  const router = useRouter();
+  const { placeid } = router.query;
+
+  useEffect(() => {
+    if (placeid) {
+      (async () => {
+        const res = await fetch(`/api/cafe/${placeid}`);
+        const data = await res.json();
+        setPlace(data.result.result);
+        setLoading(false);
+      })();
+    }
+  }, [placeid]);
 
   const validateForm = () => {
     let errors = [];
@@ -31,10 +46,12 @@ export default function Review() {
     alert("Submitted!");
   };
 
+  if (loading) return <div>Loading...</div>;
+
   return (
-    <div className="bg-accent-1 flex font-short-stack fixed inset-0 flex justify-center items-center">
-      <div className="m-auto p-10 bg-accent-2 rounded-lg shadow-lg w-1/2 rounded-md h-full">
-        <h1 className="text-4xl font-bold text-accent-6">Jefferson's Coffee</h1>
+    <div className="bg-accent-1 flex font-short-stack inset-0 justify-center items-center overflow-y-auto">
+      <div className="mx-10 mt-96 p-10 bg-accent-2 rounded-lg  w-1/2 rounded-md h-auto">
+        <h1 className="text-4xl font-bold text-accent-6">{place.name}</h1>
         <form className="flex flex-col gap-1 mt-4">
           <label className="mt-4 text-accent-6 text-2xl" htmlFor="starRating">
             Give it a star rating
@@ -149,11 +166,11 @@ export default function Review() {
           </button>
         </form>
       </div>
-      <div className="m-auto p-10 bg-accent-2 w-1/2 rounded-md h-full">
+      <div className="m-auto p-10">
         <h1 className="text-4xl font-bold text-accent-6">Brew Review</h1>
         <SidePanelBrewReview hideForm={true} />
         <h1 className="text-4xl font-bold text-accent-6">Google Reviews</h1>
-        <SidePanelGoogleReview />
+        <SidePanelGoogleReview place={place} />
       </div>
     </div>
   );
