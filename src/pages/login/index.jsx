@@ -95,7 +95,7 @@ export default function Login() {
               {error}
             </p>
           ))}
-          <div className="flex justify-center items-center space-x-4">
+          <div className="flex justify-center items-center">
             <button
               className="bg-accent-5 text-accent-1 p-2 rounded-md mt-4 font-bold text-1xl w-36 mx-auto"
               type="submit"
