@@ -1,14 +1,30 @@
+"use client";
+
 import { useState } from "react";
 import Link from "next/link";
 import "../../../styles/globals.css";
+import {
+  GoogleMap,
+  Autocomplete,
+  useJsApiLoader,
+} from "@react-google-maps/api";
 
-export default function Group() {
+const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
+const LIBRARIES = ["places", "geometry", "drawing"];
+
+export default function Group({ props }) {
+  const { isLoaded } = useJsApiLoader({
+    googleMapsApiKey: API_KEY,
+    libraries: LIBRARIES,
+  });
   const [groupName, setGroupName] = useState("");
   const [groupDescription, setGroupDescription] = useState("");
   const [maxGroupNumber, setMaxGroupNumber] = useState("");
   const [time, setTime] = useState("");
   const [date, setDate] = useState("");
   const [errors, setErrors] = useState([]);
+  const [autocomplete, setAutocomplete] = useState(null);
+  const [location, setLocation] = useState("");
 
   const validateForm = () => {
     let errorList = [];
@@ -29,9 +45,29 @@ export default function Group() {
       );
     }
   };
+  const onLoad = (autocomplete) => {
+    setAutocomplete(autocomplete);
+  };
+
+  const onPlaceChanged = () => {
+    if (autocomplete !== null) {
+      const place = autocomplete.getPlace();
+
+      if (place.geometry) {
+        setMapCenter({
+          lat: place.geometry.location.lat(),
+          lng: place.geometry.location.lng(),
+        });
+        setPlaceMarkers((prev) => [...prev, place]);
+      }
+
+      setPlaceData(place);
+      setShowSidePanel(true);
+    }
+  };
 
   return (
-    <div className="bg-accent-1 flex font-short-stack inset-0 flex justify-center items-center pt-8">
+    <div className="bg-accent-1 flex font-short-stack inset-0 flex justify-center items-center pt-8 overflow-y-auto">
       <div className="m-auto p-10 bg-accent-2 rounded-lg shadow-lg w-1/2 rounded-md">
         <h1 className="text-6xl font-bold text-center text-accent-6">
           Create Group
@@ -63,6 +99,31 @@ export default function Group() {
             value={groupDescription}
             onChange={(e) => setGroupDescription(e.target.value)}
           />
+          <label htmlFor="Location" className="mt-4 text-accent-6 text-2xl">
+            Location
+          </label>
+          {isLoaded && (
+            <Autocomplete
+              onLoad={onLoad}
+              onPlaceChanged={onPlaceChanged}
+              className="z-10"
+            >
+              <input
+                className="rounded-md border-2 border-accent-5 p-2 w-full"
+                type="text"
+                placeholder="Search for a cafe"
+                onChange={(e) => {
+                  const { value } = e.target;
+                  if (autocomplete !== null) {
+                    const options = {
+                      types: ["cafe"],
+                    };
+                    autocomplete.setOptions(options);
+                  }
+                }}
+              />
+            </Autocomplete>
+          )}
           <label
             htmlFor="maxGroupNumber"
             className="mt-4 text-accent-6 text-2xl"
