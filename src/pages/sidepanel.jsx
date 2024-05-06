@@ -25,7 +25,7 @@ export default function SidePanel({ onClose, place }) {
         let photoRes = { data: { result: defaultPhoto } };
         try {
           photoRes = await axios.get(
-            `/api/photo/${data.result.result.photos[0].photo_reference}`,
+            `/api/photo/${data.result.result.photos[0].photo_reference}`
           );
         } catch (error) {
           console.error("Error fetching photo", error);
@@ -115,7 +115,7 @@ export default function SidePanel({ onClose, place }) {
                 { length: Math.floor(placeData.rating) },
                 (_, index) => (
                   <span key={index}>★</span>
-                ),
+                )
               )}
             </span>
             <span className=""></span>

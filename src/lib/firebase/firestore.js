@@ -23,7 +23,7 @@ import { db } from "./FirebaseConfig";
  * @param {String} cafeId	The ID of the cafe to add the review to
  * @param {Object} review	The review object to add to the cafe
  */
-export async function addReview(db, place_id, review) {
+export async function addReview(place_id, review) {
   // check if cafe exists in db
   var cafe = await getCafeByPlaceId(place_id);
   // if cafe does not exist, add it to db
@@ -110,7 +110,7 @@ async function addCafe(db, place_id) {
 export async function getCafeByPlaceId(place_id) {
   const q = query(
     collection(db, "cafes"),
-    where("maps_place_id", "==", place_id),
+    where("maps_place_id", "==", place_id)
   );
   const results = await getDocs(q);
 

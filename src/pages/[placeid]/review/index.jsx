@@ -7,14 +7,20 @@ import SidePanelGoogleReview from "@/components/SidePanelGoogleReview";
 import SidePanelBrewReview from "@/components/SidePanelBrewReview";
 
 import { auth } from "../../../lib/firebase/FirebaseConfig";
+import { addReview } from "../../../lib/firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
+import { set } from "lodash";
 
 export default function Review() {
-  const [seats, setSeats] = useState("");
-  const [outlets, setOutlets] = useState("");
+  const [seats, setSeats] = useState(5);
+  const [outlets, setOutlets] = useState(5);
   const [errors, setErrors] = useState([]);
   const [place, setPlace] = useState({});
   const [loading, setLoading] = useState(true);
+  const [noise, setNoise] = useState("Medium");
+  const [starRating, setStarRating] = useState(5);
+  const [wordReview, setWordReview] = useState("");
+  const [wifi, setWifi] = useState(false);
 
   const router = useRouter();
   const { placeid } = router.query;
@@ -44,6 +50,19 @@ export default function Review() {
     if (!Number.isInteger(Number(outlets)) || Number(outlets) < 0) {
       errors.push("Outlets must be a non-negative integer.");
     }
+    if (
+      !["Very Quiet", "Quiet", "Medium", "Loud", "Very Loud"].includes(noise)
+    ) {
+      errors.push(
+        "Noise must be one of Very Quiet, Quiet, Medium, Loud, Very Loud."
+      );
+    }
+    if (!Number.isInteger(Number(starRating)) || Number(starRating) < 0) {
+      errors.push("Star rating must be a non-negative integer.");
+    }
+    if (wordReview.length < 10) {
+      errors.push("Review must be at least 10 characters long.");
+    }
     setErrors(errors);
     return errors.length === 0;
   };
@@ -51,7 +70,19 @@ export default function Review() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const errors = validateForm();
-    alert("Submitted!");
+    if (errors) {
+      addReview(placeid, {
+        overall_rating: Number(starRating),
+        outlet_rating: Number(outlets),
+        number_of_seats: Number(seats),
+        noise_level: noise,
+        wifi: wifi,
+        user_display_name: auth.currentUser.displayName,
+        user_id: auth.currentUser.uid,
+        word_review: wordReview,
+      });
+      location.reload();
+    }
   };
 
   if (loading) return <div>Loading...</div>;
@@ -65,55 +96,54 @@ export default function Review() {
             Give it a star rating
           </label>
           <div className="rating rating-lg">
-            <input
-              type="radio"
-              name="rating-1"
-              className="mask mask-star bg-accent-5"
-            />
-            <input
-              type="radio"
-              name="rating-1"
-              className="mask mask-star bg-accent-5"
-            />
-            <input
-              type="radio"
-              name="rating-1"
-              className="mask mask-star bg-accent-5"
-            />
-            <input
-              type="radio"
-              name="rating-1"
-              className="mask mask-star bg-accent-5"
-            />
-            <input
-              type="radio"
-              name="rating-1"
-              className="mask mask-star bg-accent-5"
-            />
+            {Array.from({ length: 5 }, (_, index) => (
+              <input
+                key={index}
+                type="radio"
+                name="star-rating-1"
+                className="mask mask-star bg-accent-5"
+                value={index + 1}
+                onChange={(e) => setStarRating(index + 1)}
+              />
+            ))}
           </div>
           <label className="mt-4 text-accent-6 text-1xl">
-            How many seats were there?
+            Give the seating a rating
           </label>
-          <input
-            className="rounded-md border-2 border-accent-5 p-2"
-            type="number"
-            id="seats"
-            name="seats"
-            value={seats}
-            onChange={(e) => setSeats(e.target.value)}
-          />
-          <label className="mt-4 text-accent-6 text-1xl">Was there wifi?</label>
-          <input type="checkbox" defaultChecked className="checkbox" />
+          <div className="rating rating-lg">
+            {Array.from({ length: 5 }, (_, index) => (
+              <input
+                key={index}
+                type="radio"
+                name="seat-rating-1"
+                className="mask mask-star bg-accent-5"
+                value={index + 1}
+                onChange={(e) => setSeats(index + 1)}
+              />
+            ))}
+          </div>
           <label className="mt-4 text-accent-6 text-1xl">
-            How many outlets?
+            Give it an outlet rating
           </label>
+          <div className="rating rating-lg">
+            {Array.from({ length: 5 }, (_, index) => (
+              <input
+                key={index}
+                type="radio"
+                name="outlet-rating-1"
+                className="mask mask-star bg-accent-5"
+                value={index + 1}
+                onChange={(e) => setOutlets(index + 1)}
+              />
+            ))}
+          </div>
+          <label className="mt-4 text-accent-6 text-1xl">Was there wifi?</label>
           <input
-            className="rounded-md border-2 border-accent-5 p-2"
-            type="number"
-            id="outlets"
-            name="outlets"
-            value={outlets}
-            onChange={(e) => setOutlets(e.target.value)}
+            type="checkbox"
+            defaultChecked
+            className="checkbox"
+            checked={wifi}
+            onChange={() => setWifi(!wifi)}
           />
           <label className="mt-4 text-accent-6 text-1xl">
             How was the noise?
@@ -131,26 +161,20 @@ export default function Review() {
             <p className="text-accent-6">High</p>
           </div> */}
           <div className="flex items-center text-sm">
-            <div className="flex items-center mr-4">
-              <input type="radio" name="radio-1" className="radio" />
-              <span className="ml-2 text-accent-6">Very Quiet</span>
-            </div>
-            <div className="flex items-center mr-4">
-              <input type="radio" name="radio-1" className="radio" />
-              <span className="ml-2 text-accent-6">Quiet</span>
-            </div>
-            <div className="flex items-center mr-4">
-              <input type="radio" name="radio-1" className="radio" />
-              <span className="ml-2 text-accent-6">Medium</span>
-            </div>
-            <div className="flex items-center mr-4">
-              <input type="radio" name="radio-1" className="radio" />
-              <span className="ml-2 text-accent-6">Loud</span>
-            </div>
-            <div className="flex items-center mr-4">
-              <input type="radio" name="radio-1" className="radio" />
-              <span className="ml-2 text-accent-6">Very Loud</span>
-            </div>
+            {["Very Quiet", "Quiet", "Medium", "Loud", "Very Loud"].map(
+              (label, index) => (
+                <div key={index} className="flex items-center mr-4">
+                  <input
+                    type="radio"
+                    name="radio-1"
+                    className="radio"
+                    value={label}
+                    onChange={(e) => setNoise(e.target.value)}
+                  />
+                  <span className="ml-2 text-accent-6">{label}</span>
+                </div>
+              )
+            )}
           </div>
           <label className="mt-4 text-accent-6 text-1xl" htmlFor="review">
             Leave a review
@@ -160,6 +184,8 @@ export default function Review() {
             id="review"
             name="review"
             rows="4"
+            value={wordReview}
+            onChange={(e) => setWordReview(e.target.value)}
           />
           {errors.map((error, index) => (
             <p key={index} className="text-red-500">
