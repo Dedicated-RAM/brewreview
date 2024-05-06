@@ -16,6 +16,7 @@ import {
 } from "firebase/firestore";
 
 import { db } from "./FirebaseConfig";
+import { add } from "lodash";
 
 /**
  * Adds a review to a cafe
@@ -153,4 +154,20 @@ export async function getGroups() {
       ...doc.data(),
     };
   });
+}
+
+/**
+ * Adds a group to the database
+ * @param {Object} db		The Firestore database object
+ * @param {String} name	The name of the group
+ * @param {String} description	The description of the group
+ */
+
+export async function addGroup(group) {
+  await addDoc(collection(db, "groups"), group);
+}
+
+export async function editGroup(groupId, group) {
+  const groupRef = doc(db, "groups", groupId);
+  await updateDoc(groupRef, group);
 }
