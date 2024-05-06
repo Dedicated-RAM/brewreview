@@ -52,7 +52,7 @@ export default function Group() {
     event.preventDefault();
     if (validateForm()) {
       alert(
-        "Group Name: " + groupName + "\nGroup Description: " + groupDescription,
+        "Group Name: " + groupName + "\nGroup Description: " + groupDescription
       );
     }
   };
