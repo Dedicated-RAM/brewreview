@@ -28,14 +28,14 @@ export default function Register() {
     const handleSubmit = (event) => {
         event.preventDefault();
         if (validateForm()) {
-            alert("username: " + username + "\npassword: " + password);
             createUserWithEmailAndPassword(auth, email, password)
-                .then((authUser) => {
-                    console.log("Success!");
-                })
+                .then((authUser) => {})
                 .catch((error) => {
-                    console.log(error);
-                    alert("There was an error");
+                    if (error.message.includes("auth/weak-password"))
+                        setErrors([
+                            "Password should be at least 6 characters.",
+                        ]);
+                    else setErrors([error.message]);
                 });
         }
     };

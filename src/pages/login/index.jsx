@@ -3,6 +3,8 @@
 import { useState } from "react";
 import Link from "next/link";
 import "../../styles/globals.css";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../lib/firebase/FirebaseConfig";
 //import { doSignInWithEmailAndPassword } from "../../lib/firebase/auth.js";
 
 export default function Login() {
@@ -23,7 +25,13 @@ export default function Login() {
         if (validateForm()) {
             //alert("email: " + email + "\npassword: " + password);
             console.log("email: " + email + "\npassword: " + password);
-            //doSignInWithEmailAndPassword(email, password);
+            signInWithEmailAndPassword(auth, email, password)
+                .then((authUser) => {})
+                .catch((error) => {
+                    if (error.message.includes("auth/invalid-credential"))
+                        setErrors(["Invalid Email/Password"]);
+                    else setErrors([error.message]);
+                });
         }
     };
 
