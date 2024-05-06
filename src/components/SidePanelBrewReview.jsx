@@ -10,7 +10,7 @@ export default function SidePanelBrewReview({ place }) {
   return (
     <>
       {/* {!place.hideForm && <SidePanelBrewForm />} */}
-      <SidePanelBrewForm />
+      <SidePanelBrewForm place={place} />
       <div className="m-3 p-3 bg-accent-2 rounded-xl">
         <div className="flex items-center">
           <img

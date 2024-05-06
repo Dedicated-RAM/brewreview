@@ -1,8 +1,7 @@
-"use client";
-
 import { useState } from "react";
 import Link from "next/link";
 import "../../../styles/globals.css";
+
 export default function Group() {
   const [groupName, setGroupName] = useState("");
   const [groupDescription, setGroupDescription] = useState("");
@@ -30,7 +29,7 @@ export default function Group() {
   };
 
   return (
-    <div className="bg-accent-1 flex font-short-stack fixed inset-0 flex justify-center items-center">
+    <div className="bg-accent-1 flex font-short-stack inset-0 flex justify-center items-center pt-8">
       <div className="m-auto p-10 bg-accent-2 rounded-lg shadow-lg w-1/2 rounded-md">
         <h1 className="text-6xl font-bold text-center text-accent-6">
           Create Group
@@ -107,7 +106,7 @@ export default function Group() {
             <button type="submit" className="btn btn-primary">
               Create Group
             </button>
-            <Link href="/group" className="btn btn-secondary">
+            <Link href="/" className="btn btn-secondary">
               Cancel
             </Link>
           </div>

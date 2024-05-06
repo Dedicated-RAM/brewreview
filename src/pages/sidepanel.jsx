@@ -1,7 +1,7 @@
 import Link from "next/link";
 import SidePanelOverview from "@/components/SidePanelOverview";
 import SidePanelGoogleReview from "@/components/SidePanelGoogleReview";
-import SidePanelBrewReview from "./SidePanelBrewReview";
+import SidePanelBrewReview from "../components/SidePanelBrewReview";
 
 import "../styles/globals.css";
 
@@ -101,28 +101,25 @@ export default function SidePanel({ onClose, place }) {
             />
           </svg>
         </button>
-        <div className="h-40 w-full overflow-hidden">
-          <img
-            alt={place?.name}
-            className="object-cover w-full h-full"
-            src={placePhoto}
-          />
-        </div>
-
+        <img
+          alt="Jefferson's Coffee Shop"
+          className="object-cover w-full h-30"
+          src={placePhoto}
+        />
         <div className="">
-          <h1 className="text-3xl font-bold pl-5 pt-5">{place?.name}</h1>
+          <h1 className="text-3xl font-bold pl-5 pt-5">{place.name}</h1>
           <div className="pl-5">
             <span className="">
-              {placeData?.rating}
+              {placeData.rating}
               {Array.from(
-                { length: Math.floor(placeData?.rating) },
+                { length: Math.floor(placeData.rating) },
                 (_, index) => (
                   <span key={index}>★</span>
                 )
               )}
             </span>
             <span className=""></span>
-            <span className="">({placeData?.user_ratings_total})</span>
+            <span className="">({placeData.user_ratings_total})</span>
           </div>
         </div>
         <div className="flex items-center place-content-center justify-evenly py-3 font-medium">
