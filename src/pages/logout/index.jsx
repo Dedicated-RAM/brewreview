@@ -7,10 +7,10 @@ import { doSignOut } from "../../lib/firebase/firebase";
 import { useRouter } from "next/router";
 
 export default function Logout() {
-    const router = useRouter();
+  const router = useRouter();
 
-    (async () => {
-        await doSignOut();
-        router.push("/");
-    })();
+  (async () => {
+    await doSignOut();
+    router.push("/");
+  })();
 }
