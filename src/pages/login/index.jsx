@@ -4,7 +4,10 @@ import { useState } from "react";
 import Link from "next/link";
 import "../../styles/globals.css";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../lib/firebase/FirebaseConfig";
+import {
+  doSignInWithEmailAndPassword,
+  doSocialSignIn,
+} from "../../lib/firebase/firebase";
 import { useRouter } from "next/router";
 //import { doSignInWithEmailAndPassword } from "../../lib/firebase/auth.js";
 
@@ -23,19 +26,38 @@ export default function Login() {
     return errorList.length === 0;
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     if (validateForm()) {
-      //alert("email: " + email + "\npassword: " + password)
-      signInWithEmailAndPassword(auth, email, password)
-        .then((authUser) => {
-          router.push("/");
-        })
-        .catch((error) => {
-          if (error.message.includes("auth/invalid-credential"))
-            setErrors(["Invalid Email/Password"]);
-          else setErrors([error.message]);
-        });
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+        router.push("/");
+      } catch (error) {
+        if (error.message.includes("auth/invalid-credential"))
+          setErrors(["Invalid Email/Password"]);
+        else if (
+          error.message.includes("auth/popup-closed-by-user") ||
+          error.message.includes("auth/cancelled-popup-request")
+        )
+          setErrors(["Google Sign-in closed."]);
+        else setErrors([error.message]);
+      }
+    }
+  };
+
+  const handleSocialSignIn = async () => {
+    try {
+      await doSocialSignIn();
+      router.push("/");
+    } catch (error) {
+      if (error.message.includes("auth/invalid-credential"))
+        setErrors(["Invalid Email/Password"]);
+      else if (
+        error.message.includes("auth/popup-closed-by-user") ||
+        error.message.includes("auth/cancelled-popup-request")
+      )
+        setErrors(["Google Sign-in closed."]);
+      else setErrors([error.message]);
     }
   };
 
@@ -79,6 +101,13 @@ export default function Login() {
               type="submit"
             >
               Login
+            </button>
+            <button
+              type="button"
+              className="bg-accent-5 text-accent-1 p-2 rounded-md mt-4 font-bold text-1xl w-36 mx-auto"
+              onClick={handleSocialSignIn}
+            >
+              Sign in with Google
             </button>
           </div>
           <div className="flex items-center justify-center p-2">
