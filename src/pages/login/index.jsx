@@ -114,11 +114,18 @@ export default function Login() {
             <p>or</p>
             <div className="border-b-2 border-accent-5 flex-grow mx-2"></div>
           </div>
-          <Link href="/register">
-            <button className="flex justify-center bg-accent-5 text-accent-1 p-2 rounded-md font-bold w-36 text-1xl mx-auto">
-              Register
-            </button>
-          </Link>
+          <div className="flex justify-center items-center space-x-5">
+            <Link href="/register">
+              <button className="flex justify-center bg-accent-5 text-accent-1 p-2 rounded-md font-bold w-36 text-1xl mx-auto">
+                Register
+              </button>
+            </Link>
+            <Link href="/forgotpassword">
+              <button className="flex justify-center bg-accent-5 text-accent-1 p-2 rounded-md font-bold w-36 text-1xl mx-auto">
+                Forgot Password
+              </button>
+            </Link>
+          </div>
         </form>
       </div>
     </div>
