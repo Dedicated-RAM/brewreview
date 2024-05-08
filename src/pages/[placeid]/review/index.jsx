@@ -81,7 +81,8 @@ export default function Review() {
         user_id: auth.currentUser.uid,
         word_review: wordReview,
       });
-      location.reload();
+      // location.reload();
+      router.push('/');
     }
   };
 
@@ -91,7 +92,7 @@ export default function Review() {
     <div className="bg-accent-1 flex font-short-stack inset-0 justify-center items-center overflow-y-auto">
       <div className="m-auto p-10 rounded-lg w-auto rounded-md h-auto">
         <h1 className="text-2xl font-bold text-accent-6">{place.name}</h1>
-        <form className="flex flex-col gap-1">
+        <form className="flex flex-col gap-1" onSubmit={handleSubmit}>
           <label className="mt-4 text-accent-6 text-1xl" htmlFor="starRating">
             Give it a star rating
           </label>
@@ -143,7 +144,7 @@ export default function Review() {
             defaultChecked
             className="checkbox"
             checked={wifi}
-            onChange={() => setWifi(!wifi)}
+            onClick={() => setWifi(!wifi)}
           />
           <label className="mt-4 text-accent-6 text-1xl">
             How was the noise?
@@ -194,7 +195,8 @@ export default function Review() {
           ))}
           <button
             className="bg-accent-5 text-accent-1 p-2 rounded-md mt-4 font-bold text-1xl w-36 mx-auto"
-            onClick={handleSubmit}
+            type="submit"
+            // onClick={handleSubmit}
           >
             Submit
           </button>
