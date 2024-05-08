@@ -55,7 +55,7 @@ export default function Group() {
     const group = groups.find((group) => group.id === groupId);
     editGroup(groupId, {
       members: group.members.filter(
-        (member) => member !== auth.currentUser.uid
+        (member) => member !== auth.currentUser.uid,
       ),
     });
     (async () => {
