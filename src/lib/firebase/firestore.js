@@ -22,6 +22,11 @@ const rateLimitStore = {};
 
 const MAX_REQUESTS = 50;
 const RATE_LIMIT_TIME = 1000 * 60 * 15; // 15 minutes
+const DEBUG = true;
+
+function printRateLimitStore() {
+  console.log(rateLimitStore);
+}
 
 /**
  * Adds a review to a cafe
@@ -47,6 +52,7 @@ export async function addReview(place_id, review) {
   var cafe = await getCafeByPlaceId(place_id);
   // if cafe does not exist, add it to db
   if (!cafe) cafe = await addCafe(db, place_id);
+  if (DEBUG) printRateLimitStore();
 
   const cafeId = cafe.id;
   const cafeRef = doc(db, "cafes", cafeId);
@@ -81,6 +87,7 @@ export async function editReview(db, cafeId, reviewId, review) {
   
   // Add current request to store
   rateLimitStore['editReview'].push(currentTime);
+  if (DEBUG) printRateLimitStore();
 
   const cafeRef = doc(db, "cafes", cafeId);
   const reviewRef = doc(collection(cafeRef, "reviews"), reviewId);
@@ -111,6 +118,7 @@ export async function getCafeReviews(cafeId) {
 
   // Add current request to store
   rateLimitStore['getCafeReviews'].push(currentTime);
+  if (DEBUG) printRateLimitStore();
 
   const cafeRef = doc(db, "cafes", cafeId);
   const reviewsRef = collection(cafeRef, "reviews");
@@ -145,6 +153,7 @@ async function addCafe(db, place_id) {
 
   // Add current request to store
   rateLimitStore['addCafe'].push(currentTime);
+  if (DEBUG) printRateLimitStore();
 
   const cafeRef = collection(db, "cafes");
   const cafeData = {
@@ -178,6 +187,7 @@ export async function getCafeByPlaceId(place_id) {
 
   // Add current request to store
   rateLimitStore['getCafeByPlaceId'].push(currentTime);
+  if (DEBUG) printRateLimitStore();
 
   const q = query(
     collection(db, "cafes"),
@@ -214,6 +224,7 @@ export async function getGroupById(groupId) {
 
   // Add current request to store
   rateLimitStore['getGroupById'].push(currentTime);
+  if (DEBUG) printRateLimitStore();
 
   const docRef = doc(db, "groups", groupId);
   const docSnap = await getDoc(docRef);
@@ -240,6 +251,7 @@ export async function getGroups() {
 
   // Add current request to store
   rateLimitStore['getGroups'].push(currentTime);
+  if (DEBUG) printRateLimitStore();
 
   const q = query(collection(db, "groups"));
   const results = await getDocs(q);
@@ -272,6 +284,7 @@ export async function addGroup(group) {
 
   // Add current request to store
   rateLimitStore['addGroup'].push(currentTime);
+  if (DEBUG) printRateLimitStore();
 
   await addDoc(collection(db, "groups"), group);
 }
