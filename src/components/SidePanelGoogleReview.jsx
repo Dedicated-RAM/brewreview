@@ -14,16 +14,15 @@ export default function SidePanelGoogleReview({ place }) {
   return (
     <div className="">
       {place?.reviews.map((review, index) => {
+        console.log(review);
         return (
           <div className="m-3 p-3 bg-accent-2 rounded-xl" key={index}>
             <div className="flex items-center">
-              {false && (
                 <img
                   alt="Reviewer Profile Picture"
-                  className="w-10 h-10 overflow-hidden rounded-full"
+                  className="w-8 h-8 overflow-hidden rounded-full"
                   src={review?.profile_photo_url}
                 />
-              )}
               <span className="pl-2 font-semibold text-base">
                 {review?.author_name}
               </span>
