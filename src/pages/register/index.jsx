@@ -31,8 +31,7 @@ export default function Register() {
     if (validateForm()) {
       try {
         await doCreateUserWithEmailAndPassword(email, password, username);
-
-        router.push("/login");
+        router.push("/");
       } catch (error) {
         if (error.message.includes("auth/weak-password"))
           setErrors(["Password should be at least 6 characters."]);
