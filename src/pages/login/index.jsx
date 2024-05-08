@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import "../../styles/globals.css";
 import {
@@ -8,7 +8,9 @@ import {
   doSocialSignIn,
 } from "../../lib/firebase/firebase";
 import { useRouter } from "next/router";
-//import { doSignInWithEmailAndPassword } from "../../lib/firebase/auth.js";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../../lib/firebase/FirebaseConfig";
+
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -16,6 +18,12 @@ export default function Login() {
   const [errors, setErrors] = useState([]);
 
   const router = useRouter();
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (authUser) => {
+      if (authUser) router.push("/");
+    });
+  }, []);
 
   const validateForm = () => {
     let errorList = [];

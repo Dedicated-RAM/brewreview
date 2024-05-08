@@ -6,6 +6,8 @@ import "../../styles/globals.css";
 import { useRouter } from "next/router";
 import { doUpdateUsername } from "../../lib/firebase/firebase";
 import { getAuth } from "firebase/auth";
+import { auth } from "../../lib/firebase/FirebaseConfig";
+import { onAuthStateChanged } from "firebase/auth";
 
 export default function Profile() {
   const [username, setUsername] = useState("");
@@ -25,6 +27,12 @@ export default function Profile() {
       setEmail(user.email);
     }
   }
+  
+  useEffect(() => {
+    onAuthStateChanged(auth, (authUser) => {
+      if (!authUser) router.push("/login");
+    });
+  }, []);
 
   useEffect(() => {
     updateUser();

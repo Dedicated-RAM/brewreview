@@ -20,7 +20,7 @@ export default function Group() {
 
   useEffect(() => {
     (async () => {
-      // const groups = await getGroups();
+      const groups = await getGroups();
       setGroups(groups);
       console.log('ping');
     })();
