@@ -35,7 +35,7 @@ export default function Header() {
           )}
         </div>
 
-        <div className="dropdown dropdown-end dropdown-hover">
+        <div className="dropdown dropdown-end">
           <div
             tabIndex={0}
             role="button"
