@@ -22,7 +22,7 @@ export default function Group() {
     (async () => {
       // const groups = await getGroups();
       setGroups(groups);
-      console.log('ping');
+      console.log("ping");
     })();
   }, []);
 
