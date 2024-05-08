@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import "../../../styles/globals.css";
 import { useEffect } from "react";
+import { onAuthStateChanged } from "firebase/auth";
 
 import { auth } from "../../../lib/firebase/FirebaseConfig";
 
@@ -15,6 +16,7 @@ import {
 
 export default function Group() {
   const [groups, setGroups] = useState([]);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     (async () => {
@@ -22,6 +24,12 @@ export default function Group() {
       setGroups(groups);
     })();
   });
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (authUser) => {
+      setUser(authUser ? authUser : null);
+    });
+  }, [user, auth]);
 
   const joinGroup = (groupId) => {
     if (!auth.currentUser) Router.push("/login");
@@ -38,7 +46,7 @@ export default function Group() {
     const group = groups.find((group) => group.id === groupId);
     editGroup(groupId, {
       members: group.members.filter(
-        (member) => member !== auth.currentUser.displayName,
+        (member) => member !== auth.currentUser.displayName
       ),
     });
   };
@@ -74,18 +82,20 @@ export default function Group() {
               <p className="text-accent-6 text-xl mb-4">
                 {group.time} on {group.date}
               </p>
-              <button
-                className="text-accent-2 bg-accent-5 p-2 rounded-md"
-                onClick={() =>
-                  group.members.includes(auth?.currentUser?.displayName)
-                    ? leaveGroup(group.id)
-                    : joinGroup(group.id)
-                }
-              >
-                {group.members.includes(auth?.currentUser?.displayName)
-                  ? "Leave Group"
-                  : "Join Group"}
-              </button>
+              {user && (
+                <button
+                  className="text-accent-2 bg-accent-5 p-2 rounded-md"
+                  onClick={() =>
+                    group.members.includes(auth?.currentUser?.displayName)
+                      ? leaveGroup(group.id)
+                      : joinGroup(group.id)
+                  }
+                >
+                  {group.members.includes(auth?.currentUser?.displayName)
+                    ? "Leave Group"
+                    : "Join Group"}
+                </button>
+              )}
             </div>
           ))}
         </div>
