@@ -7,6 +7,7 @@ import { doPasswordReset } from "../../lib/firebase/firebase";
 import { useRouter } from "next/router";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../lib/firebase/FirebaseConfig";
+import axios from "axios";
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState("");
@@ -31,7 +32,7 @@ export default function ForgotPassword() {
     event.preventDefault();
     if (validateForm()) {
       try {
-        await doPasswordReset(email);
+        await axios.get('/api/firestore/forgotpassword');
         router.push("/");
       } catch (error) {
         setErrors([error.message]);

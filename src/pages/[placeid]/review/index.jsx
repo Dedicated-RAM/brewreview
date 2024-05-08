@@ -5,6 +5,7 @@ import "../../../styles/globals.css";
 import SidePanelOverview from "@/components/SidePanelOverview";
 import SidePanelGoogleReview from "@/components/SidePanelGoogleReview";
 import SidePanelBrewReview from "@/components/SidePanelBrewReview";
+import axios from "axios";
 
 import { addReview } from "../../../lib/firebase/firestore";
 import { onAuthStateChanged, getAuth } from "firebase/auth";
@@ -67,11 +68,11 @@ export default function Review() {
     return errors.length === 0;
   };
 
-  const handleSubmit = (event) => {
+  async function handleSubmit(event) {
     event.preventDefault();
     const errors = validateForm();
     if (errors) {
-      addReview(placeid, {
+      await axios.post(`/api/firestore/cafes/${placeid}`, {        
         overall_rating: Number(starRating),
         outlet_rating: Number(outlets),
         number_of_seats: Number(seats),
@@ -79,8 +80,17 @@ export default function Review() {
         wifi: wifi,
         user_display_name: auth.currentUser.displayName,
         user_id: auth.currentUser.uid,
-        word_review: wordReview,
-      });
+        word_review: wordReview,});
+      // addReview(placeid, {
+      //   overall_rating: Number(starRating),
+      //   outlet_rating: Number(outlets),
+      //   number_of_seats: Number(seats),
+      //   noise_level: noise,
+      //   wifi: wifi,
+      //   user_display_name: auth.currentUser.displayName,
+      //   user_id: auth.currentUser.uid,
+      //   word_review: wordReview,
+      // });
       router.push("/");
     }
   };
