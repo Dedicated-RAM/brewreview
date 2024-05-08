@@ -78,7 +78,7 @@ export default function Group() {
         datetime: formattedDateTime,
         location: locationName,
         locationId: locationId,
-        members: [auth.currentUser.displayName],
+        members: [auth.currentUser.uid],
       });
       router.push("/group/list");
     }
