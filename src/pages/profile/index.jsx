@@ -24,7 +24,7 @@ export default function Profile() {
       console.log(username);
       setEmail(user.email);
     }
-  };
+  }
 
   useEffect(() => {
     updateUser();
@@ -42,7 +42,7 @@ export default function Profile() {
     if (validateForm()) {
       try {
         await doUpdateUsername(inputUsername);
-        setInputUsername('');
+        setInputUsername("");
         updateUser();
       } catch (error) {
         setErrors([error.message]);
