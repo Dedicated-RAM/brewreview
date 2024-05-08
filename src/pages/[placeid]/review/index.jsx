@@ -54,7 +54,7 @@ export default function Review() {
       !["Very Quiet", "Quiet", "Medium", "Loud", "Very Loud"].includes(noise)
     ) {
       errors.push(
-        "Noise must be one of Very Quiet, Quiet, Medium, Loud, Very Loud."
+        "Noise must be one of Very Quiet, Quiet, Medium, Loud, Very Loud.",
       );
     }
     if (!Number.isInteger(Number(starRating)) || Number(starRating) < 0) {
@@ -173,7 +173,7 @@ export default function Review() {
                   />
                   <span className="ml-2 text-accent-6">{label}</span>
                 </div>
-              )
+              ),
             )}
           </div>
           <label className="mt-4 text-accent-6 text-1xl" htmlFor="review">
