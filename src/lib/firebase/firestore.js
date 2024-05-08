@@ -18,6 +18,11 @@ import {
 import { db } from "./FirebaseConfig";
 import { add } from "lodash";
 
+const rateLimitStore = {};
+
+const MAX_REQUESTS = 50;
+const RATE_LIMIT_TIME = 1000 * 60 * 15; // 15 minutes
+
 /**
  * Adds a review to a cafe
  * @param {Object} db		The Firestore database object
@@ -25,6 +30,19 @@ import { add } from "lodash";
  * @param {Object} review	The review object to add to the cafe
  */
 export async function addReview(place_id, review) {
+  // Check rate limit
+  const currentTime = Date.now();
+  const userRequests = rateLimitStore['addReview'] || [];
+  const requestsInWindow = userRequests.filter(time => currentTime - time < RATE_LIMIT_TIME);
+  rateLimitStore['addReview'] = requestsInWindow;
+
+  if (requestsInWindow.length >= MAX_REQUESTS) {
+    throw new Error('addReview: Rate limit exceeded');
+  }
+  
+  // Add current request to store
+  rateLimitStore['addReview'].push(currentTime);
+
   // check if cafe exists in db
   var cafe = await getCafeByPlaceId(place_id);
   // if cafe does not exist, add it to db
@@ -51,6 +69,19 @@ export async function addReview(place_id, review) {
  * @param {Object} review	The review object to update the review with
  */
 export async function editReview(db, cafeId, reviewId, review) {
+  // Check rate limit
+  const currentTime = Date.now();
+  const userRequests = rateLimitStore['editReview'] || [];
+  const requestsInWindow = userRequests.filter(time => currentTime - time < RATE_LIMIT_TIME);
+  rateLimitStore['editReview'] = requestsInWindow;
+
+  if (requestsInWindow.length >= MAX_REQUESTS) {
+    throw new Error('editReview: Rate limit exceeded');
+  }
+  
+  // Add current request to store
+  rateLimitStore['editReview'].push(currentTime);
+
   const cafeRef = doc(db, "cafes", cafeId);
   const reviewRef = doc(collection(cafeRef, "reviews"), reviewId);
 
@@ -68,6 +99,19 @@ export async function editReview(db, cafeId, reviewId, review) {
  * @returns {Array}	An array of reviews for the cafe ordered by newest first
  */
 export async function getCafeReviews(cafeId) {
+  // Check rate limit
+  const currentTime = Date.now();
+  const userRequests = rateLimitStore['getCafeReviews'] || [];
+  const requestsInWindow = userRequests.filter(time => currentTime - time < RATE_LIMIT_TIME);
+  rateLimitStore['getCafeReviews'] = requestsInWindow;
+
+  if (requestsInWindow.length >= MAX_REQUESTS) {
+    throw new Error('getCafeReviews: Rate limit exceeded');
+  }
+
+  // Add current request to store
+  rateLimitStore['getCafeReviews'].push(currentTime);
+
   const cafeRef = doc(db, "cafes", cafeId);
   const reviewsRef = collection(cafeRef, "reviews");
 
@@ -89,6 +133,19 @@ export async function getCafeReviews(cafeId) {
  * @returns {Object}	The cafe object
  */
 async function addCafe(db, place_id) {
+  // Check rate limit
+  const currentTime = Date.now();
+  const userRequests = rateLimitStore['addCafe'] || [];
+  const requestsInWindow = userRequests.filter(time => currentTime - time < RATE_LIMIT_TIME);
+  rateLimitStore['addCafe'] = requestsInWindow;
+
+  if (requestsInWindow.length >= MAX_REQUESTS) {
+    throw new Error('addCafe: Rate limit exceeded');
+  }
+
+  // Add current request to store
+  rateLimitStore['addCafe'].push(currentTime);
+
   const cafeRef = collection(db, "cafes");
   const cafeData = {
     maps_place_id: place_id,
@@ -109,6 +166,19 @@ async function addCafe(db, place_id) {
  * @returns {null}	If the cafe does not exist
  */
 export async function getCafeByPlaceId(place_id) {
+  // Check rate limit
+  const currentTime = Date.now();
+  const userRequests = rateLimitStore['getCafeByPlaceId'] || [];
+  const requestsInWindow = userRequests.filter(time => currentTime - time < RATE_LIMIT_TIME);
+  rateLimitStore['getCafeByPlaceId'] = requestsInWindow;
+
+  if (requestsInWindow.length >= MAX_REQUESTS) {
+    throw new Error('getCafeByPlaceId: Rate limit exceeded');
+  }
+
+  // Add current request to store
+  rateLimitStore['getCafeByPlaceId'].push(currentTime);
+
   const q = query(
     collection(db, "cafes"),
     where("maps_place_id", "==", place_id),
@@ -132,6 +202,19 @@ export async function getCafeByPlaceId(place_id) {
  * @returns {Object}	The group object
  */
 export async function getGroupById(groupId) {
+  // Check rate limit
+  const currentTime = Date.now();
+  const userRequests = rateLimitStore['getGroupById'] || [];
+  const requestsInWindow = userRequests.filter(time => currentTime - time < RATE_LIMIT_TIME);
+  rateLimitStore['getGroupById'] = requestsInWindow;
+
+  if (requestsInWindow.length >= MAX_REQUESTS) {
+    throw new Error('getGroupById: Rate limit exceeded');
+  }
+
+  // Add current request to store
+  rateLimitStore['getGroupById'].push(currentTime);
+
   const docRef = doc(db, "groups", groupId);
   const docSnap = await getDoc(docRef);
   return {
@@ -145,6 +228,19 @@ export async function getGroupById(groupId) {
  * @returns {Array}	An array of all groups
  */
 export async function getGroups() {
+  // Check rate limit
+  const currentTime = Date.now();
+  const userRequests = rateLimitStore['getGroups'] || [];
+  const requestsInWindow = userRequests.filter(time => currentTime - time < RATE_LIMIT_TIME);
+  rateLimitStore['getGroups'] = requestsInWindow;
+
+  if (requestsInWindow.length >= MAX_REQUESTS) {
+    throw new Error('getGroups: Rate limit exceeded');
+  }
+
+  // Add current request to store
+  rateLimitStore['getGroups'].push(currentTime);
+
   const q = query(collection(db, "groups"));
   const results = await getDocs(q);
 
@@ -164,6 +260,19 @@ export async function getGroups() {
  */
 
 export async function addGroup(group) {
+  // Check rate limit
+  const currentTime = Date.now();
+  const userRequests = rateLimitStore['addGroup'] || [];
+  const requestsInWindow = userRequests.filter(time => currentTime - time < RATE_LIMIT_TIME);
+  rateLimitStore['addGroup'] = requestsInWindow;
+
+  if (requestsInWindow.length >= MAX_REQUESTS) {
+    throw new Error('addGroup: Rate limit exceeded');
+  }
+
+  // Add current request to store
+  rateLimitStore['addGroup'].push(currentTime);
+
   await addDoc(collection(db, "groups"), group);
 }
 
