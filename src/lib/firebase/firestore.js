@@ -34,7 +34,7 @@ function printRateLimitStore() {
  * @param {String} cafeId	The ID of the cafe to add the review to
  * @param {Object} review	The review object to add to the cafe
  */
-export async function addReview(place_id, review) {
+export async function addReview(db, place_id, review) {
   // Check rate limit
   const currentTime = Date.now();
   const userRequests = rateLimitStore['addReview'] || [];
@@ -266,12 +266,11 @@ export async function getGroups() {
 
 /**
  * Adds a group to the database
- * @param {Object} db		The Firestore database object
- * @param {String} name	The name of the group
- * @param {String} description	The description of the group
+ * @param {Object} db		  The Firestore database object
+ * @param {Object} group  The group object to add
  */
 
-export async function addGroup(group) {
+export async function addGroup(db, group) {
   // Check rate limit
   const currentTime = Date.now();
   const userRequests = rateLimitStore['addGroup'] || [];
