@@ -7,8 +7,7 @@ import "../../../styles/globals.css";
 import { useEffect } from "react";
 import { Autocomplete, useJsApiLoader } from "@react-google-maps/api";
 import { addGroup } from "../../../lib/firebase/firestore";
-import { auth } from "../../../lib/firebase/FirebaseConfig";
-import { onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged, getAuth } from "firebase/auth";
 
 const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 const LIBRARIES = ["places", "geometry", "drawing"];
@@ -29,6 +28,7 @@ export default function Group() {
   const [autocomplete, setAutocomplete] = useState(null);
   const [locationName, setLocationName] = useState(placeName);
   const [locationId, setLocationId] = useState(placeId);
+  const auth = getAuth();
 
   useEffect(() => {
     onAuthStateChanged(auth, (authUser) => {

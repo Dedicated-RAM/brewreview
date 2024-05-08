@@ -4,11 +4,9 @@ import { useState } from "react";
 import Link from "next/link";
 import "../../../styles/globals.css";
 import { useEffect } from "react";
-import { onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged, getAuth } from "firebase/auth";
 import SidePanelMain from "@/components/SidePanelMain";
 import { useRouter } from "next/router";
-
-import { auth } from "../../../lib/firebase/FirebaseConfig";
 
 import {
   getGroups,
@@ -22,6 +20,7 @@ export default function Group() {
   const [showPanel, setShowPanel] = useState(false);
   const [location, setLocation] = useState(null);
   const router = useRouter();
+  const auth = getAuth();
 
   useEffect(() => {
     (async () => {
@@ -55,7 +54,7 @@ export default function Group() {
     const group = groups.find((group) => group.id === groupId);
     editGroup(groupId, {
       members: group.members.filter(
-        (member) => member !== auth.currentUser.uid,
+        (member) => member !== auth.currentUser.uid
       ),
     });
     (async () => {

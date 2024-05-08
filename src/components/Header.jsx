@@ -1,13 +1,13 @@
 import React from "react";
-import { onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged, getAuth } from "firebase/auth";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { auth } from "../lib/firebase/FirebaseConfig";
 import Link from "next/link";
 import "../styles/globals.css";
 
 export default function Header() {
   const [user, setUser] = useState(null);
+  const auth = getAuth();
 
   useEffect(() => {
     onAuthStateChanged(auth, (authUser) => {

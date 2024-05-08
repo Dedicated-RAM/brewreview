@@ -6,9 +6,8 @@ import SidePanelOverview from "@/components/SidePanelOverview";
 import SidePanelGoogleReview from "@/components/SidePanelGoogleReview";
 import SidePanelBrewReview from "@/components/SidePanelBrewReview";
 
-import { auth } from "../../../lib/firebase/FirebaseConfig";
 import { addReview } from "../../../lib/firebase/firestore";
-import { onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged, getAuth } from "firebase/auth";
 import { set } from "lodash";
 
 export default function Review() {
@@ -22,6 +21,7 @@ export default function Review() {
   const [wordReview, setWordReview] = useState("");
   const [wifi, setWifi] = useState(false);
 
+  const auth = getAuth();
   const router = useRouter();
   const { placeid } = router.query;
 
@@ -54,7 +54,7 @@ export default function Review() {
       !["Very Quiet", "Quiet", "Medium", "Loud", "Very Loud"].includes(noise)
     ) {
       errors.push(
-        "Noise must be one of Very Quiet, Quiet, Medium, Loud, Very Loud.",
+        "Noise must be one of Very Quiet, Quiet, Medium, Loud, Very Loud."
       );
     }
     if (!Number.isInteger(Number(starRating)) || Number(starRating) < 0) {
@@ -174,7 +174,7 @@ export default function Review() {
                   />
                   <span className="ml-2 text-accent-6">{label}</span>
                 </div>
-              ),
+              )
             )}
           </div>
           <label className="mt-4 text-accent-6 text-1xl" htmlFor="review">
