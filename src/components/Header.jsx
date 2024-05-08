@@ -59,15 +59,14 @@ export default function Header() {
                 </Link>
               )}
             </li>
-            
-              {user && (
-                <li>
+
+            {user && (
+              <li>
                 <Link href="/profile" className="btn btn-ghost text-lg ml-auto">
                   Profile
                 </Link>
-                </li>
-              )}
-            
+              </li>
+            )}
           </ul>
         </div>
       </div>

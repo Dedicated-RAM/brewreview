@@ -45,11 +45,11 @@ export default function SidePanelBrewReview({ place, hideForm }) {
           return (
             <div className="m-3 p-3 bg-accent-2 rounded-xl" key={index}>
               <div className="flex items-center">
-                  <img
-                    alt="Jefferson's Coffee Shop"
-                    className="w-8 h-8 overflow-hidden rounded-full"
-                    src="/jeffersonscoffee.jpg"
-                  />
+                <img
+                  alt="Jefferson's Coffee Shop"
+                  className="w-8 h-8 overflow-hidden rounded-full"
+                  src="/jeffersonscoffee.jpg"
+                />
                 <span className="pl-2 font-semibold text-base">
                   {review.user_display_name}
                 </span>
