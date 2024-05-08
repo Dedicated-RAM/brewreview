@@ -6,6 +6,7 @@ import "../../../styles/globals.css";
 import { useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import SidePanelMain from "@/components/SidePanelMain";
+import { useRouter } from "next/router";
 
 import { auth } from "../../../lib/firebase/FirebaseConfig";
 
@@ -20,6 +21,7 @@ export default function Group() {
   const [user, setUser] = useState(null);
   const [showPanel, setShowPanel] = useState(false);
   const [location, setLocation] = useState(null);
+  const router = useRouter();
 
   useEffect(() => {
     (async () => {
@@ -41,6 +43,10 @@ export default function Group() {
       editGroup(groupId, {
         members: [...group.members, auth.currentUser.uid],
       });
+      (async () => {
+        const groups = await getGroups();
+        setGroups(groups);
+      })();
     }
   };
 
@@ -52,6 +58,10 @@ export default function Group() {
         (member) => member !== auth.currentUser.uid
       ),
     });
+    (async () => {
+      const groups = await getGroups();
+      setGroups(groups);
+    })();
   };
 
   const onClick = (locationId) => {
@@ -61,8 +71,6 @@ export default function Group() {
       const data = await res.json();
       setLocation(data.result.result);
     };
-
-    fetchLocation();
   };
 
   const onClose = () => {
@@ -107,12 +115,12 @@ export default function Group() {
                 <button
                   className="text-accent-2 bg-accent-5 p-2 rounded-md"
                   onClick={() =>
-                    group.members.includes(auth?.currentUser?.displayName)
+                    group.members.includes(auth?.currentUser?.uid)
                       ? leaveGroup(group.id)
                       : joinGroup(group.id)
                   }
                 >
-                  {group.members.includes(auth?.currentUser?.displayName)
+                  {group.members.includes(auth?.currentUser?.uid)
                     ? "Leave Group"
                     : "Join Group"}
                 </button>
