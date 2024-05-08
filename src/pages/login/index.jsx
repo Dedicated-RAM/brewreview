@@ -8,14 +8,14 @@ import {
   doSocialSignIn,
 } from "../../lib/firebase/firebase";
 import { useRouter } from "next/router";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../../lib/firebase/FirebaseConfig";
-
+import { onAuthStateChanged, getAuth } from "firebase/auth";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
+
+  const auth = getAuth();
 
   const router = useRouter();
 

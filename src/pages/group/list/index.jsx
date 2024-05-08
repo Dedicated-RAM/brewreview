@@ -7,12 +7,7 @@ import { useEffect } from "react";
 import { onAuthStateChanged, getAuth } from "firebase/auth";
 import SidePanelMain from "@/components/SidePanelMain";
 import { useRouter } from "next/router";
-
-import {
-  getGroups,
-  getGroupsById,
-  editGroup,
-} from "../../../lib/firebase/firestore";
+import axios from "axios";
 
 export default function Group() {
   const [groups, setGroups] = useState([]);
@@ -24,7 +19,7 @@ export default function Group() {
 
   useEffect(() => {
     (async () => {
-      const groups = await getGroups();
+      const groups = await axios.get("/api/firebase/groups");
       setGroups(groups);
     })();
   }, []);
@@ -35,6 +30,18 @@ export default function Group() {
     });
   }, [user, auth]);
 
+  const editGroup = async (groupId, data) => {
+    try {
+      const response = await axios.patch(
+        `/api/firebase/groups/${groupId}`,
+        data
+      );
+      return response.data;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const joinGroup = (groupId) => {
     if (!auth.currentUser) Router.push("/login");
     const group = groups.find((group) => group.id === groupId);
@@ -43,7 +50,7 @@ export default function Group() {
         members: [...group.members, auth.currentUser.uid],
       });
       (async () => {
-        const groups = await getGroups();
+        const groups = await axios.get("/api/firebase/groups");
         setGroups(groups);
       })();
     }
@@ -58,7 +65,7 @@ export default function Group() {
       ),
     });
     (async () => {
-      const groups = await getGroups();
+      const groups = await axios.get("/api/firebase/groups");
       setGroups(groups);
     })();
   };

@@ -6,8 +6,8 @@ import Link from "next/link";
 import "../../../styles/globals.css";
 import { useEffect } from "react";
 import { Autocomplete, useJsApiLoader } from "@react-google-maps/api";
-import { addGroup } from "../../../lib/firebase/firestore";
 import { onAuthStateChanged, getAuth } from "firebase/auth";
+import axios from "axios";
 
 const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 const LIBRARIES = ["places", "geometry", "drawing"];
@@ -56,6 +56,14 @@ export default function Group() {
 
     setErrors(errorList);
     return errorList.length === 0;
+  };
+
+  const addGroup = async (group) => {
+    try {
+      await axios.post("/api/firebase/groups", group);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleSubmit = (event) => {

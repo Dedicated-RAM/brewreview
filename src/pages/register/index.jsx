@@ -5,8 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import "../../styles/globals.css";
 import { doCreateUserWithEmailAndPassword } from "../../lib/firebase/firebase";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../../lib/firebase/FirebaseConfig";
+import { onAuthStateChanged, getAuth } from "firebase/auth";
 
 export default function Register() {
   const [email, setEmail] = useState("");
@@ -14,6 +13,7 @@ export default function Register() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState([]);
+  const auth = getAuth();
 
   const router = useRouter();
 
