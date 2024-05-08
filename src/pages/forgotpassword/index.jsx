@@ -3,9 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import "../../styles/globals.css";
-import {
-  doPasswordReset
-} from "../../lib/firebase/firebase";
+import { doPasswordReset } from "../../lib/firebase/firebase";
 import { useRouter } from "next/router";
 
 export default function ForgotPassword() {

@@ -111,7 +111,7 @@ async function addCafe(db, place_id) {
 export async function getCafeByPlaceId(place_id) {
   const q = query(
     collection(db, "cafes"),
-    where("maps_place_id", "==", place_id)
+    where("maps_place_id", "==", place_id),
   );
   const results = await getDocs(q);
 

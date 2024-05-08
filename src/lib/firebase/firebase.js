@@ -9,7 +9,7 @@ import {
   GoogleAuthProvider,
   sendPasswordResetEmail,
   EmailAuthProvider,
-  reauthenticateWithCredential
+  reauthenticateWithCredential,
 } from "firebase/auth";
 
 async function doCreateUserWithEmailAndPassword(email, password, displayName) {
@@ -53,11 +53,17 @@ async function doSignOut() {
   await signOut(auth);
 }
 
+async function doUpdateUsername(username) {
+  let auth = getAuth();
+  await updateProfile(auth.currentUser, {displayName: username, photoURL:null});
+}
+
 export {
   doCreateUserWithEmailAndPassword,
   doSocialSignIn,
   doSignInWithEmailAndPassword,
   doPasswordReset,
   doSignOut,
-  doChangePassword
+  doChangePassword,
+  doUpdateUsername
 };
