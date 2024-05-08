@@ -5,14 +5,24 @@ import { IoLink } from "react-icons/io5";
 import { FaPhoneAlt } from "react-icons/fa";
 import { MdRestaurantMenu } from "react-icons/md";
 import { useRouter } from "next/router";
+import { useState } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../lib/firebase/FirebaseConfig";
 import Image from "next/image";
 
 import { useEffect } from "react";
 
 export default function SidePanelOverview({ place }) {
+  const [user, setUser] = useState(null);
   const router = useRouter();
 
   useEffect(() => {}, [place]);
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (authUser) => {
+      setUser(authUser ? authUser : null);
+    });
+  }, [user, auth]);
 
   if (!place || Object.keys(place).length <= 0)
     return (
@@ -74,16 +84,18 @@ export default function SidePanelOverview({ place }) {
           </div>
         )}
 
-        <div className="flex flex-col justify-center items-center h-full">
-          <div className="mt-auto mb-4">
-            <button
-              className="bg-accent-5 text-accent-1 p-2 rounded-md"
-              onClick={onClick}
-            >
-              Create Group
-            </button>
+        {user && (
+          <div className="flex flex-col justify-center items-center h-full">
+            <div className="mt-auto mb-4">
+              <button
+                className="bg-accent-5 text-accent-1 p-2 rounded-md"
+                onClick={onClick}
+              >
+                Create Group
+              </button>
+            </div>
           </div>
-        </div>
+        )}
 
         {/* <div className="flex flex-row overflow-x-auto space-x-2 p-2.5">
           {place?.photos?.map((photo, index) => (
