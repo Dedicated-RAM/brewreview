@@ -81,7 +81,6 @@ export default function Review() {
         user_id: auth.currentUser.uid,
         word_review: wordReview,
       });
-      // location.reload();
       router.push("/");
     }
   };
