@@ -5,6 +5,7 @@ import Link from "next/link";
 import "../../../styles/globals.css";
 import { useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
+import SidePanelMain from "@/components/SidePanelMain";
 
 import { auth } from "../../../lib/firebase/FirebaseConfig";
 
@@ -17,12 +18,14 @@ import {
 export default function Group() {
   const [groups, setGroups] = useState([]);
   const [user, setUser] = useState(null);
+  const [showPanel, setShowPanel] = useState(false);
+  const [location, setLocation] = useState(null);
 
   useEffect(() => {
     (async () => {
       const groups = await getGroups();
       setGroups(groups);
-      console.log('ping');
+      console.log("ping");
     })();
   }, []);
 
@@ -47,9 +50,18 @@ export default function Group() {
     const group = groups.find((group) => group.id === groupId);
     editGroup(groupId, {
       members: group.members.filter(
-        (member) => member !== auth.currentUser.displayName,
+        (member) => member !== auth.currentUser.displayName
       ),
     });
+  };
+
+  const onClick = (locationId) => {
+    setShowPanel(true);
+    setLocation(locationId);
+  };
+
+  const onclose = () => {
+    setShowPanel(false);
   };
 
   return (
@@ -71,9 +83,12 @@ export default function Group() {
               </div>
 
               <p className="text-accent-6 text-lg mb-4">{group.description}</p>
-              <p className="text-accent-6 text-xl mb-4">
+              <button
+                className="text-accent-1 text-xl mb-4 bg-accent-5 p-2 rounded-md"
+                onClick={() => onClick(group.locationId)}
+              >
                 Location: {group.location}
-              </p>
+              </button>
               <p className="text-accent-6 text-xl mb-4">Members:</p>
               <ul className="text-accent-6 text-xl mb-4">
                 {group.members.map((member, index) => (
@@ -99,6 +114,7 @@ export default function Group() {
               )}
             </div>
           ))}
+          {showPanel && <SidePanelMain place={location} onClose={onclose} />}
         </div>
       </div>
     </div>

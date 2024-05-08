@@ -39,21 +39,41 @@ export default function MainPageMaps() {
     setAutocomplete(autocomplete);
   };
 
+  const onPlaceClicked = async (place) => {
+    if (place.placeId) {
+      const possibleCafe = await fetch(`/api/cafe/${place.placeId}`);
+      const data = await possibleCafe.json();
+      console.log(data);
+      if (data.result.result && data.result.result.types.includes("cafe")) {
+        if (data.latLng) {
+          setMapCenter({
+            lat: data.geometry.location.lat(),
+            lng: data.geometry.location.lng(),
+          });
+          setPlaceMarkers((prev) => [...prev, data.result.result]);
+        }
+        setPlaceData(data.result.result);
+        setShowSidePanel(true);
+      }
+    }
+  };
+
   const onPlaceChanged = () => {
     if (autocomplete !== null) {
       const place = autocomplete.getPlace();
+      if (place.types.includes("cafe")) {
+        if (place.geometry) {
+          setMapCenter({
+            lat: place.geometry.location.lat(),
+            lng: place.geometry.location.lng(),
+          });
+          setPlaceMarkers((prev) => [...prev, place]);
+        }
 
-      if (place.geometry) {
-        setMapCenter({
-          lat: place.geometry.location.lat(),
-          lng: place.geometry.location.lng(),
-        });
-        setPlaceMarkers((prev) => [...prev, place]);
-      }
-
-      if (place.place_id) {
-        setPlaceData(place);
-        setShowSidePanel(true);
+        if (place.place_id) {
+          setPlaceData(place);
+          setShowSidePanel(true);
+        }
       }
     }
   };
@@ -77,6 +97,7 @@ export default function MainPageMaps() {
           options={{
             fullscreenControl: false,
           }}
+          onClick={onPlaceClicked}
         >
           {placeMarkers.map((place, index) => (
             <Marker

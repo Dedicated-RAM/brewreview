@@ -82,7 +82,7 @@ export default function Review() {
         word_review: wordReview,
       });
       // location.reload();
-      router.push('/');
+      router.push("/");
     }
   };
 
