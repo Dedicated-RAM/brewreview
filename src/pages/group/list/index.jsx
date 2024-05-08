@@ -25,7 +25,6 @@ export default function Group() {
     (async () => {
       const groups = await getGroups();
       setGroups(groups);
-      console.log("ping");
     })();
   }, []);
 
@@ -40,7 +39,7 @@ export default function Group() {
     const group = groups.find((group) => group.id === groupId);
     if (group.members.length < group.max_count) {
       editGroup(groupId, {
-        members: [...group.members, auth.currentUser.displayName],
+        members: [...group.members, auth.currentUser.uid],
       });
     }
   };
@@ -50,17 +49,23 @@ export default function Group() {
     const group = groups.find((group) => group.id === groupId);
     editGroup(groupId, {
       members: group.members.filter(
-        (member) => member !== auth.currentUser.displayName
+        (member) => member !== auth.currentUser.uid
       ),
     });
   };
 
   const onClick = (locationId) => {
-    setShowPanel(true);
-    setLocation(locationId);
+    const fetchLocation = async () => {
+      setShowPanel(true);
+      const res = await fetch(`/api/cafe/${locationId}`);
+      const data = await res.json();
+      setLocation(data.result.result);
+    };
+
+    fetchLocation();
   };
 
-  const onclose = () => {
+  const onClose = () => {
     setShowPanel(false);
   };
 
@@ -87,7 +92,7 @@ export default function Group() {
                 className="text-accent-1 text-xl mb-4 bg-accent-5 p-2 rounded-md"
                 onClick={() => onClick(group.locationId)}
               >
-                Location: {group.location}
+                View Location
               </button>
               <p className="text-accent-6 text-xl mb-4">Members:</p>
               <ul className="text-accent-6 text-xl mb-4">
@@ -114,7 +119,7 @@ export default function Group() {
               )}
             </div>
           ))}
-          {showPanel && <SidePanelMain place={location} onClose={onclose} />}
+          {showPanel && <SidePanelMain place={location} onClose={onClose} />}
         </div>
       </div>
     </div>
