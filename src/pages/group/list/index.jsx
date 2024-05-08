@@ -46,7 +46,7 @@ export default function Group() {
     const group = groups.find((group) => group.id === groupId);
     editGroup(groupId, {
       members: group.members.filter(
-        (member) => member !== auth.currentUser.displayName
+        (member) => member !== auth.currentUser.displayName,
       ),
     });
   };

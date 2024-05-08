@@ -84,16 +84,18 @@ export default function SidePanelOverview({ place }) {
           </div>
         )}
 
-        {user && <div className="flex flex-col justify-center items-center h-full">
-          <div className="mt-auto mb-4">
-            <button
-              className="bg-accent-5 text-accent-1 p-2 rounded-md"
-              onClick={onClick}
-            >
-              Create Group
-            </button>
+        {user && (
+          <div className="flex flex-col justify-center items-center h-full">
+            <div className="mt-auto mb-4">
+              <button
+                className="bg-accent-5 text-accent-1 p-2 rounded-md"
+                onClick={onClick}
+              >
+                Create Group
+              </button>
+            </div>
           </div>
-        </div>}
+        )}
 
         {/* <div className="flex flex-row overflow-x-auto space-x-2 p-2.5">
           {place?.photos?.map((photo, index) => (
