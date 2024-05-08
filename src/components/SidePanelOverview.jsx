@@ -6,8 +6,7 @@ import { FaPhoneAlt } from "react-icons/fa";
 import { MdRestaurantMenu } from "react-icons/md";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../lib/firebase/FirebaseConfig";
+import { onAuthStateChanged, getAuth } from "firebase/auth";
 import Image from "next/image";
 
 import { useEffect } from "react";
@@ -15,6 +14,7 @@ import { useEffect } from "react";
 export default function SidePanelOverview({ place }) {
   const [user, setUser] = useState(null);
   const router = useRouter();
+  const auth = getAuth();
 
   useEffect(() => {}, [place]);
 
