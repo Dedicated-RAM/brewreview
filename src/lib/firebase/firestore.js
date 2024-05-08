@@ -37,16 +37,18 @@ function printRateLimitStore() {
 export async function addReview(place_id, review) {
   // Check rate limit
   const currentTime = Date.now();
-  const userRequests = rateLimitStore['addReview'] || [];
-  const requestsInWindow = userRequests.filter(time => currentTime - time < RATE_LIMIT_TIME);
-  rateLimitStore['addReview'] = requestsInWindow;
+  const userRequests = rateLimitStore["addReview"] || [];
+  const requestsInWindow = userRequests.filter(
+    (time) => currentTime - time < RATE_LIMIT_TIME,
+  );
+  rateLimitStore["addReview"] = requestsInWindow;
 
   if (requestsInWindow.length >= MAX_REQUESTS) {
-    throw new Error('addReview: Rate limit exceeded');
+    throw new Error("addReview: Rate limit exceeded");
   }
-  
+
   // Add current request to store
-  rateLimitStore['addReview'].push(currentTime);
+  rateLimitStore["addReview"].push(currentTime);
 
   // check if cafe exists in db
   var cafe = await getCafeByPlaceId(place_id);
@@ -77,16 +79,18 @@ export async function addReview(place_id, review) {
 export async function editReview(db, cafeId, reviewId, review) {
   // Check rate limit
   const currentTime = Date.now();
-  const userRequests = rateLimitStore['editReview'] || [];
-  const requestsInWindow = userRequests.filter(time => currentTime - time < RATE_LIMIT_TIME);
-  rateLimitStore['editReview'] = requestsInWindow;
+  const userRequests = rateLimitStore["editReview"] || [];
+  const requestsInWindow = userRequests.filter(
+    (time) => currentTime - time < RATE_LIMIT_TIME,
+  );
+  rateLimitStore["editReview"] = requestsInWindow;
 
   if (requestsInWindow.length >= MAX_REQUESTS) {
-    throw new Error('editReview: Rate limit exceeded');
+    throw new Error("editReview: Rate limit exceeded");
   }
-  
+
   // Add current request to store
-  rateLimitStore['editReview'].push(currentTime);
+  rateLimitStore["editReview"].push(currentTime);
   if (DEBUG) printRateLimitStore();
 
   const cafeRef = doc(db, "cafes", cafeId);
@@ -108,16 +112,18 @@ export async function editReview(db, cafeId, reviewId, review) {
 export async function getCafeReviews(cafeId) {
   // Check rate limit
   const currentTime = Date.now();
-  const userRequests = rateLimitStore['getCafeReviews'] || [];
-  const requestsInWindow = userRequests.filter(time => currentTime - time < RATE_LIMIT_TIME);
-  rateLimitStore['getCafeReviews'] = requestsInWindow;
+  const userRequests = rateLimitStore["getCafeReviews"] || [];
+  const requestsInWindow = userRequests.filter(
+    (time) => currentTime - time < RATE_LIMIT_TIME,
+  );
+  rateLimitStore["getCafeReviews"] = requestsInWindow;
 
   if (requestsInWindow.length >= MAX_REQUESTS) {
-    throw new Error('getCafeReviews: Rate limit exceeded');
+    throw new Error("getCafeReviews: Rate limit exceeded");
   }
 
   // Add current request to store
-  rateLimitStore['getCafeReviews'].push(currentTime);
+  rateLimitStore["getCafeReviews"].push(currentTime);
   if (DEBUG) printRateLimitStore();
 
   const cafeRef = doc(db, "cafes", cafeId);
@@ -143,16 +149,18 @@ export async function getCafeReviews(cafeId) {
 async function addCafe(db, place_id) {
   // Check rate limit
   const currentTime = Date.now();
-  const userRequests = rateLimitStore['addCafe'] || [];
-  const requestsInWindow = userRequests.filter(time => currentTime - time < RATE_LIMIT_TIME);
-  rateLimitStore['addCafe'] = requestsInWindow;
+  const userRequests = rateLimitStore["addCafe"] || [];
+  const requestsInWindow = userRequests.filter(
+    (time) => currentTime - time < RATE_LIMIT_TIME,
+  );
+  rateLimitStore["addCafe"] = requestsInWindow;
 
   if (requestsInWindow.length >= MAX_REQUESTS) {
-    throw new Error('addCafe: Rate limit exceeded');
+    throw new Error("addCafe: Rate limit exceeded");
   }
 
   // Add current request to store
-  rateLimitStore['addCafe'].push(currentTime);
+  rateLimitStore["addCafe"].push(currentTime);
   if (DEBUG) printRateLimitStore();
 
   const cafeRef = collection(db, "cafes");
@@ -177,16 +185,18 @@ async function addCafe(db, place_id) {
 export async function getCafeByPlaceId(place_id) {
   // Check rate limit
   const currentTime = Date.now();
-  const userRequests = rateLimitStore['getCafeByPlaceId'] || [];
-  const requestsInWindow = userRequests.filter(time => currentTime - time < RATE_LIMIT_TIME);
-  rateLimitStore['getCafeByPlaceId'] = requestsInWindow;
+  const userRequests = rateLimitStore["getCafeByPlaceId"] || [];
+  const requestsInWindow = userRequests.filter(
+    (time) => currentTime - time < RATE_LIMIT_TIME,
+  );
+  rateLimitStore["getCafeByPlaceId"] = requestsInWindow;
 
   if (requestsInWindow.length >= MAX_REQUESTS) {
-    throw new Error('getCafeByPlaceId: Rate limit exceeded');
+    throw new Error("getCafeByPlaceId: Rate limit exceeded");
   }
 
   // Add current request to store
-  rateLimitStore['getCafeByPlaceId'].push(currentTime);
+  rateLimitStore["getCafeByPlaceId"].push(currentTime);
   if (DEBUG) printRateLimitStore();
 
   const q = query(
@@ -214,16 +224,18 @@ export async function getCafeByPlaceId(place_id) {
 export async function getGroupById(groupId) {
   // Check rate limit
   const currentTime = Date.now();
-  const userRequests = rateLimitStore['getGroupById'] || [];
-  const requestsInWindow = userRequests.filter(time => currentTime - time < RATE_LIMIT_TIME);
-  rateLimitStore['getGroupById'] = requestsInWindow;
+  const userRequests = rateLimitStore["getGroupById"] || [];
+  const requestsInWindow = userRequests.filter(
+    (time) => currentTime - time < RATE_LIMIT_TIME,
+  );
+  rateLimitStore["getGroupById"] = requestsInWindow;
 
   if (requestsInWindow.length >= MAX_REQUESTS) {
-    throw new Error('getGroupById: Rate limit exceeded');
+    throw new Error("getGroupById: Rate limit exceeded");
   }
 
   // Add current request to store
-  rateLimitStore['getGroupById'].push(currentTime);
+  rateLimitStore["getGroupById"].push(currentTime);
   if (DEBUG) printRateLimitStore();
 
   const docRef = doc(db, "groups", groupId);
@@ -241,16 +253,18 @@ export async function getGroupById(groupId) {
 export async function getGroups() {
   // Check rate limit
   const currentTime = Date.now();
-  const userRequests = rateLimitStore['getGroups'] || [];
-  const requestsInWindow = userRequests.filter(time => currentTime - time < RATE_LIMIT_TIME);
-  rateLimitStore['getGroups'] = requestsInWindow;
+  const userRequests = rateLimitStore["getGroups"] || [];
+  const requestsInWindow = userRequests.filter(
+    (time) => currentTime - time < RATE_LIMIT_TIME,
+  );
+  rateLimitStore["getGroups"] = requestsInWindow;
 
   if (requestsInWindow.length >= MAX_REQUESTS) {
-    throw new Error('getGroups: Rate limit exceeded');
+    throw new Error("getGroups: Rate limit exceeded");
   }
 
   // Add current request to store
-  rateLimitStore['getGroups'].push(currentTime);
+  rateLimitStore["getGroups"].push(currentTime);
   if (DEBUG) printRateLimitStore();
 
   const q = query(collection(db, "groups"));
@@ -274,16 +288,18 @@ export async function getGroups() {
 export async function addGroup(group) {
   // Check rate limit
   const currentTime = Date.now();
-  const userRequests = rateLimitStore['addGroup'] || [];
-  const requestsInWindow = userRequests.filter(time => currentTime - time < RATE_LIMIT_TIME);
-  rateLimitStore['addGroup'] = requestsInWindow;
+  const userRequests = rateLimitStore["addGroup"] || [];
+  const requestsInWindow = userRequests.filter(
+    (time) => currentTime - time < RATE_LIMIT_TIME,
+  );
+  rateLimitStore["addGroup"] = requestsInWindow;
 
   if (requestsInWindow.length >= MAX_REQUESTS) {
-    throw new Error('addGroup: Rate limit exceeded');
+    throw new Error("addGroup: Rate limit exceeded");
   }
 
   // Add current request to store
-  rateLimitStore['addGroup'].push(currentTime);
+  rateLimitStore["addGroup"].push(currentTime);
   if (DEBUG) printRateLimitStore();
 
   await addDoc(collection(db, "groups"), group);
