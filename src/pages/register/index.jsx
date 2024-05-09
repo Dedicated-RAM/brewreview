@@ -1,10 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import "../../styles/globals.css";
 import { doCreateUserWithEmailAndPassword } from "../../lib/firebase/firebase";
+import { auth } from "../../lib/firebase/FirebaseConfig";
+import { onAuthStateChanged } from "firebase/auth";
 
 export default function Register() {
   const [email, setEmail] = useState("");
@@ -14,6 +16,12 @@ export default function Register() {
   const [errors, setErrors] = useState([]);
 
   const router = useRouter();
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (authUser) => {
+      if (authUser) router.push("/");
+    });
+  }, []);
 
   const validateForm = () => {
     let errorList = [];
