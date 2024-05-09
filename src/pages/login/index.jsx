@@ -22,7 +22,9 @@ export default function Login() {
 
   useEffect(() => {
     onAuthStateChanged(auth, (authUser) => {
-      if (authUser) router.push("/");
+      if (authUser) {
+        router.push("/");
+      }
     });
   }, []);
 

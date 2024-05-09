@@ -35,16 +35,16 @@ export default function Header() {
           )}
         </div>
         <div>
-        {!user && (
-                <Link href="/login" className="btn btn-ghost text-lg ml-auto">
-                  Login
-                </Link>
-              )}
-              {user && (
-                <Link href="/logout" className="btn btn-ghost text-lg ml-auto">
-                  Logout
-                </Link>
-              )}
+          {!user && (
+            <Link href="/login" className="btn btn-ghost text-lg ml-auto">
+              Login
+            </Link>
+          )}
+          {user && (
+            <Link href="/logout" className="btn btn-ghost text-lg ml-auto">
+              Logout
+            </Link>
+          )}
         </div>
       </div>
     </header>
