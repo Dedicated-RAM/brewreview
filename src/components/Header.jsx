@@ -34,21 +34,8 @@ export default function Header() {
             </Link>
           )}
         </div>
-
-        <div className="dropdown dropdown-end dropdown-hover">
-          <div
-            tabIndex={0}
-            role="button"
-            className="text-3xl bg-accent-3 border-0 flex"
-          >
-            ⠇
-          </div>
-          <ul
-            tabIndex={0}
-            className="dropdown-content z-[1] menu p-2 mt-1 shadow bg-accent-1 rounded-box w-30"
-          >
-            <li>
-              {!user && (
+        <div>
+        {!user && (
                 <Link href="/login" className="btn btn-ghost text-lg ml-auto">
                   Login
                 </Link>
@@ -58,16 +45,6 @@ export default function Header() {
                   Logout
                 </Link>
               )}
-            </li>
-
-            {user && (
-              <li>
-                <Link href="/profile" className="btn btn-ghost text-lg ml-auto">
-                  Profile
-                </Link>
-              </li>
-            )}
-          </ul>
         </div>
       </div>
     </header>
