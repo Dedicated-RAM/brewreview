@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/router";
 import Link from "next/link";
 import "../../../styles/globals.css";
 import { useEffect } from "react";
@@ -18,6 +19,8 @@ export default function Group() {
     const [groups, setGroups] = useState([]);
     const [user, setUser] = useState(null);
 
+    const router = useRouter();
+
     useEffect(() => {
         (async () => {
             const groups = await getGroups();
@@ -31,24 +34,28 @@ export default function Group() {
         });
     }, [user, auth]);
 
-    const joinGroup = (groupId) => {
-        if (!auth.currentUser) Router.push("/login");
+    const joinGroup = async (groupId) => {
+        if (!auth.currentUser) router.push("/login");
         const group = groups.find((group) => group.id === groupId);
         if (group.members.length < group.max_count) {
-            editGroup(groupId, {
+            await editGroup(groupId, {
                 members: [...group.members, auth.currentUser.displayName],
             });
+            const newGroups = await getGroups();
+            setGroups(newGroups);
         } else alert("ERROR: Cannot join group due to max limit.");
     };
 
-    const leaveGroup = (groupId) => {
-        if (!auth.currentUser) Router.push("/login");
+    const leaveGroup = async (groupId) => {
+        if (!auth.currentUser) router.push("/login");
         const group = groups.find((group) => group.id === groupId);
-        editGroup(groupId, {
+        await editGroup(groupId, {
             members: group.members.filter(
                 (member) => member !== auth.currentUser.displayName
             ),
         });
+        const newGroups = await getGroups();
+        setGroups(newGroups);
     };
 
     return (
