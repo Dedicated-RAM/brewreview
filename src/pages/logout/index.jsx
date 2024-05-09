@@ -6,7 +6,7 @@ import "../../styles/globals.css";
 import { doSignOut } from "../../lib/firebase/firebase";
 import { useRouter } from "next/router";
 import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../../../lib/firebase/FirebaseConfig";
+import { auth } from "../../lib/firebase/FirebaseConfig";
 
 
 export default function Logout() {
