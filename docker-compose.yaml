@@ -1,0 +1,14 @@
+version: '1.0'
+services:
+  app:
+    image: brewreview
+    build:
+      context: ./
+      target: dev
+      dockerfile: Dockerfile
+    volumes:
+        - .:/app
+        - /app/node_modules
+        - /app/.next
+    ports:
+      - "3000:3000"
