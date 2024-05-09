@@ -2,17 +2,9 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+First, make sure the .env file is in the root folder.
+Then, docker compose up --build
+Wait for it to compile and the website is live!
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
