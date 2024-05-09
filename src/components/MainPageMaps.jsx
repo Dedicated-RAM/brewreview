@@ -43,7 +43,10 @@ export default function MainPageMaps() {
         if (place.placeId) {
             const possibleCafe = await fetch(`/api/cafe/${place.placeId}`);
             const cafeData = await possibleCafe.json();
-            if (cafeData.result) {
+            if (
+                cafeData.result &&
+                cafeData.result.result.types.includes("cafe")
+            ) {
                 setPlaceData(cafeData.result.result);
                 setShowSidePanel(true);
             }
